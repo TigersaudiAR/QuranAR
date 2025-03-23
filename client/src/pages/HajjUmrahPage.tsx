@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import PageContainer from "@/components/layout/PageContainer";
 import { 
   Tent, 
   Map, 
@@ -174,11 +175,8 @@ export default function HajjUmrahPage() {
   ];
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">مناسك الحج والعمرة</h1>
-        <p className="text-muted-foreground">دليل شامل لأداء مناسك الحج والعمرة وفق الكتاب والسنة</p>
-      </div>
+    <PageContainer title="مناسك الحج والعمرة">
+      <p className="text-muted-foreground text-center mb-6">دليل شامل لأداء مناسك الحج والعمرة وفق الكتاب والسنة</p>
       
       <Tabs defaultValue="hajj" value={activeTab} onValueChange={setActiveTab} className="mb-8">
         <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
@@ -380,6 +378,6 @@ export default function HajjUmrahPage() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContainer>
   );
 }
