@@ -80,15 +80,14 @@ const VerseDisplay = ({ verses, surahId }: VerseDisplayProps) => {
           className={`mb-4 p-2 rounded-lg transition-colors ${selectedVerse === verse.number ? 'bg-primary-light' : 'hover:bg-gray-50'}`}
           onClick={() => handleVerseClick(verse.number)}
         >
-          <p>
-            <Badge 
-              variant="outline" 
-              className="inline-block bg-gray-100 text-primary-custom text-sm rounded-full w-6 h-6 text-center leading-6 ml-2"
+          <div className="flex">
+            <span 
+              className="inline-flex items-center justify-center bg-gray-100 text-primary-custom text-sm rounded-full w-6 h-6 text-center ml-2 flex-shrink-0"
             >
               {verse.numberInSurah}
-            </Badge>
-            {verse.text}
-          </p>
+            </span>
+            <span className="flex-grow">{verse.text}</span>
+          </div>
           
           {selectedVerse === verse.number && (
             <div className="flex justify-end mt-2 space-x-2 space-x-reverse">
