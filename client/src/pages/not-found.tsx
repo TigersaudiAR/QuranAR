@@ -36,26 +36,3 @@ export default function NotFound() {
     </div>
   );
 }
-import { Home } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
-
-export default function NotFoundPage() {
-  return (
-    <div className="flex flex-col min-h-screen items-center justify-center text-center p-4">
-      <div className="space-y-5 max-w-md">
-        <h1 className="text-7xl font-bold text-primary-custom">404</h1>
-        <h2 className="text-2xl font-semibold">الصفحة غير موجودة</h2>
-        <p className="text-muted-foreground">
-          عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها أو حذفها.
-        </p>
-        <Link href="/">
-          <Button className="mt-4 bg-primary-custom hover:bg-primary-custom/90">
-            <Home className="mr-2 h-4 w-4" />
-            العودة للصفحة الرئيسية
-          </Button>
-        </Link>
-      </div>
-    </div>
-  );
-}
