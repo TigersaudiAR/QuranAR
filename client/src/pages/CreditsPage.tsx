@@ -49,7 +49,7 @@ export default function CreditsPage() {
           </CardContent>
           <CardFooter className="flex justify-center gap-4">
             <Button variant="outline">
-              <GitHub className="ml-2 h-4 w-4" />
+              <Github className="ml-2 h-4 w-4" />
               <span>GitHub</span>
             </Button>
             <Button variant="outline">
