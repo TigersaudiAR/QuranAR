@@ -301,3 +301,246 @@ export default function ContentUnavailable() {
     </PageContainer>
   );
 }
+import { 
+  Home, 
+  Clock, 
+  BookOpen, 
+  Bookmark, 
+  Calendar, 
+  BellRing, 
+  Heart, 
+  BookText, 
+  Users, 
+  Send, 
+  AlertCircle, 
+  CheckCircle2, 
+  BookMarked,
+  LayoutGrid,
+  ArrowUpRight,
+  Moon,
+  Compass,
+  Bell
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import PageContainer from "@/components/layout/PageContainer";
+import { useState, useEffect } from "react";
+
+export default function ContentUnavailable() {
+  const [progressValue, setProgressValue] = useState(0);
+  const [activeTab, setActiveTab] = useState("upcoming");
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setProgressValue(65), 500);
+    return () => clearTimeout(timer);
+  }, []);
+  
+  // ميزات قادمة
+  const upcomingFeatures = [
+    {
+      title: "ترجمة القرآن الكريم",
+      description: "إضافة ترجمات للقرآن الكريم بلغات متعددة",
+      progress: 75,
+      eta: "قريباً"
+    },
+    {
+      title: "تلاوات صوتية",
+      description: "الاستماع للقرآن الكريم بأصوات قراء مختلفين",
+      progress: 60,
+      eta: "خلال أسبوعين"
+    },
+    {
+      title: "تفسير الآيات",
+      description: "تفسير مفصل للآيات من كتب التفسير المعتمدة",
+      progress: 40,
+      eta: "خلال شهر"
+    },
+    {
+      title: "مواقيت الصلاة",
+      description: "عرض مواقيت الصلاة حسب الموقع الجغرافي",
+      progress: 30,
+      eta: "قيد التطوير"
+    },
+  ];
+  
+  // ميزات بديلة
+  const alternativeFeatures = [
+    {
+      title: "قراءة القرآن الكريم",
+      description: "قراءة القرآن الكريم مع إمكانية العلامات المرجعية",
+      icon: <BookOpen className="h-5 w-5" />,
+      link: "/quran"
+    },
+    {
+      title: "أذكار الصباح والمساء",
+      description: "مجموعة من الأذكار المأثورة للصباح والمساء",
+      icon: <Moon className="h-5 w-5" />,
+      link: "/azkar"
+    },
+    {
+      title: "حفظ الآيات المفضلة",
+      description: "حفظ الآيات المفضلة للرجوع إليها لاحقاً",
+      icon: <Heart className="h-5 w-5" />,
+      link: "/quran"
+    },
+    {
+      title: "تفسير الأحلام",
+      description: "البحث في قاموس تفسير الأحلام",
+      icon: <BookText className="h-5 w-5" />,
+      link: "/tafseer-dreams"
+    },
+    {
+      title: "إمكانية ضبط التنبيهات",
+      icon: <BellRing className="h-5 w-5" />,
+      link: "/"
+    },
+    {
+      title: "اتجاه القبلة",
+      description: "تحديد اتجاه القبلة بدقة عالية باستخدام البوصلة الرقمية",
+      icon: <Compass className="h-5 w-5" />,
+      link: "/"
+    }
+  ];
+  
+  // رسائل تحفيزية
+  const motivationalQuotes = [
+    { text: "وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِلْمُؤْمِنِينَ", source: "سورة الإسراء - الآية 82" },
+    { text: "إِنَّ هَذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ", source: "سورة الإسراء - الآية 9" },
+    { text: "وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا", source: "سورة المزمل - الآية 4" }
+  ];
+  
+  const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+
+  return (
+    <PageContainer title="المحتوى غير متاح حالياً" showBackButton>
+      <div className="container mx-auto px-4 py-8">
+        <Alert className="mb-8 border-amber-200 bg-amber-50">
+          <AlertCircle className="h-4 w-4 text-amber-500" />
+          <AlertTitle className="text-amber-700">المحتوى غير متاح حالياً</AlertTitle>
+          <AlertDescription className="text-amber-600">
+            نعتذر، المحتوى الذي تبحث عنه غير متاح حالياً. يتم العمل على إضافة هذه الميزة قريباً.
+          </AlertDescription>
+        </Alert>
+        
+        <Tabs defaultValue="upcoming" className="mb-8" onValueChange={setActiveTab}>
+          <TabsList className="grid grid-cols-2">
+            <TabsTrigger value="upcoming">ميزات قادمة</TabsTrigger>
+            <TabsTrigger value="alternatives">بدائل متاحة</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="upcoming" className="mt-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Clock className="ml-2 h-5 w-5 text-primary-custom" />
+                  ميزات قيد التطوير
+                </CardTitle>
+                <CardDescription>
+                  نعمل بجد على إضافة هذه الميزات في أقرب وقت ممكن
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {upcomingFeatures.map((feature, index) => (
+                    <div key={index} className="space-y-2">
+                      <div className="flex justify-between">
+                        <h3 className="font-medium">{feature.title}</h3>
+                        <Badge variant="outline">{feature.eta}</Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{feature.description}</p>
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-sm">
+                          <span>التقدم</span>
+                          <span>{feature.progress}%</span>
+                        </div>
+                        <Progress value={feature.progress} className="h-2" />
+                      </div>
+                      {index < upcomingFeatures.length - 1 && <Separator className="mt-4" />}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" className="w-full">
+                  <Send className="mr-2 h-4 w-4" />
+                  اقتراح ميزة جديدة
+                </Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="alternatives" className="mt-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <LayoutGrid className="ml-2 h-5 w-5 text-primary-custom" />
+                  ميزات بديلة متاحة
+                </CardTitle>
+                <CardDescription>
+                  يمكنك الاستفادة من هذه الميزات المتاحة حالياً
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {alternativeFeatures.map((feature, index) => (
+                    <Link key={index} href={feature.link}>
+                      <Card className="h-full cursor-pointer hover:bg-gray-50 transition-colors">
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-base flex items-center">
+                            <div className="p-2 rounded-full bg-primary-light mr-2 text-primary-custom">
+                              {feature.icon}
+                            </div>
+                            {feature.title}
+                          </CardTitle>
+                        </CardHeader>
+                        {feature.description && (
+                          <CardContent className="pt-0">
+                            <p className="text-sm text-muted-foreground">{feature.description}</p>
+                          </CardContent>
+                        )}
+                        <CardFooter className="pt-0">
+                          <Button variant="ghost" size="sm" className="text-primary-custom p-0 h-auto">
+                            <span>استخدام الآن</span>
+                            <ArrowUpRight className="mr-1 h-3 w-3" />
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+        
+        <Card className="bg-primary-light/30 border-primary-light">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <BookMarked className="ml-2 h-5 w-5 text-primary-custom" />
+              آية اليوم
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <blockquote className="border-r-4 border-primary-custom pr-4 py-2 italic">
+              <p className="text-lg font-uthmani">{randomQuote.text}</p>
+              <footer className="text-sm text-muted-foreground mt-2">— {randomQuote.source}</footer>
+            </blockquote>
+          </CardContent>
+          <CardFooter>
+            <Link href="/quran">
+              <Button className="w-full bg-primary-custom hover:bg-primary-custom/90">
+                قراءة القرآن الكريم
+              </Button>
+            </Link>
+          </CardFooter>
+        </Card>
+      </div>
+    </PageContainer>
+  );
+}
