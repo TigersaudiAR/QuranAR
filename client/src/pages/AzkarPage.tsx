@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import PageContainer from "@/components/layout/PageContainer";
 import { 
   CheckCircle, 
   RefreshCcw, 
@@ -148,12 +149,9 @@ export default function AzkarPage() {
   ];
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">الأذكار والتسبيح</h1>
-        <p className="text-muted-foreground">الأذكار اليومية وعداد التسبيح</p>
-      </div>
-
+    <PageContainer title="الأذكار والتسبيح">
+      <p className="text-muted-foreground text-center mb-6">الأذكار اليومية وعداد التسبيح</p>
+      
       <Tabs defaultValue="counter" value={activeTab} onValueChange={setActiveTab} className="mb-8">
         <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
           <TabsTrigger value="counter">عداد الذكر</TabsTrigger>
@@ -301,6 +299,6 @@ export default function AzkarPage() {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContainer>
   );
 }

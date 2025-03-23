@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import PageContainer from "@/components/layout/PageContainer";
 import { 
   Book, 
   Moon, 
@@ -67,12 +68,9 @@ export default function TafseerDreamsPage() {
   ];
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">تفسير الأحلام</h1>
-        <p className="text-muted-foreground">تفسير الأحلام والرؤى وفق المنهج الإسلامي</p>
-      </div>
-
+    <PageContainer title="تفسير الأحلام">
+      <p className="text-muted-foreground text-center mb-6">تفسير الأحلام والرؤى وفق المنهج الإسلامي</p>
+      
       <Tabs defaultValue="dreams" value={activeTab} onValueChange={setActiveTab} className="mb-8">
         <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
           <TabsTrigger value="dreams">تفسير الأحلام</TabsTrigger>
@@ -223,6 +221,6 @@ export default function TafseerDreamsPage() {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContainer>
   );
 }
