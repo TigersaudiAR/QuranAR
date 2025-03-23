@@ -247,26 +247,45 @@ export const surahNas = {
 };
 
 // وظيفة للحصول على آيات السورة بناءً على رقمها
+// وظيفة استرجاع آيات السورة حسب رقمها
 export function getSurahVerses(surahId: number) {
-  // تحقق من السور المتوفرة مباشرة
-  if (surahId === 1) {
-    return surahFatiha.verses;
-  } else if (surahId === 2) {
-    return surahBaqarah.verses;
-  } else if (surahId === 3) {
-    return surahImran.verses;
-  } else if (surahId === 112) {
-    return surahIkhlas.verses;
-  } else if (surahId === 113) {
-    return surahFalaq.verses;
-  } else if (surahId === 114) {
-    return surahNas.verses;
+  // تحقق من السور المتوفرة محليًا
+  // المجموعة الأولى - السور القصيرة والسور المشهورة
+  switch (surahId) {
+    case 1: return surahFatiha.verses;
+    case 2: return surahBaqarah.verses;
+    case 3: return surahImran.verses;
+    case 36: return surahYasin.verses;
+    case 55: return surahRahman.verses;
+    case 56: return surahWaqiah.verses;
+    case 67: return surahMulk.verses;
+    case 78: return surahNaba.verses;
+    case 93: return surahDuha.verses;
+    case 94: return surahSharh.verses;
+    case 96: return surahAlaq.verses;
+    case 97: return surahQadr.verses;
+    case 103: return surahAsr.verses;
+    case 105: return surahFil.verses;
+    case 106: return surahQuraysh.verses;
+    case 108: return surahKawthar.verses;
+    case 109: return surahKafirun.verses;
+    case 110: return surahNasr.verses;
+    case 111: return surahMasad.verses;
+    case 112: return surahIkhlas.verses;
+    case 113: return surahFalaq.verses;
+    case 114: return surahNas.verses;
+    // يمكن إضافة المزيد من السور هنا
   }
   
-  // إذا لم تكن السورة متوفرة، استخدم البيانات العامة
+  // بيانات السور المضافة محليًا
+  const localSurahs = [1, 2, 3, 36, 55, 56, 67, 78, 93, 94, 96, 97, 103, 105, 106, 108, 109, 110, 111, 112, 113, 114];
+  
+  // إذا لم تكن السورة متوفرة محليًا، استخدم البيانات العامة
   const surah = surahs.find(s => s.id === surahId);
   if (!surah) return [];
   
+  // إذا كانت السورة ليست من ضمن المتوفرة محليًا، سنقوم بإنشاء بيانات عامة لها
+  // (سيتم استبدال هذا لاحقًا بمحتوى كامل لجميع السور)
   const verses = [];
   const versesCount = surah.versesCount || 10; // عدد آيات السورة
   
@@ -278,8 +297,8 @@ export function getSurahVerses(surahId: number) {
       numberInSurah: 1,
       text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
       surahName: surah.name,
-      juzNumber: 1,
-      pageNumber: 1,
+      juzNumber: Math.ceil(surahId / 10), // تقدير تقريبي لرقم الجزء
+      pageNumber: surahId, // تقدير تقريبي لرقم الصفحة
     });
   }
   
@@ -289,10 +308,10 @@ export function getSurahVerses(surahId: number) {
       id: i,
       number: i,
       numberInSurah: i,
-      text: `الآية رقم ${i} من سورة ${surah.name}`,
+      text: `الآية رقم ${i} من سورة ${surah.name}`, // نص مؤقت
       surahName: surah.name,
-      juzNumber: 1,
-      pageNumber: 1,
+      juzNumber: Math.ceil(surahId / 10), // تقدير تقريبي لرقم الجزء
+      pageNumber: surahId, // تقدير تقريبي لرقم الصفحة
     });
   }
   
