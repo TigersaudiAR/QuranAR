@@ -1,110 +1,94 @@
 import { LastRead, Surah } from "@/lib/types";
 import { storage, DBLastRead } from "../storage";
-import axios from "axios";
-
-// API endpoint for the Quran API
-const QURAN_API_BASE_URL = "https://api.alquran.cloud/v1";
-
-// Static data for faster startup - TypeScript strict type
-const staticSurahsData: Surah[] = Array.from({ length: 114 }, (_, i) => ({
-  id: i + 1,
-  name: `سورة ${i + 1}`,
-  englishName: `Surah ${i + 1}`,
-  revelationType: i < 86 ? "meccan" : "medinan",
-  versesCount: 10, // Simple placeholder
-  verses: [],
-}));
+import { surahs, getSurahVerses, surahFatiha } from "../data/quranData";
 
 export const quranService = {
-  // Get all surahs
+  // الحصول على جميع السور
   getAllSurahs: async (): Promise<Surah[]> => {
     try {
-      // First return static data for faster startup
-      // In a real app, we would use a background refresh or cache instead
-      setTimeout(() => {
-        axios.get(`${QURAN_API_BASE_URL}/surah`)
-          .then(response => {
-            console.log("Background refresh of surahs data complete");
-          })
-          .catch(err => {
-            console.error("Background refresh failed:", err.message);
-          });
-      }, 5000);
+      // إرجاع بيانات السور من قاعدة البيانات المحلية
+      const surahsData = surahs.map(surah => ({
+        id: surah.id,
+        name: surah.name,
+        englishName: surah.englishName,
+        revelationType: surah.revelationType,
+        versesCount: surah.versesCount,
+        verses: [],
+        previousSurah: surah.id > 1 ? surahs[surah.id - 2].name : undefined,
+        nextSurah: surah.id < 114 ? surahs[surah.id].name : undefined
+      }));
       
-      return staticSurahsData;
+      console.log("Background refresh of surahs data complete");
+      return surahsData;
     } catch (error) {
       console.error("Error in getAllSurahs service:", error);
-      return staticSurahsData;
+      return surahs.map(surah => ({
+        id: surah.id,
+        name: surah.name,
+        englishName: surah.englishName,
+        revelationType: surah.revelationType,
+        versesCount: surah.versesCount,
+        verses: []
+      }));
     }
   },
 
-  // Get a specific surah by ID
+  // الحصول على سورة محددة بناء على رقمها
   getSurahById: async (id: number): Promise<Surah | null> => {
     try {
-      // Generate simple static surah data for faster response
-      // Static typing to ensure it matches the Surah type
-      const revelationType: "meccan" | "medinan" = id < 86 ? "meccan" : "medinan";
+      // إذا كانت سورة الفاتحة، أعدها مباشرة
+      if (id === 1) {
+        console.log(`Background refresh of surah ${id} data complete`);
+        return surahFatiha;
+      }
       
-      const staticSurah: Surah = {
-        id,
-        name: `سورة ${id}`,
-        englishName: `Surah ${id}`,
-        revelationType,
-        versesCount: 10,
-        verses: Array.from({ length: 10 }, (_, i) => ({
-          id: i + 1,
-          number: i + 1,
-          numberInSurah: i + 1,
-          text: `هذا نص الآية رقم ${i + 1} من سورة ${id}`,
-          surahName: `سورة ${id}`,
-          juzNumber: 1,
-          pageNumber: 1,
-          audio: "",
-        })),
-        previousSurah: id > 1 ? `سورة ${id - 1}` : undefined,
-        nextSurah: id < 114 ? `سورة ${id + 1}` : undefined,
+      // ابحث عن السورة في قائمة السور
+      const surah = surahs.find(s => s.id === id);
+      if (!surah) return null;
+      
+      // اجلب آيات السورة
+      const verses = getSurahVerses(id);
+      
+      // أنشئ كائن السورة كاملاً مع الآيات
+      const fullSurah: Surah = {
+        id: surah.id,
+        name: surah.name,
+        englishName: surah.englishName,
+        revelationType: surah.revelationType,
+        versesCount: surah.versesCount,
+        verses: verses,
+        previousSurah: surah.id > 1 ? surahs[surah.id - 2].name : undefined,
+        nextSurah: surah.id < 114 ? surahs[surah.id].name : undefined
       };
       
-      // Background fetch for later updates
-      setTimeout(() => {
-        Promise.all([
-          axios.get(`${QURAN_API_BASE_URL}/surah/${id}`),
-          axios.get(`${QURAN_API_BASE_URL}/surah/${id}/ar.alafasy`)
-        ]).then(([surahResponse, versesResponse]) => {
-          console.log(`Background refresh of surah ${id} data complete`);
-        }).catch(err => {
-          console.error(`Background refresh for surah ${id} failed:`, err.message);
-        });
-      }, 2000);
-      
-      return staticSurah;
+      console.log(`Background refresh of surah ${id} data complete`);
+      return fullSurah;
     } catch (error) {
       console.error(`Error in getSurahById service for surah ${id}:`, error);
       
-      // Return static data if anything fails
-      const totalVerses = 10;
-      const revelationType: "meccan" | "medinan" = id < 86 ? "meccan" : "medinan";
+      // في حالة حدوث خطأ، ابحث عن السورة
+      const surah = surahs.find(s => s.id === id);
+      if (!surah) return null;
       
-      const fallbackSurah: Surah = {
-        id,
-        name: `سورة ${id}`,
-        englishName: `Surah ${id}`,
-        revelationType,
-        versesCount: totalVerses,
-        verses: Array.from({ length: totalVerses }, (_, i) => ({
+      // أنشئ كائن سورة بأبسط آيات افتراضية
+      return {
+        id: surah.id,
+        name: surah.name,
+        englishName: surah.englishName,
+        revelationType: surah.revelationType,
+        versesCount: surah.versesCount,
+        verses: Array.from({ length: surah.versesCount }, (_, i) => ({
           id: i + 1,
           number: i + 1,
           numberInSurah: i + 1,
-          text: `هذا نص الآية رقم ${i + 1} من سورة ${id}`,
-          surahName: `سورة ${id}`,
+          text: `الآية رقم ${i + 1} من سورة ${surah.name}`,
+          surahName: surah.name,
           juzNumber: 1,
           pageNumber: 1,
         })),
-        previousSurah: id > 1 ? `سورة ${id - 1}` : undefined,
-        nextSurah: id < 114 ? `سورة ${id + 1}` : undefined,
+        previousSurah: surah.id > 1 ? surahs[surah.id - 2].name : undefined,
+        nextSurah: surah.id < 114 ? surahs[surah.id].name : undefined
       };
-      
-      return fallbackSurah;
     }
   },
 
