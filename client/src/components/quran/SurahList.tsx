@@ -45,10 +45,10 @@ const SurahList = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {visibleSurahs.map((surah) => (
           <Link key={surah.id} href={`/quran/${surah.id}`}>
-            <a className="block p-4 border rounded-lg text-center hover:bg-primary-light hover:border-primary-custom transition">
+            <div className="block p-4 border rounded-lg text-center hover:bg-primary-light hover:border-primary-custom transition cursor-pointer">
               <span className="block text-lg font-bold">{surah.name}</span>
               <span className="block text-gray-600 text-sm">{surah.versesCount} آيات</span>
-            </a>
+            </div>
           </Link>
         ))}
       </div>

@@ -1,5 +1,5 @@
 import { LastRead, Surah } from "@/lib/types";
-import { storage } from "../storage";
+import { storage, DBLastRead } from "../storage";
 import axios from "axios";
 
 // API endpoint for the Quran API
@@ -56,7 +56,7 @@ export const quranService = {
       const versesData = versesResponse.data.data.ayahs;
       
       // Get next and previous surah names
-      const allSurahs = await this.getAllSurahs();
+      const allSurahs = await quranService.getAllSurahs();
       const surahIndex = allSurahs.findIndex(s => s.id === id);
       const previousSurah = surahIndex > 0 ? allSurahs[surahIndex - 1].name : undefined;
       const nextSurah = surahIndex < allSurahs.length - 1 ? allSurahs[surahIndex + 1].name : undefined;
@@ -113,7 +113,17 @@ export const quranService = {
   // Get the last read position
   getLastRead: async (userId: string): Promise<LastRead | null> => {
     try {
-      return await storage.getLastRead(userId);
+      const result = await storage.getLastRead(userId);
+      if (result) {
+        // Only return the fields we need in the client
+        return {
+          surahId: result.surahId,
+          surahName: result.surahName,
+          ayahNumber: result.ayahNumber,
+          ayahText: result.ayahText || undefined
+        };
+      }
+      return null;
     } catch (error) {
       console.error(`Error in getLastRead service for user ${userId}:`, error);
       return null;
@@ -123,7 +133,16 @@ export const quranService = {
   // Save the last read position
   saveLastRead: async (userId: string, lastRead: LastRead): Promise<void> => {
     try {
-      await storage.saveLastRead(userId, lastRead);
+      // Add the missing fields required by the database schema
+      const completeLastRead: DBLastRead = {
+        userId,
+        surahId: lastRead.surahId,
+        surahName: lastRead.surahName,
+        ayahNumber: lastRead.ayahNumber,
+        ayahText: lastRead.ayahText || null,
+        timestamp: Date.now()
+      };
+      await storage.saveLastRead(userId, completeLastRead);
     } catch (error) {
       console.error(`Error in saveLastRead service for user ${userId}:`, error);
       throw error;
