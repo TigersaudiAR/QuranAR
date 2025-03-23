@@ -326,7 +326,7 @@ const QuranViewer = () => {
           disabled={surahId >= 114}
         >
           <ArrowRight className="mr-1" size={20} />
-          {surahId < 114 ? `سورة ${surah.nextSurah}` : ""}
+          {surahId < 114 ? `${surah.nextSurah || ''}` : ""}
         </button>
         <div className="hidden sm:flex items-center">
           <Button 
@@ -343,7 +343,7 @@ const QuranViewer = () => {
           onClick={() => surahId > 1 && navigate(`/quran/${surahId - 1}`)}
           disabled={surahId <= 1}
         >
-          {surahId > 1 ? `سورة ${surah.previousSurah}` : ""}
+          {surahId > 1 ? `${surah.previousSurah || ''}` : ""}
           <ArrowLeft className="mr-1" size={20} />
         </button>
       </div>

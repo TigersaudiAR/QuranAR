@@ -15,18 +15,22 @@ const QuranNavigation = ({ currentSurahId }: QuranNavigationProps) => {
     return null;
   }
 
+  // في القرآن، السورة السابقة هي التي تأتي قبل السورة الحالية (رقمها أقل)
+  // والسورة التالية هي التي تأتي بعدها (رقمها أكبر)
   const currentIndex = surahs.findIndex(s => s.id === currentSurahId);
+  // السورة السابقة (الأصغر رقماً)
   const prevSurah = currentIndex > 0 ? surahs[currentIndex - 1] : null;
+  // السورة التالية (الأكبر رقماً)
   const nextSurah = currentIndex < surahs.length - 1 ? surahs[currentIndex + 1] : null;
 
   return (
     <div className="flex justify-between items-center my-6 py-4 border-t border-b">
       <div>
-        {prevSurah && (
-          <Link href={`/quran/${prevSurah.id}`}>
+        {nextSurah && (
+          <Link href={`/quran/${nextSurah.id}`}>
             <Button variant="ghost" className="flex items-center">
               <ChevronRight className="ml-1" size={20} />
-              <span>السابق: سورة {prevSurah.name}</span>
+              <span>التالي: سورة {nextSurah.name}</span>
             </Button>
           </Link>
         )}
@@ -41,10 +45,10 @@ const QuranNavigation = ({ currentSurahId }: QuranNavigationProps) => {
       </div>
       
       <div>
-        {nextSurah && (
-          <Link href={`/quran/${nextSurah.id}`}>
+        {prevSurah && (
+          <Link href={`/quran/${prevSurah.id}`}>
             <Button variant="ghost" className="flex items-center">
-              <span>التالي: سورة {nextSurah.name}</span>
+              <span>السابق: سورة {prevSurah.name}</span>
               <ChevronLeft className="mr-1" size={20} />
             </Button>
           </Link>

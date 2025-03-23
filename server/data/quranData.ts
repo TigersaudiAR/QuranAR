@@ -67,7 +67,7 @@ export const surahs = [
   { id: 63, name: "المُنافِقون", englishName: "Al-Munāfiqūn", revelationType: "medinan", versesCount: 11 },
   { id: 64, name: "التَّغابُن", englishName: "At-Taghābun", revelationType: "medinan", versesCount: 18 },
   { id: 65, name: "الطَّلاق", englishName: "Aṭ-Ṭalāq", revelationType: "medinan", versesCount: 12 },
-  { id: 66, name: "التَّحْريم", englishName: "At-Taḥrīm", relevationType: "medinan", versesCount: 12 },
+  { id: 66, name: "التَّحْريم", englishName: "At-Taḥrīm", revelationType: "medinan", versesCount: 12 },
   { id: 67, name: "المُلْك", englishName: "Al-Mulk", revelationType: "meccan", versesCount: 30 },
   { id: 68, name: "القَلَم", englishName: "Al-Qalam", revelationType: "meccan", versesCount: 52 },
   { id: 69, name: "الحَاقَّة", englishName: "Al-Ḥāqqah", revelationType: "meccan", versesCount: 52 },

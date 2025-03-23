@@ -11,7 +11,7 @@ export const quranService = {
         id: surah.id,
         name: surah.name,
         englishName: surah.englishName,
-        revelationType: surah.revelationType,
+        revelationType: (surah.revelationType || "meccan") as "meccan" | "medinan",
         versesCount: surah.versesCount,
         verses: [],
         previousSurah: surah.id > 1 ? surahs[surah.id - 2].name : undefined,
@@ -26,7 +26,7 @@ export const quranService = {
         id: surah.id,
         name: surah.name,
         englishName: surah.englishName,
-        revelationType: surah.revelationType,
+        revelationType: (surah.revelationType || "meccan") as "meccan" | "medinan",
         versesCount: surah.versesCount,
         verses: []
       }));
@@ -39,7 +39,7 @@ export const quranService = {
       // إذا كانت سورة الفاتحة، أعدها مباشرة
       if (id === 1) {
         console.log(`Background refresh of surah ${id} data complete`);
-        return surahFatiha;
+        return surahFatiha as Surah;
       }
       
       // ابحث عن السورة في قائمة السور
@@ -54,7 +54,7 @@ export const quranService = {
         id: surah.id,
         name: surah.name,
         englishName: surah.englishName,
-        revelationType: surah.revelationType,
+        revelationType: (surah.revelationType === "medinan" ? "medinan" : "meccan"),
         versesCount: surah.versesCount,
         verses: verses,
         previousSurah: surah.id > 1 ? surahs[surah.id - 2].name : undefined,
@@ -75,7 +75,7 @@ export const quranService = {
         id: surah.id,
         name: surah.name,
         englishName: surah.englishName,
-        revelationType: surah.revelationType,
+        revelationType: (surah.revelationType === "medinan" ? "medinan" : "meccan"),
         versesCount: surah.versesCount,
         verses: Array.from({ length: surah.versesCount }, (_, i) => ({
           id: i + 1,
