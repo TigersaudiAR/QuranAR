@@ -2,13 +2,23 @@ import Header from "@/components/layout/Header";
 import BottomNavigation from "@/components/layout/BottomNavigation";
 import LastReadSection from "@/components/home/LastReadSection";
 import FeatureCard from "@/components/home/FeatureCard";
+import { 
+  BookOpen, 
+  Moon, 
+  BookText,
+  Compass, 
+  MapPin,
+  Video,
+  Clock,
+  MessageSquare
+} from "lucide-react";
 
-// تعريف بيانات القوائم الرئيسية
+// تعريف بيانات القوائم الرئيسية مع أيقونات Lucide
 const FEATURES = [
   {
     title: "القرآن الكريم",
     description: "قراءة وتلاوة القرآن الكريم بخط واضح",
-    icon: "menu_book",
+    icon: <BookOpen className="h-5 w-5" />,
     href: "/quran",
     count: "١١٤ سورة",
     colorScheme: "secondary" as const,
@@ -16,41 +26,41 @@ const FEATURES = [
   {
     title: "الأذكار والأدعية",
     description: "أذكار وأدعية من الكتاب والسنة",
-    icon: "favorite",
+    icon: <Moon className="h-5 w-5" />,
     href: "/azkar",
     count: "أذكار اليوم",
     colorScheme: "accent" as const,
   },
   {
-    title: "الأحاديث النبوية",
-    description: "مجموعة من الأحاديث النبوية الصحيحة",
-    icon: "history_edu",
-    href: "/hadith",
-    count: "حسب التصنيف",
+    title: "التعلم",
+    description: "دروس في العلوم الشرعية واللغة العربية",
+    icon: <BookText className="h-5 w-5" />,
+    href: "/learn",
+    count: "دروس متنوعة",
     colorScheme: "primary" as const,
   },
   {
-    title: "تفسير الأحلام",
-    description: "تفسير الأحلام وفق الكتاب والسنة",
-    icon: "bedtime",
-    href: "/dreams",
-    count: "استشارة",
+    title: "التفسير والأحلام",
+    description: "تفسير القرآن الكريم والأحلام",
+    icon: <Compass className="h-5 w-5" />,
+    href: "/tafseer",
+    count: "تفسير الأحلام",
     colorScheme: "primary" as const,
   },
   {
-    title: "تواصل مع العلماء",
-    description: "استشارات دينية مع نخبة من العلماء",
-    icon: "question_answer",
-    href: "/ask",
-    count: "اسأل سؤالك",
+    title: "الحج والعمرة",
+    description: "دليل مناسك الحج والعمرة وأدعية الزيارة",
+    icon: <MapPin className="h-5 w-5" />,
+    href: "/hajj-umrah",
+    count: "مناسك وأدعية",
     colorScheme: "secondary" as const,
   },
   {
-    title: "أوقات الصلاة",
-    description: "مواقيت الصلاة حسب موقعك",
-    icon: "schedule",
-    href: "/prayer-times",
-    count: "التنبيهات",
+    title: "المحاضرات المباشرة",
+    description: "محاضرات وخطب مباشرة من العلماء والدعاة",
+    icon: <Video className="h-5 w-5" />,
+    href: "/live",
+    count: "مباشر",
     colorScheme: "accent" as const,
   },
 ];
@@ -67,7 +77,7 @@ const HomePage = () => {
         {/* Main Grid Layout - نظام العرض الشبكي */}
         <div className="mt-8">
           <h2 className="text-2xl font-bold mb-4">الخدمات الإسلامية</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {FEATURES.map((feature, index) => (
               <FeatureCard
                 key={index}
