@@ -130,7 +130,7 @@ const HomePage = () => {
             </Button>
           </div>
 
-          {/* Main Grid Layout - نظام العرض الشبكي */}
+          {/* Main Grid Layout - نظام العرض الشبكي المحسن */}
           <div className="mb-10">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold">الخدمات الإسلامية</h2>
@@ -141,18 +141,59 @@ const HomePage = () => {
                 </a>
               </Button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {FEATURES.map((feature, index) => (
-                <FeatureCard
-                  key={index}
-                  title={feature.title}
-                  description={feature.description}
-                  icon={feature.icon}
-                  href={feature.href}
-                  count={feature.count}
-                  colorScheme={feature.colorScheme}
-                />
-              ))}
+            
+            {/* القسم الأول - الخدمات الرئيسية */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold mb-4 text-primary">المصحف والأذكار</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                {FEATURES.slice(0, 2).map((feature, index) => (
+                  <FeatureCard
+                    key={index}
+                    title={feature.title}
+                    description={feature.description}
+                    icon={feature.icon}
+                    href={feature.href}
+                    count={feature.count}
+                    colorScheme={feature.colorScheme}
+                  />
+                ))}
+              </div>
+            </div>
+            
+            {/* القسم الثاني - الخدمات التعليمية */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold mb-4 text-primary">التعلم والتفسير</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                {FEATURES.slice(2, 4).map((feature, index) => (
+                  <FeatureCard
+                    key={index + 2}
+                    title={feature.title}
+                    description={feature.description}
+                    icon={feature.icon}
+                    href={feature.href}
+                    count={feature.count}
+                    colorScheme={feature.colorScheme}
+                  />
+                ))}
+              </div>
+            </div>
+            
+            {/* القسم الثالث - الخدمات الإضافية */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-primary">خدمات إضافية</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                {FEATURES.slice(4, 6).map((feature, index) => (
+                  <FeatureCard
+                    key={index + 4}
+                    title={feature.title}
+                    description={feature.description}
+                    icon={feature.icon}
+                    href={feature.href}
+                    count={feature.count}
+                    colorScheme={feature.colorScheme}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

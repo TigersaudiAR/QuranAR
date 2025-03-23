@@ -9,6 +9,7 @@ import QuranSettingsDialog from "./QuranSettings";
 import QuranSearch from "./QuranSearch";
 import BookmarksManager from "./BookmarksManager";
 import ReadingTracker from "./ReadingTracker";
+import BackButton from "@/components/layout/BackButton";
 import { Button } from "@/components/ui/button";
 import { ViewType, QuranSettings, ReciterType, ThemeType } from "@/lib/types";
 import { 
@@ -178,6 +179,11 @@ const QuranViewer = () => {
 
   return (
     <div className={`bg-white rounded-lg shadow-lg p-6 theme-${settings.theme}`}>
+      {/* زر العودة */}
+      <div className="flex justify-start mb-4">
+        <BackButton to="/" className="mr-auto" />
+      </div>
+      
       {/* Settings Prompt */}
       {showSettingsPrompt && (
         <Alert className="mb-6 border-primary-custom/20 bg-primary-light/30">
