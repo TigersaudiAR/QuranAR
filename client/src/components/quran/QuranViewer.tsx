@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "wouter";
-import { useSurah, useSetLastRead } from "@/lib/hooks/useQuran";
+import { useSurah, useSetLastRead, useLastRead } from "@/lib/hooks/useQuran";
 import SurahHeader from "./SurahHeader";
 import VerseDisplay from "./VerseDisplay";
+import VerseDisplayEnhanced from "./VerseDisplayEnhanced";
 import QuranNavigation from "./QuranNavigation";
+import QuranSettingsDialog from "./QuranSettings";
+import QuranSearch from "./QuranSearch";
+import BookmarksManager from "./BookmarksManager";
+import ReadingTracker from "./ReadingTracker";
 import { Button } from "@/components/ui/button";
-import { ViewType } from "@/lib/types";
+import { ViewType, QuranSettings, ReciterType, ThemeType } from "@/lib/types";
 import { 
   Settings, 
   Search, 
@@ -14,21 +19,68 @@ import {
   ArrowLeft,
   Bookmark,
   Share,
-  Copy
+  Copy,
+  ChevronDown,
+  Lightbulb,
+  Moon,
+  Sun
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AlertCircle } from "lucide-react";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert";
+
+const DEFAULT_SETTINGS: QuranSettings = {
+  fontSize: 22,
+  fontFamily: "Uthmani",
+  theme: "light",
+  showTranslation: false,
+  translationLanguage: "english",
+  showTafseer: false,
+  tafseerSource: "ibn-kathir",
+  reciter: "mishari_rashid_alafasy",
+  viewType: "surah"
+};
 
 const QuranViewer = () => {
   const params = useParams<{ surahId: string }>();
   const surahId = params?.surahId ? parseInt(params.surahId) : 1;
-  const [location] = useLocation();
+  const [location, navigate] = useLocation();
   const urlParams = new URLSearchParams(location.split("?")[1] || "");
   const ayahParam = urlParams.get("ayah");
   
-  const [viewType, setViewType] = useState<ViewType>("page");
-  const [reciter, setReciter] = useState("mishari_rashid_alafasy");
+  const [settings, setSettings] = useState<QuranSettings>(() => {
+    // Try to load settings from localStorage
+    const savedSettings = localStorage.getItem("quran-settings");
+    if (savedSettings) {
+      try {
+        return JSON.parse(savedSettings);
+      } catch (error) {
+        console.error("Error parsing settings:", error);
+        return DEFAULT_SETTINGS;
+      }
+    }
+    return DEFAULT_SETTINGS;
+  });
+  
   const { surah, isLoading, error } = useSurah(surahId);
+  const { lastRead } = useLastRead();
   const { setLastRead } = useSetLastRead();
+  const [showSettingsPrompt, setShowSettingsPrompt] = useState(false);
+
+  // Save settings to localStorage when they change
+  useEffect(() => {
+    localStorage.setItem("quran-settings", JSON.stringify(settings));
+    
+    // Apply theme to body
+    document.body.classList.remove('theme-light', 'theme-dark', 'theme-sepia', 'theme-gold');
+    document.body.classList.add(`theme-${settings.theme}`);
+  }, [settings]);
 
   useEffect(() => {
     if (surah && !isLoading) {
@@ -52,6 +104,48 @@ const QuranViewer = () => {
       });
     }
   }, [surah, isLoading, surahId, ayahParam, setLastRead]);
+
+  // Show settings prompt to new users
+  useEffect(() => {
+    const hasSeenSettingsPrompt = localStorage.getItem("seen-quran-settings-prompt");
+    if (!hasSeenSettingsPrompt) {
+      setShowSettingsPrompt(true);
+      localStorage.setItem("seen-quran-settings-prompt", "true");
+    }
+  }, []);
+
+  const handleSettingsChange = (newSettings: QuranSettings) => {
+    setSettings(newSettings);
+  };
+
+  const handleNavigateToLastRead = () => {
+    if (lastRead) {
+      navigate(`/quran/${lastRead.surahId}?ayah=${lastRead.ayahNumber}`);
+    }
+  };
+
+  const handleSelectVerseFromSearch = (surahId: number, verseNumber: number) => {
+    navigate(`/quran/${surahId}?ayah=${verseNumber}`);
+  };
+
+  const getThemeIcon = () => {
+    switch (settings.theme) {
+      case "light":
+        return <Sun size={20} />;
+      case "dark":
+        return <Moon size={20} />;
+      case "sepia":
+        return <Lightbulb size={20} />;
+      case "gold":
+        return <Lightbulb className="text-yellow-500" size={20} />;
+      default:
+        return <Sun size={20} />;
+    }
+  };
+
+  const handleThemeChange = (theme: ThemeType) => {
+    setSettings(prev => ({ ...prev, theme }));
+  };
 
   if (isLoading) {
     return (
@@ -83,7 +177,26 @@ const QuranViewer = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
+    <div className={`bg-white rounded-lg shadow-lg p-6 theme-${settings.theme}`}>
+      {/* Settings Prompt */}
+      {showSettingsPrompt && (
+        <Alert className="mb-6 border-primary-custom/20 bg-primary-light/30">
+          <AlertCircle className="h-4 w-4 text-primary-custom" />
+          <AlertTitle>مرحباً بك في مصحف القرآن الكريم</AlertTitle>
+          <AlertDescription className="text-sm">
+            يمكنك تخصيص إعدادات القراءة من خلال النقر على أيقونة الإعدادات ⚙️ (حجم الخط، نوع الخط، اللغة، السمة، وغيرها)
+          </AlertDescription>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="mt-2" 
+            onClick={() => setShowSettingsPrompt(false)}
+          >
+            حسناً، فهمت
+          </Button>
+        </Alert>
+      )}
+      
       {/* Quran Viewer Header */}
       <div className="flex justify-between items-center mb-6 pb-4 border-b">
         <div>
@@ -91,87 +204,119 @@ const QuranViewer = () => {
           <p className="text-gray-600">قراءة وتلاوة القرآن الكريم</p>
         </div>
         <div className="flex items-center space-x-4 space-x-reverse">
-          <button className="p-2 text-gray-600 hover:text-primary-custom rounded-full bg-gray-100 hover:bg-primary-light transition">
-            <Settings size={20} />
-          </button>
-          <button className="p-2 text-gray-600 hover:text-primary-custom rounded-full bg-gray-100 hover:bg-primary-light transition">
-            <Search size={20} />
-          </button>
-          <button className="p-2 text-gray-600 hover:text-primary-custom rounded-full bg-gray-100 hover:bg-primary-light transition">
-            <BookOpen size={20} />
-          </button>
+          <QuranSettingsDialog settings={settings} onSettingsChange={handleSettingsChange} />
+          
+          <QuranSearch onSelectVerse={handleSelectVerseFromSearch} />
+          
+          <BookmarksManager 
+            currentSurahId={surahId}
+            currentVerseNumber={ayahParam ? parseInt(ayahParam) : 1}
+          />
+          
+          <ReadingTracker onNavigateToLastRead={handleNavigateToLastRead} />
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="p-2 text-gray-600 hover:text-primary-custom rounded-full bg-gray-100 hover:bg-primary-light transition">
+                {getThemeIcon()}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => handleThemeChange("light")}>
+                <Sun className="ml-2 h-4 w-4" />
+                <span>فاتح</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
+                <Moon className="ml-2 h-4 w-4" />
+                <span>داكن</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleThemeChange("sepia")}>
+                <Lightbulb className="ml-2 h-4 w-4" />
+                <span>سيبيا</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleThemeChange("gold")}>
+                <Lightbulb className="ml-2 h-4 w-4 text-yellow-500" />
+                <span>ذهبي</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 
       {/* Reading View Selector */}
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-        <div className="flex items-center space-x-4 space-x-reverse">
-          <div className="text-primary-custom font-semibold">طريقة العرض:</div>
-          <Button 
-            className={viewType === "page" ? "bg-primary-custom text-white" : "bg-gray-100 text-gray-600 hover:text-primary-custom"}
-            onClick={() => setViewType("page")}
-          >
-            صفحة
-          </Button>
-          <Button 
-            className={viewType === "surah" ? "bg-primary-custom text-white" : "bg-gray-100 text-gray-600 hover:text-primary-custom"}
-            onClick={() => setViewType("surah")}
-          >
-            سورة
-          </Button>
-          <Button 
-            className={viewType === "juz" ? "bg-primary-custom text-white" : "bg-gray-100 text-gray-600 hover:text-primary-custom"}
-            onClick={() => setViewType("juz")}
-          >
-            جزء
-          </Button>
-        </div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+        <Tabs 
+          value={settings.viewType} 
+          onValueChange={(value) => setSettings(prev => ({ ...prev, viewType: value as ViewType }))}
+          className="w-full sm:w-auto"
+        >
+          <TabsList className="grid w-full sm:w-auto grid-cols-4">
+            <TabsTrigger value="page">صفحة</TabsTrigger>
+            <TabsTrigger value="surah">سورة</TabsTrigger>
+            <TabsTrigger value="juz">جزء</TabsTrigger>
+            <TabsTrigger value="continuous">متواصل</TabsTrigger>
+          </TabsList>
+        </Tabs>
         
         <div className="flex items-center">
           <span className="text-gray-600 ml-2">القارئ:</span>
-          <Select value={reciter} onValueChange={setReciter}>
+          <Select 
+            value={settings.reciter} 
+            onValueChange={(value) => setSettings(prev => ({ ...prev, reciter: value as ReciterType }))}
+          >
             <SelectTrigger className="border rounded-md focus:outline-none focus:ring-2 focus:ring-primary w-48">
               <SelectValue placeholder="اختر القارئ" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="mishari_rashid_alafasy">مشاري راشد العفاسي</SelectItem>
-              <SelectItem value="abdul_basit_abdus_samad">عبد الباسط عبد الصمد</SelectItem>
-              <SelectItem value="maher_al_muaiqly">ماهر المعيقلي</SelectItem>
+              <SelectItem value="abdul_basit">عبد الباسط عبد الصمد</SelectItem>
+              <SelectItem value="mahmoud_khalil_al-husary">محمود خليل الحصري</SelectItem>
+              <SelectItem value="mohamed_siddiq_al-minshawi">محمد صديق المنشاوي</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
 
       {/* Surah Header */}
-      <SurahHeader surah={surah} reciter={reciter} />
+      <SurahHeader surah={surah} reciter={settings.reciter} />
 
       {/* Quran Content */}
-      <VerseDisplay verses={surah.verses} surahId={surahId} />
+      <VerseDisplayEnhanced 
+        verses={surah.verses} 
+        surahId={surahId}
+        viewType={settings.viewType}
+        fontSize={settings.fontSize}
+        fontFamily={settings.fontFamily}
+        showTranslation={settings.showTranslation}
+        translationLanguage={settings.translationLanguage}
+        showTafseer={settings.showTafseer}
+        tafseerSource={settings.tafseerSource}
+        reciter={settings.reciter}
+      />
 
       {/* Surah Navigation */}
       <div className="flex justify-between items-center mt-8 pt-4 border-t">
         <button 
           className={`flex items-center px-4 py-2 ${surahId < 114 ? "text-gray-600 hover:text-primary-custom transition" : "text-gray-400 cursor-not-allowed"}`}
-          onClick={() => surahId < 114 && window.location.assign(`/quran/${surahId + 1}`)}
+          onClick={() => surahId < 114 && navigate(`/quran/${surahId + 1}`)}
           disabled={surahId >= 114}
         >
           <ArrowRight className="mr-1" size={20} />
           {surahId < 114 ? `سورة ${surah.nextSurah}` : ""}
         </button>
-        <div className="flex items-center">
-          <button className="p-2 text-gray-600 hover:text-primary-custom rounded-full bg-gray-100 hover:bg-primary-light transition mx-1">
-            <Bookmark size={20} />
-          </button>
-          <button className="p-2 text-gray-600 hover:text-primary-custom rounded-full bg-gray-100 hover:bg-primary-light transition mx-1">
-            <Share size={20} />
-          </button>
-          <button className="p-2 text-gray-600 hover:text-primary-custom rounded-full bg-gray-100 hover:bg-primary-light transition mx-1">
-            <Copy size={20} />
-          </button>
+        <div className="hidden sm:flex items-center">
+          <Button 
+            variant="outline"
+            className="mx-1"
+            onClick={() => navigate("/quran")}
+          >
+            <BookOpen className="ml-2 h-4 w-4" />
+            فهرس السور
+          </Button>
         </div>
         <button 
           className={`flex items-center px-4 py-2 ${surahId > 1 ? "text-gray-600 hover:text-primary-custom transition" : "text-gray-400 cursor-not-allowed"}`}
-          onClick={() => surahId > 1 && window.location.assign(`/quran/${surahId - 1}`)}
+          onClick={() => surahId > 1 && navigate(`/quran/${surahId - 1}`)}
           disabled={surahId <= 1}
         >
           {surahId > 1 ? `سورة ${surah.previousSurah}` : ""}

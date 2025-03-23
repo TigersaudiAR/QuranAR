@@ -19,7 +19,7 @@ interface QuranSettingsDialogProps {
 const DEFAULT_SETTINGS: QuranSettings = {
   fontSize: 22,
   fontFamily: "Uthmani",
-  theme: "light",
+  theme: "light" as ThemeType,
   showTranslation: false,
   translationLanguage: "english",
   showTafseer: false,

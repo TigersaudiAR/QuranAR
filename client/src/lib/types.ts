@@ -59,18 +59,18 @@ export interface TafseerSettings {
   source: string;
 }
 
+export type ThemeType = 'light' | 'dark' | 'sepia' | 'gold';
+
 export interface QuranSettings {
   fontSize: number;
   fontFamily: string;
-  theme: 'light' | 'dark' | 'sepia';
+  theme: ThemeType;
   showTranslation: boolean;
   translationLanguage: string;
   showTafseer: boolean;
   tafseerSource: string;
-  reciter: string;
+  reciter: ReciterType;
   viewType: ViewType;
 }
-
-export type ThemeType = 'light' | 'dark' | 'sepia' | 'gold';
 export type ViewType = "page" | "surah" | "juz" | "continuous";
 export type ReciterType = "mishari_rashid_alafasy" | "abdul_basit" | "mahmoud_khalil_al-husary" | "mohamed_siddiq_al-minshawi";
