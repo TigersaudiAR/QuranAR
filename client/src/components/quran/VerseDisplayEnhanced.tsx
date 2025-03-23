@@ -39,7 +39,7 @@ const VerseDisplayEnhanced = ({
   const [showTafseerDialog, setShowTafseerDialog] = useState(false);
   const [selectedVerse, setSelectedVerse] = useState<Verse | null>(null);
   const [highlightedVerse, setHighlightedVerse] = useState<number | null>(null);
-  const verseRefs = useRef<{[key: number]: HTMLDivElement | null}>({});
+  const verseRefs = useRef<{[key: number]: HTMLElement | null}>({});
   const { setLastRead } = useSetLastRead();
   const { toast } = useToast();
   
@@ -179,6 +179,19 @@ const VerseDisplayEnhanced = ({
     }, []);
   };
   
+  // طريقة عرض جديدة للصفحة على الطراز المصحفي
+  const renderMushafVerseText = (verse: Verse) => {
+    return (
+      <span className="inline relative">
+        <span className="quran-text">{verse.text}</span>
+        <span className="inline-flex justify-center items-center w-7 h-7 rounded-full bg-primary-custom/10 text-primary-custom text-xs mr-1 align-top">
+          ﴿{verse.numberInSurah}﴾
+        </span>
+      </span>
+    );
+  };
+
+  // طريقة عرض الآية المحسنة مع الخيارات التفاعلية
   const renderVerse = (verse: Verse, index: number) => {
     const isPlaying = currentPlayingVerse === verse.numberInSurah;
     const isHighlighted = highlightedVerse === verse.numberInSurah;
@@ -346,7 +359,80 @@ const VerseDisplayEnhanced = ({
     );
   };
   
+  const renderMushafView = () => {
+    // المصحف النمط - يعرض الآيات ضمن صفحة مصحف تشبه المصحف المطبوع
+    const pages = getPageVerses();
+    
+    return (
+      <div className="space-y-8">
+        {pages.map((pageVerses, pageIndex) => (
+          <div key={`mushaf-page-${pageIndex}`} 
+               className="bg-[#F8F3E6] rounded-lg shadow-md border border-amber-200 p-6 pt-8 pb-8 mx-auto max-w-3xl">
+            <div className="flex justify-between items-center mb-6 pb-2 border-b border-amber-200">
+              <div className="text-amber-800 text-sm">الجزء {1}</div>
+              <div className="text-amber-900 text-lg font-bold">صفحة {pageIndex + 1}</div>
+              <div className="text-amber-800 text-sm">{pageVerses[0]?.surahName}</div>
+            </div>
+            
+            <div className="text-right leading-loose text-justify" dir="rtl"
+                style={{ 
+                  fontSize: `${fontSize}px`,
+                  fontFamily: fontFamily === "Uthmani" ? "Uthmani, Amiri, Arial" : 
+                              fontFamily === "Scheherazade" ? "Scheherazade, Amiri, Arial" : 
+                              fontFamily === "Amiri" ? "Amiri, Arial" : 
+                              "Naskh, Arial",
+                }}>
+              {pageVerses.map((verse, idx) => (
+                <div 
+                  key={`mushaf-verse-${verse.numberInSurah}`}
+                  id={`ayah-${verse.numberInSurah}`}
+                  ref={el => verseRefs.current[verse.numberInSurah] = el}
+                  className="relative inline-block mushaf-verse"
+                  onMouseEnter={() => setHighlightedVerse(verse.numberInSurah)}
+                  onMouseLeave={() => setHighlightedVerse(null)}
+                >
+                  {verse.text} 
+                  <span className="inline-flex justify-center items-center w-6 h-6 rounded-full bg-amber-100 text-amber-800 text-xs mx-1 align-top verse-number">
+                    ﴿{verse.numberInSurah}﴾
+                  </span>
+                  {" "}
+                  {/* إضافة أدوات التفاعل عند تحويم المؤشر على الآية */}
+                  <span className={`absolute top-0 right-0 p-1 rounded-md transition-opacity opacity-0 verse-actions bg-white shadow-sm gap-1 flex ${highlightedVerse === verse.numberInSurah ? 'opacity-100' : ''}`}>
+                    <button onClick={() => handlePlayAudio(verse)} className="text-amber-600 hover:text-amber-800">
+                      <PlayCircle size={16} />
+                    </button>
+                    <button onClick={() => handleBookmark(verse)} className="text-amber-600 hover:text-amber-800">
+                      <Bookmark size={16} />
+                    </button>
+                    <button onClick={() => handleCopy(verse)} className="text-amber-600 hover:text-amber-800">
+                      <Copy size={16} />
+                    </button>
+                  </span>
+                </div>
+              ))}
+            </div>
+            
+            {/* عرض التفسير أو الترجمة أسفل الصفحة إذا تم اختيارهما */}
+            {showTranslation && (
+              <div className="mt-6 pt-4 border-t border-amber-200 text-gray-700 text-sm">
+                <h3 className="font-bold mb-2">الترجمة</h3>
+                <div className="text-justify">
+                  {pageVerses.map((verse) => (
+                    <p key={`translation-${verse.numberInSurah}`} className="mb-2">
+                      <span className="font-bold">{verse.numberInSurah}.</span> {getTranslation(verse)}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+  
   const renderPageView = () => {
+    // طريقة العرض العادية للصفحات
     const pages = getPageVerses();
     
     return (
@@ -404,12 +490,27 @@ const VerseDisplayEnhanced = ({
     );
   };
   
+  // إضافة طريقة عرض شبيهة بالمصحف
+  const renderView = () => {
+    // تحقق ما إذا كان المستخدم قد اختار طريقة عرض المصحف
+    const usesMushafView = fontFamily === "Uthmani"; // يمكننا استخدام هذا الشرط أو آخر مخصص
+    
+    if (viewType === "page") {
+      return usesMushafView ? renderMushafView() : renderPageView();
+    } else if (viewType === "juz") {
+      return renderJuzView();
+    } else if (viewType === "surah") {
+      return renderSurahView();
+    } else if (viewType === "continuous") {
+      return renderContinuousView();
+    }
+    
+    return renderSurahView(); // العرض الافتراضي
+  };
+
   return (
     <div className="mt-6">
-      {viewType === "page" && renderPageView()}
-      {viewType === "juz" && renderJuzView()}
-      {viewType === "surah" && renderSurahView()}
-      {viewType === "continuous" && renderContinuousView()}
+      {renderView()}
       
       {selectedVerse && (
         <Dialog open={showTafseerDialog} onOpenChange={setShowTafseerDialog}>

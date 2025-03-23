@@ -97,6 +97,33 @@
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NiIgaGVpZ2h0PSIxMDAiPgo8cmVjdCB3aWR0aD0iNTYiIGhlaWdodD0iMTAwIiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMjggNjZMMCA1MEwwIDE2TDI4IDBMNTYgMTZMNTYgNTBMMjggNjZMMjggMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkIzMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjIiPjwvcGF0aD4KPHBhdGggZD0iTTI4IDBMMjggMzRMNTYgNTBMNTYgMTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzQzQTA0NyIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMiI+PC9wYXRoPgo8L3N2Zz4=");
     background-size: 50px;
   }
+  
+  /* أنماط خاصة بطريقة العرض المصحفية */
+  .mushaf-verse {
+    position: relative;
+    margin: 0 2px;
+  }
+  
+  .mushaf-verse:hover {
+    background-color: rgba(255, 179, 0, 0.1);
+    border-radius: 4px;
+  }
+  
+  .verse-number {
+    font-family: "Amiri", "Traditional Arabic", serif;
+  }
+  
+  .verse-actions {
+    z-index: 10;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  /* خلفية مصحف */
+  .bg-mushaf {
+    background-color: #F8F3E6;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NiIgaGVpZ2h0PSIxMDAiPgo8cmVjdCB3aWR0aD0iNTYiIGhlaWdodD0iMTAwIiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMjggNjZMMCA1MEwwIDE2TDI4IDBMNTYgMTZMNTYgNTBMMjggNjZMMjggMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkIzMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAzIiBzdHJva2Utd2lkdGg9IjIiPjwvcGF0aD4KPHBhdGggZD0iTTI4IDBMMjggMzRMNTYgNTBMNTYgMTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Q2QkM2RCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDMiIHN0cm9rZS13aWR0aD0iMiI+PC9wYXRoPgo8L3N2Zz4=");
+    background-size: 30px;
+  }
 
   /* تنسيقات خاصة بالشبكة */
   .line-clamp-2 {
