@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
+import ContentUnavailable from "@/pages/content-unavailable";
 import HomePage from "@/pages/HomePage";
 import QuranPage from "@/pages/QuranPage";
 import LearnPage from "@/pages/LearnPage";
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/azkar" component={AzkarPage} />
       <Route path="/live" component={LiveLecturesPage} />
       <Route path="/credits" component={CreditsPage} />
+      <Route path="/content-unavailable" component={ContentUnavailable} />
       <Route component={NotFound} />
     </Switch>
   );
