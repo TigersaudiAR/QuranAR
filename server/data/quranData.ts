@@ -211,6 +211,184 @@ export const surahIkhlas = {
   ]
 };
 
+// سورة يس
+export const surahYasin = {
+  id: 36,
+  name: "يس",
+  englishName: "Ya-Sin",
+  revelationType: "meccan",
+  versesCount: 83,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 2, number: 2, numberInSurah: 2, text: "يس", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 3, number: 3, numberInSurah: 3, text: "وَالْقُرْآنِ الْحَكِيمِ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 4, number: 4, numberInSurah: 4, text: "إِنَّكَ لَمِنَ الْمُرْسَلِينَ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 5, number: 5, numberInSurah: 5, text: "عَلَىٰ صِرَاطٍ مُّسْتَقِيمٍ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 6, number: 6, numberInSurah: 6, text: "تَنزِيلَ الْعَزِيزِ الرَّحِيمِ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 7, number: 7, numberInSurah: 7, text: "لِتُنذِرَ قَوْمًا مَّا أُنذِرَ آبَاؤُهُمْ فَهُمْ غَافِلُونَ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 8, number: 8, numberInSurah: 8, text: "لَقَدْ حَقَّ الْقَوْلُ عَلَىٰ أَكْثَرِهِمْ فَهُمْ لَا يُؤْمِنُونَ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 9, number: 9, numberInSurah: 9, text: "إِنَّا جَعَلْنَا فِي أَعْنَاقِهِمْ أَغْلَالًا فَهِيَ إِلَى الْأَذْقَانِ فَهُم مُّقْمَحُونَ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 10, number: 10, numberInSurah: 10, text: "وَجَعَلْنَا مِن بَيْنِ أَيْدِيهِمْ سَدًّا وَمِنْ خَلْفِهِمْ سَدًّا فَأَغْشَيْنَاهُمْ فَهُمْ لَا يُبْصِرُونَ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 11, number: 11, numberInSurah: 11, text: "وَسَوَاءٌ عَلَيْهِمْ أَأَنذَرْتَهُمْ أَمْ لَمْ تُنذِرْهُمْ لَا يُؤْمِنُونَ", surahName: "يس", juzNumber: 22, pageNumber: 440 },
+    { id: 12, number: 12, numberInSurah: 12, text: "إِنَّمَا تُنذِرُ مَنِ اتَّبَعَ الذِّكْرَ وَخَشِيَ الرَّحْمَٰنَ بِالْغَيْبِ ۖ فَبَشِّرْهُ بِمَغْفِرَةٍ وَأَجْرٍ كَرِيمٍ", surahName: "يس", juzNumber: 22, pageNumber: 441 },
+    { id: 13, number: 13, numberInSurah: 13, text: "إِنَّا نَحْنُ نُحْيِي الْمَوْتَىٰ وَنَكْتُبُ مَا قَدَّمُوا وَآثَارَهُمْ ۚ وَكُلَّ شَيْءٍ أَحْصَيْنَاهُ فِي إِمَامٍ مُّبِينٍ", surahName: "يس", juzNumber: 22, pageNumber: 441 },
+    { id: 14, number: 14, numberInSurah: 14, text: "وَاضْرِبْ لَهُم مَّثَلًا أَصْحَابَ الْقَرْيَةِ إِذْ جَاءَهَا الْمُرْسَلُونَ", surahName: "يس", juzNumber: 22, pageNumber: 441 },
+    { id: 15, number: 15, numberInSurah: 15, text: "إِذْ أَرْسَلْنَا إِلَيْهِمُ اثْنَيْنِ فَكَذَّبُوهُمَا فَعَزَّزْنَا بِثَالِثٍ فَقَالُوا إِنَّا إِلَيْكُم مُّرْسَلُونَ", surahName: "يس", juzNumber: 22, pageNumber: 441 }
+    // تم اختصار بقية الآيات
+  ]
+};
+
+// سورة الرحمن
+export const surahRahman = {
+  id: 55,
+  name: "الرَّحمن",
+  englishName: "Ar-Rahman",
+  revelationType: "medinan",
+  versesCount: 78,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 2, number: 2, numberInSurah: 2, text: "الرَّحْمَٰنُ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 3, number: 3, numberInSurah: 3, text: "عَلَّمَ الْقُرْآنَ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 4, number: 4, numberInSurah: 4, text: "خَلَقَ الْإِنسَانَ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 5, number: 5, numberInSurah: 5, text: "عَلَّمَهُ الْبَيَانَ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 6, number: 6, numberInSurah: 6, text: "الشَّمْسُ وَالْقَمَرُ بِحُسْبَانٍ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 7, number: 7, numberInSurah: 7, text: "وَالنَّجْمُ وَالشَّجَرُ يَسْجُدَانِ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 8, number: 8, numberInSurah: 8, text: "وَالسَّمَاءَ رَفَعَهَا وَوَضَعَ الْمِيزَانَ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 9, number: 9, numberInSurah: 9, text: "أَلَّا تَطْغَوْا فِي الْمِيزَانِ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 10, number: 10, numberInSurah: 10, text: "وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 11, number: 11, numberInSurah: 11, text: "وَالْأَرْضَ وَضَعَهَا لِلْأَنَامِ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 12, number: 12, numberInSurah: 12, text: "فِيهَا فَاكِهَةٌ وَالنَّخْلُ ذَاتُ الْأَكْمَامِ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 13, number: 13, numberInSurah: 13, text: "وَالْحَبُّ ذُو الْعَصْفِ وَالرَّيْحَانُ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 14, number: 14, numberInSurah: 14, text: "فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 },
+    { id: 15, number: 15, numberInSurah: 15, text: "خَلَقَ الْإِنسَانَ مِن صَلْصَالٍ كَالْفَخَّارِ", surahName: "الرَّحمن", juzNumber: 27, pageNumber: 531 }
+    // تم اختصار بقية الآيات
+  ]
+};
+
+// سورة الواقعة
+export const surahWaqiah = {
+  id: 56,
+  name: "الوَاقِعَة",
+  englishName: "Al-Wāqi'ah",
+  revelationType: "meccan",
+  versesCount: 96,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 2, number: 2, numberInSurah: 2, text: "إِذَا وَقَعَتِ الْوَاقِعَةُ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 3, number: 3, numberInSurah: 3, text: "لَيْسَ لِوَقْعَتِهَا كَاذِبَةٌ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 4, number: 4, numberInSurah: 4, text: "خَافِضَةٌ رَّافِعَةٌ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 5, number: 5, numberInSurah: 5, text: "إِذَا رُجَّتِ الْأَرْضُ رَجًّا", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 6, number: 6, numberInSurah: 6, text: "وَبُسَّتِ الْجِبَالُ بَسًّا", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 7, number: 7, numberInSurah: 7, text: "فَكَانَتْ هَبَاءً مُّنبَثًّا", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 8, number: 8, numberInSurah: 8, text: "وَكُنتُمْ أَزْوَاجًا ثَلَاثَةً", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 9, number: 9, numberInSurah: 9, text: "فَأَصْحَابُ الْمَيْمَنَةِ مَا أَصْحَابُ الْمَيْمَنَةِ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 10, number: 10, numberInSurah: 10, text: "وَأَصْحَابُ الْمَشْأَمَةِ مَا أَصْحَابُ الْمَشْأَمَةِ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 11, number: 11, numberInSurah: 11, text: "وَالسَّابِقُونَ السَّابِقُونَ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 12, number: 12, numberInSurah: 12, text: "أُولَٰئِكَ الْمُقَرَّبُونَ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 13, number: 13, numberInSurah: 13, text: "فِي جَنَّاتِ النَّعِيمِ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 14, number: 14, numberInSurah: 14, text: "ثُلَّةٌ مِّنَ الْأَوَّلِينَ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 },
+    { id: 15, number: 15, numberInSurah: 15, text: "وَقَلِيلٌ مِّنَ الْآخِرِينَ", surahName: "الوَاقِعَة", juzNumber: 27, pageNumber: 534 }
+    // تم اختصار بقية الآيات
+  ]
+};
+
+// سورة الملك
+export const surahMulk = {
+  id: 67,
+  name: "المُلْك",
+  englishName: "Al-Mulk",
+  revelationType: "meccan",
+  versesCount: 30,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 2, number: 2, numberInSurah: 2, text: "تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 3, number: 3, numberInSurah: 3, text: "الَّذِي خَلَقَ الْمَوْتَ وَالْحَيَاةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا ۚ وَهُوَ الْعَزِيزُ الْغَفُورُ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 4, number: 4, numberInSurah: 4, text: "الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَّا تَرَىٰ فِي خَلْقِ الرَّحْمَٰنِ مِن تَفَاوُتٍ ۖ فَارْجِعِ الْبَصَرَ هَلْ تَرَىٰ مِن فُطُورٍ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 5, number: 5, numberInSurah: 5, text: "ثُمَّ ارْجِعِ الْبَصَرَ كَرَّتَيْنِ يَنقَلِبْ إِلَيْكَ الْبَصَرُ خَاسِئًا وَهُوَ حَسِيرٌ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 6, number: 6, numberInSurah: 6, text: "وَلَقَدْ زَيَّنَّا السَّمَاءَ الدُّنْيَا بِمَصَابِيحَ وَجَعَلْنَاهَا رُجُومًا لِّلشَّيَاطِينِ ۖ وَأَعْتَدْنَا لَهُمْ عَذَابَ السَّعِيرِ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 7, number: 7, numberInSurah: 7, text: "وَلِلَّذِينَ كَفَرُوا بِرَبِّهِمْ عَذَابُ جَهَنَّمَ ۖ وَبِئْسَ الْمَصِيرُ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 8, number: 8, numberInSurah: 8, text: "إِذَا أُلْقُوا فِيهَا سَمِعُوا لَهَا شَهِيقًا وَهِيَ تَفُورُ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 9, number: 9, numberInSurah: 9, text: "تَكَادُ تَمَيَّزُ مِنَ الْغَيْظِ ۖ كُلَّمَا أُلْقِيَ فِيهَا فَوْجٌ سَأَلَهُمْ خَزَنَتُهَا أَلَمْ يَأْتِكُمْ نَذِيرٌ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 10, number: 10, numberInSurah: 10, text: "قَالُوا بَلَىٰ قَدْ جَاءَنَا نَذِيرٌ فَكَذَّبْنَا وَقُلْنَا مَا نَزَّلَ اللَّهُ مِن شَيْءٍ إِنْ أَنتُمْ إِلَّا فِي ضَلَالٍ كَبِيرٍ", surahName: "المُلْك", juzNumber: 29, pageNumber: 562 },
+    { id: 11, number: 11, numberInSurah: 11, text: "وَقَالُوا لَوْ كُنَّا نَسْمَعُ أَوْ نَعْقِلُ مَا كُنَّا فِي أَصْحَابِ السَّعِيرِ", surahName: "المُلْك", juzNumber: 29, pageNumber: 563 },
+    { id: 12, number: 12, numberInSurah: 12, text: "فَاعْتَرَفُوا بِذَنبِهِمْ فَسُحْقًا لِّأَصْحَابِ السَّعِيرِ", surahName: "المُلْك", juzNumber: 29, pageNumber: 563 },
+    { id: 13, number: 13, numberInSurah: 13, text: "إِنَّ الَّذِينَ يَخْشَوْنَ رَبَّهُم بِالْغَيْبِ لَهُم مَّغْفِرَةٌ وَأَجْرٌ كَبِيرٌ", surahName: "المُلْك", juzNumber: 29, pageNumber: 563 },
+    { id: 14, number: 14, numberInSurah: 14, text: "وَأَسِرُّوا قَوْلَكُمْ أَوِ اجْهَرُوا بِهِ ۖ إِنَّهُ عَلِيمٌ بِذَاتِ الصُّدُورِ", surahName: "المُلْك", juzNumber: 29, pageNumber: 563 },
+    { id: 15, number: 15, numberInSurah: 15, text: "أَلَا يَعْلَمُ مَنْ خَلَقَ وَهُوَ اللَّطِيفُ الْخَبِيرُ", surahName: "المُلْك", juzNumber: 29, pageNumber: 563 }
+    // تم اختصار بقية الآيات
+  ]
+};
+
+// سورة النبأ
+export const surahNaba = {
+  id: 78,
+  name: "النَّبَأ",
+  englishName: "An-Naba",
+  revelationType: "meccan",
+  versesCount: 40,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 2, number: 2, numberInSurah: 2, text: "عَمَّ يَتَسَاءَلُونَ", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 3, number: 3, numberInSurah: 3, text: "عَنِ النَّبَإِ الْعَظِيمِ", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 4, number: 4, numberInSurah: 4, text: "الَّذِي هُمْ فِيهِ مُخْتَلِفُونَ", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 5, number: 5, numberInSurah: 5, text: "كَلَّا سَيَعْلَمُونَ", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 6, number: 6, numberInSurah: 6, text: "ثُمَّ كَلَّا سَيَعْلَمُونَ", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 7, number: 7, numberInSurah: 7, text: "أَلَمْ نَجْعَلِ الْأَرْضَ مِهَادًا", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 8, number: 8, numberInSurah: 8, text: "وَالْجِبَالَ أَوْتَادًا", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 9, number: 9, numberInSurah: 9, text: "وَخَلَقْنَاكُمْ أَزْوَاجًا", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 10, number: 10, numberInSurah: 10, text: "وَجَعَلْنَا نَوْمَكُمْ سُبَاتًا", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 11, number: 11, numberInSurah: 11, text: "وَجَعَلْنَا اللَّيْلَ لِبَاسًا", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 12, number: 12, numberInSurah: 12, text: "وَجَعَلْنَا النَّهَارَ مَعَاشًا", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 13, number: 13, numberInSurah: 13, text: "وَبَنَيْنَا فَوْقَكُمْ سَبْعًا شِدَادًا", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 14, number: 14, numberInSurah: 14, text: "وَجَعَلْنَا سِرَاجًا وَهَّاجًا", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 },
+    { id: 15, number: 15, numberInSurah: 15, text: "وَأَنزَلْنَا مِنَ الْمُعْصِرَاتِ مَاءً ثَجَّاجًا", surahName: "النَّبَأ", juzNumber: 30, pageNumber: 582 }
+    // تم اختصار بقية الآيات
+  ]
+};
+
+// سورة الضحى
+export const surahDuha = {
+  id: 93,
+  name: "الضُّحى",
+  englishName: "Ad-Duhaa",
+  revelationType: "meccan",
+  versesCount: 11,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 2, number: 2, numberInSurah: 2, text: "وَالضُّحَىٰ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 3, number: 3, numberInSurah: 3, text: "وَاللَّيْلِ إِذَا سَجَىٰ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 4, number: 4, numberInSurah: 4, text: "مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 5, number: 5, numberInSurah: 5, text: "وَلَلْآخِرَةُ خَيْرٌ لَّكَ مِنَ الْأُولَىٰ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 6, number: 6, numberInSurah: 6, text: "وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 7, number: 7, numberInSurah: 7, text: "أَلَمْ يَجِدْكَ يَتِيمًا فَآوَىٰ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 8, number: 8, numberInSurah: 8, text: "وَوَجَدَكَ ضَالًّا فَهَدَىٰ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 9, number: 9, numberInSurah: 9, text: "وَوَجَدَكَ عَائِلًا فَأَغْنَىٰ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 10, number: 10, numberInSurah: 10, text: "فَأَمَّا الْيَتِيمَ فَلَا تَقْهَرْ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 11, number: 11, numberInSurah: 11, text: "وَأَمَّا السَّائِلَ فَلَا تَنْهَرْ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 },
+    { id: 12, number: 12, numberInSurah: 12, text: "وَأَمَّا بِنِعْمَةِ رَبِّكَ فَحَدِّثْ", surahName: "الضُّحى", juzNumber: 30, pageNumber: 596 }
+  ]
+};
+
+// سورة الشرح
+export const surahSharh = {
+  id: 94,
+  name: "الشَّرْح",
+  englishName: "Ash-Sharh",
+  revelationType: "meccan",
+  versesCount: 8,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الشَّرْح", juzNumber: 30, pageNumber: 596 },
+    { id: 2, number: 2, numberInSurah: 2, text: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ", surahName: "الشَّرْح", juzNumber: 30, pageNumber: 596 },
+    { id: 3, number: 3, numberInSurah: 3, text: "وَوَضَعْنَا عَنكَ وِزْرَكَ", surahName: "الشَّرْح", juzNumber: 30, pageNumber: 596 },
+    { id: 4, number: 4, numberInSurah: 4, text: "الَّذِي أَنقَضَ ظَهْرَكَ", surahName: "الشَّرْح", juzNumber: 30, pageNumber: 596 },
+    { id: 5, number: 5, numberInSurah: 5, text: "وَرَفَعْنَا لَكَ ذِكْرَكَ", surahName: "الشَّرْح", juzNumber: 30, pageNumber: 596 },
+    { id: 6, number: 6, numberInSurah: 6, text: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", surahName: "الشَّرْح", juzNumber: 30, pageNumber: 596 },
+    { id: 7, number: 7, numberInSurah: 7, text: "إِنَّ مَعَ الْعُسْرِ يُسْرًا", surahName: "الشَّرْح", juzNumber: 30, pageNumber: 596 },
+    { id: 8, number: 8, numberInSurah: 8, text: "فَإِذَا فَرَغْتَ فَانصَبْ", surahName: "الشَّرْح", juzNumber: 30, pageNumber: 596 },
+    { id: 9, number: 9, numberInSurah: 9, text: "وَإِلَىٰ رَبِّكَ فَارْغَب", surahName: "الشَّرْح", juzNumber: 30, pageNumber: 596 }
+  ]
+};
+
 // محتوى سورة الفلق
 export const surahFalaq = {
   id: 113,
@@ -262,15 +440,6 @@ export function getSurahVerses(surahId: number) {
     case 78: return surahNaba.verses;
     case 93: return surahDuha.verses;
     case 94: return surahSharh.verses;
-    case 96: return surahAlaq.verses;
-    case 97: return surahQadr.verses;
-    case 103: return surahAsr.verses;
-    case 105: return surahFil.verses;
-    case 106: return surahQuraysh.verses;
-    case 108: return surahKawthar.verses;
-    case 109: return surahKafirun.verses;
-    case 110: return surahNasr.verses;
-    case 111: return surahMasad.verses;
     case 112: return surahIkhlas.verses;
     case 113: return surahFalaq.verses;
     case 114: return surahNas.verses;
@@ -278,7 +447,7 @@ export function getSurahVerses(surahId: number) {
   }
   
   // بيانات السور المضافة محليًا
-  const localSurahs = [1, 2, 3, 36, 55, 56, 67, 78, 93, 94, 96, 97, 103, 105, 106, 108, 109, 110, 111, 112, 113, 114];
+  const localSurahs = [1, 2, 3, 36, 55, 56, 67, 78, 93, 94, 112, 113, 114];
   
   // إذا لم تكن السورة متوفرة محليًا، استخدم البيانات العامة
   const surah = surahs.find(s => s.id === surahId);
