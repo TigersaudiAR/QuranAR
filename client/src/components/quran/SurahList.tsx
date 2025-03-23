@@ -45,14 +45,24 @@ const SurahList = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {visibleSurahs.map((surah) => (
           <Link key={surah.id} href={`/quran/${surah.id}`}>
-            <div className="block p-4 border rounded-lg text-center hover:bg-primary-light hover:border-primary-custom transition cursor-pointer">
-              <span className="block text-lg font-bold">{surah.name}</span>
-              <span className="block text-gray-600 text-sm">{surah.versesCount} آيات</span>
+            <div className="block p-4 border rounded-lg  hover:bg-primary-light hover:border-primary-custom transition cursor-pointer flex flex-col h-full"> {/* Added flexbox for better layout */}
+              <div className="flex items-center mb-2"> {/* Improved arrangement of elements */}
+                <div className="w-8 h-8 rounded-full bg-primary-light text-primary-custom flex items-center justify-center ml-2 text-sm">
+                  {surah.id} {/* Changed to surah.id for consistency */}
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm">{surah.name}</h3>
+                  <p className="text-xs text-gray-500">{surah.versesCount} آيات</p>
+                </div>
+              </div>
+              {/*<div className="mt-auto text-left">  Removed arrow,  already handled in original code.*/}
+              {/*  <span className="material-icons text-primary-custom text-sm">arrow_back</span>*/}
+              {/*</div>*/}
             </div>
           </Link>
         ))}
       </div>
-      
+
       {/* Page Navigation */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-6">
