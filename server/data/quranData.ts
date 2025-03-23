@@ -136,6 +136,65 @@ export const surahFatiha = {
   ]
 };
 
+// تعريف سورة البقرة
+export const surahBaqarah = {
+  id: 2,
+  name: "البَقَرَة",
+  englishName: "Al-Baqarah",
+  revelationType: "medinan",
+  versesCount: 286,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 2, number: 2, numberInSurah: 2, text: "الم", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 3, number: 3, numberInSurah: 3, text: "ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 4, number: 4, numberInSurah: 4, text: "الَّذِينَ يُؤْمِنُونَ بِالْغَيْبِ وَيُقِيمُونَ الصَّلَاةَ وَمِمَّا رَزَقْنَاهُمْ يُنفِقُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 5, number: 5, numberInSurah: 5, text: "وَالَّذِينَ يُؤْمِنُونَ بِمَا أُنزِلَ إِلَيْكَ وَمَا أُنزِلَ مِن قَبْلِكَ وَبِالْآخِرَةِ هُمْ يُوقِنُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 6, number: 6, numberInSurah: 6, text: "أُولَٰئِكَ عَلَىٰ هُدًى مِّن رَّبِّهِمْ ۖ وَأُولَٰئِكَ هُمُ الْمُفْلِحُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 7, number: 7, numberInSurah: 7, text: "إِنَّ الَّذِينَ كَفَرُوا سَوَاءٌ عَلَيْهِمْ أَأَنذَرْتَهُمْ أَمْ لَمْ تُنذِرْهُمْ لَا يُؤْمِنُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 8, number: 8, numberInSurah: 8, text: "خَتَمَ اللَّهُ عَلَىٰ قُلُوبِهِمْ وَعَلَىٰ سَمْعِهِمْ ۖ وَعَلَىٰ أَبْصَارِهِمْ غِشَاوَةٌ ۖ وَلَهُمْ عَذَابٌ عَظِيمٌ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 9, number: 9, numberInSurah: 9, text: "وَمِنَ النَّاسِ مَن يَقُولُ آمَنَّا بِاللَّهِ وَبِالْيَوْمِ الْآخِرِ وَمَا هُم بِمُؤْمِنِينَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 10, number: 10, numberInSurah: 10, text: "يُخَادِعُونَ اللَّهَ وَالَّذِينَ آمَنُوا وَمَا يَخْدَعُونَ إِلَّا أَنفُسَهُمْ وَمَا يَشْعُرُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 11, number: 11, numberInSurah: 11, text: "فِي قُلُوبِهِم مَّرَضٌ فَزَادَهُمُ اللَّهُ مَرَضًا ۖ وَلَهُمْ عَذَابٌ أَلِيمٌ بِمَا كَانُوا يَكْذِبُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 2 },
+    { id: 12, number: 12, numberInSurah: 12, text: "وَإِذَا قِيلَ لَهُمْ لَا تُفْسِدُوا فِي الْأَرْضِ قَالُوا إِنَّمَا نَحْنُ مُصْلِحُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 3 },
+    { id: 13, number: 13, numberInSurah: 13, text: "أَلَا إِنَّهُمْ هُمُ الْمُفْسِدُونَ وَلَٰكِن لَّا يَشْعُرُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 3 },
+    { id: 14, number: 14, numberInSurah: 14, text: "وَإِذَا قِيلَ لَهُمْ آمِنُوا كَمَا آمَنَ النَّاسُ قَالُوا أَنُؤْمِنُ كَمَا آمَنَ السُّفَهَاءُ ۗ أَلَا إِنَّهُمْ هُمُ السُّفَهَاءُ وَلَٰكِن لَّا يَعْلَمُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 3 },
+    { id: 15, number: 15, numberInSurah: 15, text: "وَإِذَا لَقُوا الَّذِينَ آمَنُوا قَالُوا آمَنَّا وَإِذَا خَلَوْا إِلَىٰ شَيَاطِينِهِمْ قَالُوا إِنَّا مَعَكُمْ إِنَّمَا نَحْنُ مُسْتَهْزِئُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 3 },
+    { id: 16, number: 16, numberInSurah: 16, text: "اللَّهُ يَسْتَهْزِئُ بِهِمْ وَيَمُدُّهُمْ فِي طُغْيَانِهِمْ يَعْمَهُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 3 },
+    { id: 17, number: 17, numberInSurah: 17, text: "أُولَٰئِكَ الَّذِينَ اشْتَرَوُا الضَّلَالَةَ بِالْهُدَىٰ فَمَا رَبِحَت تِّجَارَتُهُمْ وَمَا كَانُوا مُهْتَدِينَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 3 },
+    { id: 18, number: 18, numberInSurah: 18, text: "مَثَلُهُمْ كَمَثَلِ الَّذِي اسْتَوْقَدَ نَارًا فَلَمَّا أَضَاءَتْ مَا حَوْلَهُ ذَهَبَ اللَّهُ بِنُورِهِمْ وَتَرَكَهُمْ فِي ظُلُمَاتٍ لَّا يُبْصِرُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 3 },
+    { id: 19, number: 19, numberInSurah: 19, text: "صُمٌّ بُكْمٌ عُمْيٌ فَهُمْ لَا يَرْجِعُونَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 3 },
+    { id: 20, number: 20, numberInSurah: 20, text: "أَوْ كَصَيِّبٍ مِّنَ السَّمَاءِ فِيهِ ظُلُمَاتٌ وَرَعْدٌ وَبَرْقٌ يَجْعَلُونَ أَصَابِعَهُمْ فِي آذَانِهِم مِّنَ الصَّوَاعِقِ حَذَرَ الْمَوْتِ ۚ وَاللَّهُ مُحِيطٌ بِالْكَافِرِينَ", surahName: "البَقَرَة", juzNumber: 1, pageNumber: 4 }
+    // سنكتفي بالآيات العشرين الأولى كمثال، والتطبيق الكامل سيحتوي على كافة الآيات
+  ]
+};
+
+// تعريف سورة آل عمران
+export const surahImran = {
+  id: 3,
+  name: "آل عِمرَان",
+  englishName: "Āl-'Imrān",
+  revelationType: "medinan",
+  versesCount: 200,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 50 },
+    { id: 2, number: 2, numberInSurah: 2, text: "الم", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 50 },
+    { id: 3, number: 3, numberInSurah: 3, text: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 50 },
+    { id: 4, number: 4, numberInSurah: 4, text: "نَزَّلَ عَلَيْكَ الْكِتَابَ بِالْحَقِّ مُصَدِّقًا لِّمَا بَيْنَ يَدَيْهِ وَأَنزَلَ التَّوْرَاةَ وَالْإِنجِيلَ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 50 },
+    { id: 5, number: 5, numberInSurah: 5, text: "مِن قَبْلُ هُدًى لِّلنَّاسِ وَأَنزَلَ الْفُرْقَانَ ۗ إِنَّ الَّذِينَ كَفَرُوا بِآيَاتِ اللَّهِ لَهُمْ عَذَابٌ شَدِيدٌ ۗ وَاللَّهُ عَزِيزٌ ذُو انتِقَامٍ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 50 },
+    { id: 6, number: 6, numberInSurah: 6, text: "إِنَّ اللَّهَ لَا يَخْفَىٰ عَلَيْهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 50 },
+    { id: 7, number: 7, numberInSurah: 7, text: "هُوَ الَّذِي يُصَوِّرُكُمْ فِي الْأَرْحَامِ كَيْفَ يَشَاءُ ۚ لَا إِلَٰهَ إِلَّا هُوَ الْعَزِيزُ الْحَكِيمُ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 50 },
+    { id: 8, number: 8, numberInSurah: 8, text: "هُوَ الَّذِي أَنزَلَ عَلَيْكَ الْكِتَابَ مِنْهُ آيَاتٌ مُّحْكَمَاتٌ هُنَّ أُمُّ الْكِتَابِ وَأُخَرُ مُتَشَابِهَاتٌ ۖ فَأَمَّا الَّذِينَ فِي قُلُوبِهِمْ زَيْغٌ فَيَتَّبِعُونَ مَا تَشَابَهَ مِنْهُ ابْتِغَاءَ الْفِتْنَةِ وَابْتِغَاءَ تَأْوِيلِهِ ۗ وَمَا يَعْلَمُ تَأْوِيلَهُ إِلَّا اللَّهُ ۗ وَالرَّاسِخُونَ فِي الْعِلْمِ يَقُولُونَ آمَنَّا بِهِ كُلٌّ مِّنْ عِندِ رَبِّنَا ۗ وَمَا يَذَّكَّرُ إِلَّا أُولُو الْأَلْبَابِ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 50 },
+    { id: 9, number: 9, numberInSurah: 9, text: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ الْوَهَّابُ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 50 },
+    { id: 10, number: 10, numberInSurah: 10, text: "رَبَّنَا إِنَّكَ جَامِعُ النَّاسِ لِيَوْمٍ لَّا رَيْبَ فِيهِ ۚ إِنَّ اللَّهَ لَا يُخْلِفُ الْمِيعَادَ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 51 },
+    { id: 11, number: 11, numberInSurah: 11, text: "إِنَّ الَّذِينَ كَفَرُوا لَن تُغْنِيَ عَنْهُمْ أَمْوَالُهُمْ وَلَا أَوْلَادُهُم مِّنَ اللَّهِ شَيْئًا ۖ وَأُولَٰئِكَ هُمْ وَقُودُ النَّارِ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 51 },
+    { id: 12, number: 12, numberInSurah: 12, text: "كَدَأْبِ آلِ فِرْعَوْنَ وَالَّذِينَ مِن قَبْلِهِمْ ۚ كَذَّبُوا بِآيَاتِنَا فَأَخَذَهُمُ اللَّهُ بِذُنُوبِهِمْ ۗ وَاللَّهُ شَدِيدُ الْعِقَابِ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 51 },
+    { id: 13, number: 13, numberInSurah: 13, text: "قُل لِّلَّذِينَ كَفَرُوا سَتُغْلَبُونَ وَتُحْشَرُونَ إِلَىٰ جَهَنَّمَ ۚ وَبِئْسَ الْمِهَادُ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 51 },
+    { id: 14, number: 14, numberInSurah: 14, text: "قَدْ كَانَ لَكُمْ آيَةٌ فِي فِئَتَيْنِ الْتَقَتَا ۖ فِئَةٌ تُقَاتِلُ فِي سَبِيلِ اللَّهِ وَأُخْرَىٰ كَافِرَةٌ يَرَوْنَهُم مِّثْلَيْهِمْ رَأْيَ الْعَيْنِ ۚ وَاللَّهُ يُؤَيِّدُ بِنَصْرِهِ مَن يَشَاءُ ۗ إِنَّ فِي ذَٰلِكَ لَعِبْرَةً لِّأُولِي الْأَبْصَارِ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 51 },
+    { id: 15, number: 15, numberInSurah: 15, text: "زُيِّنَ لِلنَّاسِ حُبُّ الشَّهَوَاتِ مِنَ النِّسَاءِ وَالْبَنِينَ وَالْقَنَاطِيرِ الْمُقَنطَرَةِ مِنَ الذَّهَبِ وَالْفِضَّةِ وَالْخَيْلِ الْمُسَوَّمَةِ وَالْأَنْعَامِ وَالْحَرْثِ ۗ ذَٰلِكَ مَتَاعُ الْحَيَاةِ الدُّنْيَا ۖ وَاللَّهُ عِندَهُ حُسْنُ الْمَآبِ", surahName: "آل عِمرَان", juzNumber: 3, pageNumber: 51 }
+    // سنكتفي بالآيات الخمسة عشر الأولى كمثال، والتطبيق الكامل سيحتوي على كافة الآيات
+  ]
+};
+
 // محتوى سورة الإخلاص
 export const surahIkhlas = {
   id: 112,
@@ -149,6 +208,23 @@ export const surahIkhlas = {
     { id: 3, number: 3, numberInSurah: 3, text: "اللَّهُ الصَّمَدُ", surahName: "الإخْلاص", juzNumber: 30, pageNumber: 604 },
     { id: 4, number: 4, numberInSurah: 4, text: "لَمْ يَلِدْ وَلَمْ يُولَدْ", surahName: "الإخْلاص", juzNumber: 30, pageNumber: 604 },
     { id: 5, number: 5, numberInSurah: 5, text: "وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ", surahName: "الإخْلاص", juzNumber: 30, pageNumber: 604 }
+  ]
+};
+
+// محتوى سورة الفلق
+export const surahFalaq = {
+  id: 113,
+  name: "الفَلَق",
+  englishName: "Al-Falaq",
+  revelationType: "meccan",
+  versesCount: 5,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الفَلَق", juzNumber: 30, pageNumber: 604 },
+    { id: 2, number: 2, numberInSurah: 2, text: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ", surahName: "الفَلَق", juzNumber: 30, pageNumber: 604 },
+    { id: 3, number: 3, numberInSurah: 3, text: "مِن شَرِّ مَا خَلَقَ", surahName: "الفَلَق", juzNumber: 30, pageNumber: 604 },
+    { id: 4, number: 4, numberInSurah: 4, text: "وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ", surahName: "الفَلَق", juzNumber: 30, pageNumber: 604 },
+    { id: 5, number: 5, numberInSurah: 5, text: "وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ", surahName: "الفَلَق", juzNumber: 30, pageNumber: 604 },
+    { id: 6, number: 6, numberInSurah: 6, text: "وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ", surahName: "الفَلَق", juzNumber: 30, pageNumber: 604 }
   ]
 };
 
@@ -175,8 +251,14 @@ export function getSurahVerses(surahId: number) {
   // تحقق من السور المتوفرة مباشرة
   if (surahId === 1) {
     return surahFatiha.verses;
+  } else if (surahId === 2) {
+    return surahBaqarah.verses;
+  } else if (surahId === 3) {
+    return surahImran.verses;
   } else if (surahId === 112) {
     return surahIkhlas.verses;
+  } else if (surahId === 113) {
+    return surahFalaq.verses;
   } else if (surahId === 114) {
     return surahNas.verses;
   }
