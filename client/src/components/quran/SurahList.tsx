@@ -91,7 +91,7 @@ const SurahList = () => {
             onClick={() => setCurrentPage(totalPages)}
             disabled={currentPage === totalPages}
           >
-            <LastPage size={20} />
+            <ChevronsLeft size={20} />
           </Button>
         </div>
       )}

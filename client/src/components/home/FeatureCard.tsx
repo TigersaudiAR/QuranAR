@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 
 type FeatureCardProps = {
   title: string;
@@ -37,24 +37,24 @@ const FeatureCard = ({
 }: FeatureCardProps) => {
   const colors = colorMap[colorScheme];
 
+  const [, setLocation] = useLocation();
+  
   return (
-    <Link href={href}>
-      <a className="block group">
-        <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition p-4 h-full border border-gray-100 flex flex-col">
-          <div className={`p-4 ${colors.text} rounded-full ${colors.bg} w-16 h-16 flex items-center justify-center mb-4`}>
-            <span className="material-icons text-3xl">{icon}</span>
-          </div>
-          <h3 className="text-xl font-bold mb-2">{title}</h3>
-          <p className="text-gray-600 text-sm mb-4">{description}</p>
-          <div className="mt-auto flex justify-between items-center">
-            <span className={`${colors.text} font-semibold`}>{count}</span>
-            <span className={`material-icons ${colors.text} transition-transform ${colors.hover}`}>
-              arrow_back
-            </span>
-          </div>
+    <div onClick={() => setLocation(href)} className="cursor-pointer">
+      <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition p-4 h-full border border-gray-100 flex flex-col group">
+        <div className={`p-4 ${colors.text} rounded-full ${colors.bg} w-16 h-16 flex items-center justify-center mb-4`}>
+          <span className="material-icons text-3xl">{icon}</span>
         </div>
-      </a>
-    </Link>
+        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <p className="text-gray-600 text-sm mb-4">{description}</p>
+        <div className="mt-auto flex justify-between items-center">
+          <span className={`${colors.text} font-semibold`}>{count}</span>
+          <span className={`material-icons ${colors.text} transition-transform ${colors.hover}`}>
+            arrow_back
+          </span>
+        </div>
+      </div>
+    </div>
   );
 };
 
