@@ -38,6 +38,43 @@ export interface Bookmark {
   ayahText: string;
   timestamp: number;
   notes?: string;
+  color?: string;
+}
+
+export interface Favorite {
+  id?: number;
+  surahId: number;
+  surahName: string;
+  timestamp: number;
+  category?: string;
+}
+
+export interface FavoriteVerse {
+  id: string;
+  surahId: number;
+  surahName: string;
+  ayahNumber: number;
+  ayahText: string;
+  timestamp: number;
+  category?: string;
+}
+
+export interface Collection {
+  id?: number;
+  name: string;
+  description?: string;
+  icon?: string;
+  color?: string;
+  timestamp: number;
+  itemCount?: number;
+}
+
+export interface CollectionItem {
+  id: string;
+  collectionId: number;
+  itemType: 'bookmark' | 'favorite' | 'verse';
+  itemId: string;
+  timestamp: number;
 }
 
 export interface AudioPlayer {
