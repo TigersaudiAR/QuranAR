@@ -5,8 +5,8 @@ import axios from "axios";
 // API endpoint for the Quran API
 const QURAN_API_BASE_URL = "https://api.alquran.cloud/v1";
 
-// Static data for faster startup
-const staticSurahsData = Array.from({ length: 114 }, (_, i) => ({
+// Static data for faster startup - TypeScript strict type
+const staticSurahsData: Surah[] = Array.from({ length: 114 }, (_, i) => ({
   id: i + 1,
   name: `سورة ${i + 1}`,
   englishName: `Surah ${i + 1}`,
@@ -42,11 +42,14 @@ export const quranService = {
   getSurahById: async (id: number): Promise<Surah | null> => {
     try {
       // Generate simple static surah data for faster response
-      const staticSurah = {
+      // Static typing to ensure it matches the Surah type
+      const revelationType: "meccan" | "medinan" = id < 86 ? "meccan" : "medinan";
+      
+      const staticSurah: Surah = {
         id,
         name: `سورة ${id}`,
         englishName: `Surah ${id}`,
-        revelationType: id < 86 ? "meccan" : "medinan",
+        revelationType,
         versesCount: 10,
         verses: Array.from({ length: 10 }, (_, i) => ({
           id: i + 1,
@@ -80,12 +83,13 @@ export const quranService = {
       
       // Return static data if anything fails
       const totalVerses = 10;
+      const revelationType: "meccan" | "medinan" = id < 86 ? "meccan" : "medinan";
       
-      return {
+      const fallbackSurah: Surah = {
         id,
         name: `سورة ${id}`,
         englishName: `Surah ${id}`,
-        revelationType: id < 86 ? "meccan" : "medinan",
+        revelationType,
         versesCount: totalVerses,
         verses: Array.from({ length: totalVerses }, (_, i) => ({
           id: i + 1,
@@ -99,6 +103,8 @@ export const quranService = {
         previousSurah: id > 1 ? `سورة ${id - 1}` : undefined,
         nextSurah: id < 114 ? `سورة ${id + 1}` : undefined,
       };
+      
+      return fallbackSurah;
     }
   },
 

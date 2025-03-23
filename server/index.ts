@@ -66,5 +66,7 @@ app.use((req, res, next) => {
     reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
+    // إرسال إشعار لـ stdout لإعلام workflow بأن الخادم جاهز
+    console.log(`Server is ready and listening at http://0.0.0.0:${port}`);
   });
 })();
