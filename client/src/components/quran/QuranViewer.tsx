@@ -8,6 +8,8 @@ import QuranNavigation from "./QuranNavigation";
 import QuranSettingsDialog from "./QuranSettings";
 import QuranSearch from "./QuranSearch";
 import BookmarksManager from "./BookmarksManager";
+import FavoritesManager from "./FavoritesManager";
+import CollectionsManager from "./CollectionsManager";
 import ReadingTracker from "./ReadingTracker";
 import BackButton from "@/components/layout/BackButton";
 import { Button } from "@/components/ui/button";
@@ -24,7 +26,9 @@ import {
   ChevronDown,
   Lightbulb,
   Moon,
-  Sun
+  Sun,
+  Heart,
+  Folder
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -217,7 +221,21 @@ const QuranViewer = () => {
           <BookmarksManager 
             currentSurahId={surahId}
             currentVerseNumber={ayahParam ? parseInt(ayahParam) : 1}
+            currentVerseText={ayahParam && surah.verses ? 
+              surah.verses.find(v => v.numberInSurah === parseInt(ayahParam))?.text : 
+              surah.verses?.[0]?.text}
           />
+          
+          <FavoritesManager
+            currentSurahId={surahId}
+            currentSurahName={surah.name}
+            currentVerseNumber={ayahParam ? parseInt(ayahParam) : 1}
+            currentVerseText={ayahParam && surah.verses ? 
+              surah.verses.find(v => v.numberInSurah === parseInt(ayahParam))?.text : 
+              surah.verses?.[0]?.text}
+          />
+          
+          <CollectionsManager />
           
           <ReadingTracker onNavigateToLastRead={handleNavigateToLastRead} />
           
