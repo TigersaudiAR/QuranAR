@@ -15,11 +15,22 @@ import {
   Edit3
 } from "lucide-react";
 
+type ZikrItem = {
+  id: number;
+  text: string;
+  repeat: number;
+  source: string;
+  translated: string;
+};
+
+type DhikrCountType = Record<string, number>;
+type DhikrGoalsType = Record<string, number>;
+
 export default function AzkarPage() {
   const [activeTab, setActiveTab] = useState("counter");
 
   // State for dhikr counter
-  const [dhikrCount, setDhikrCount] = useState(() => {
+  const [dhikrCount, setDhikrCount] = useState<DhikrCountType>(() => {
     const saved = localStorage.getItem("dhikrCount");
     return saved ? JSON.parse(saved) : {
       "استغفار": 0,
@@ -30,7 +41,7 @@ export default function AzkarPage() {
     };
   });
 
-  const [dhikrGoals, setDhikrGoals] = useState(() => {
+  const [dhikrGoals, setDhikrGoals] = useState<DhikrGoalsType>(() => {
     const saved = localStorage.getItem("dhikrGoals");
     return saved ? JSON.parse(saved) : {
       "استغفار": 100,
@@ -47,26 +58,26 @@ export default function AzkarPage() {
     localStorage.setItem("dhikrGoals", JSON.stringify(dhikrGoals));
   }, [dhikrCount, dhikrGoals]);
 
-  const incrementDhikr = (type) => {
+  const incrementDhikr = (type: string) => {
     if (dhikrCount[type] < dhikrGoals[type]) {
-      setDhikrCount(prev => ({
+      setDhikrCount((prev: Record<string, number>) => ({
         ...prev,
         [type]: prev[type] + 1
       }));
     }
   };
 
-  const resetDhikr = (type) => {
-    setDhikrCount(prev => ({
+  const resetDhikr = (type: string) => {
+    setDhikrCount((prev: Record<string, number>) => ({
       ...prev,
       [type]: 0
     }));
   };
 
-  const handleGoalChange = (type, value) => {
+  const handleGoalChange = (type: string, value: string) => {
     const numValue = parseInt(value, 10);
     if (!isNaN(numValue) && numValue > 0) {
-      setDhikrGoals(prev => ({
+      setDhikrGoals((prev: Record<string, number>) => ({
         ...prev,
         [type]: numValue
       }));
