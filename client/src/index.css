@@ -3,6 +3,40 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    direction: rtl;
+  }
+  
+  body {
+    font-family: 'Roboto', 'Amiri', sans-serif;
+  }
+  
+  .font-uthmani {
+    font-family: 'Uthmani', serif;
+  }
+}
+
+@layer components {
+  .grid-card-layout {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4;
+  }
+  
+  .feature-card {
+    @apply transition-all duration-300 hover:shadow-md hover:border-primary/30;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
