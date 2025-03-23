@@ -1,6 +1,6 @@
 import { LastRead, Surah } from "@/lib/types";
 import { storage, DBLastRead } from "../storage";
-import { surahs, getSurahVerses, surahFatiha } from "../data/quranData";
+import { surahs, getSurahVerses, surahFatiha, surahIkhlas, surahNas } from "../data/quranData";
 
 export const quranService = {
   // الحصول على جميع السور
@@ -36,10 +36,37 @@ export const quranService = {
   // الحصول على سورة محددة بناء على رقمها
   getSurahById: async (id: number): Promise<Surah | null> => {
     try {
-      // إذا كانت سورة الفاتحة، أعدها مباشرة
+      // إذا كانت سورة الفاتحة
       if (id === 1) {
+        const fullSurah: Surah = {
+          ...surahFatiha as Surah,
+          previousSurah: undefined,
+          nextSurah: surahs[1].name // السورة التالية هي البقرة
+        };
         console.log(`Background refresh of surah ${id} data complete`);
-        return surahFatiha as Surah;
+        return fullSurah;
+      }
+      
+      // إذا كانت سورة الإخلاص
+      if (id === 112) {
+        const fullSurah: Surah = {
+          ...surahIkhlas as Surah,
+          previousSurah: surahs[110].name, // السورة السابقة
+          nextSurah: surahs[112].name // السورة التالية (الفلق)
+        };
+        console.log(`Background refresh of surah ${id} data complete`);
+        return fullSurah;
+      }
+      
+      // إذا كانت سورة الناس
+      if (id === 114) {
+        const fullSurah: Surah = {
+          ...surahNas as Surah,
+          previousSurah: surahs[112].name, // السورة السابقة
+          nextSurah: undefined // لا توجد سورة تالية
+        };
+        console.log(`Background refresh of surah ${id} data complete`);
+        return fullSurah;
       }
       
       // ابحث عن السورة في قائمة السور

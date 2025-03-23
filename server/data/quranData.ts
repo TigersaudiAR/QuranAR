@@ -118,13 +118,75 @@ export const surahs = [
   { id: 114, name: "النَّاس", englishName: "An-Nās", revelationType: "meccan", versesCount: 6 }
 ];
 
+// تعرّيف لسورة الفاتحة
+export const surahFatiha = {
+  id: 1,
+  name: "الفَاتِحة",
+  englishName: "Al-Fātiḥah",
+  revelationType: "meccan",
+  versesCount: 7,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
+    { id: 2, number: 2, numberInSurah: 2, text: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
+    { id: 3, number: 3, numberInSurah: 3, text: "الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
+    { id: 4, number: 4, numberInSurah: 4, text: "مَالِكِ يَوْمِ الدِّينِ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
+    { id: 5, number: 5, numberInSurah: 5, text: "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
+    { id: 6, number: 6, numberInSurah: 6, text: "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
+    { id: 7, number: 7, numberInSurah: 7, text: "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 }
+  ]
+};
+
+// محتوى سورة الإخلاص
+export const surahIkhlas = {
+  id: 112,
+  name: "الإخْلاص",
+  englishName: "Al-Ikhlāṣ",
+  revelationType: "meccan",
+  versesCount: 4,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الإخْلاص", juzNumber: 30, pageNumber: 604 },
+    { id: 2, number: 2, numberInSurah: 2, text: "قُلْ هُوَ اللَّهُ أَحَدٌ", surahName: "الإخْلاص", juzNumber: 30, pageNumber: 604 },
+    { id: 3, number: 3, numberInSurah: 3, text: "اللَّهُ الصَّمَدُ", surahName: "الإخْلاص", juzNumber: 30, pageNumber: 604 },
+    { id: 4, number: 4, numberInSurah: 4, text: "لَمْ يَلِدْ وَلَمْ يُولَدْ", surahName: "الإخْلاص", juzNumber: 30, pageNumber: 604 },
+    { id: 5, number: 5, numberInSurah: 5, text: "وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ", surahName: "الإخْلاص", juzNumber: 30, pageNumber: 604 }
+  ]
+};
+
+// محتوى سورة الناس
+export const surahNas = {
+  id: 114,
+  name: "النَّاس",
+  englishName: "An-Nās",
+  revelationType: "meccan",
+  versesCount: 6,
+  verses: [
+    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "النَّاس", juzNumber: 30, pageNumber: 604 },
+    { id: 2, number: 2, numberInSurah: 2, text: "قُلْ أَعُوذُ بِرَبِّ النَّاسِ", surahName: "النَّاس", juzNumber: 30, pageNumber: 604 },
+    { id: 3, number: 3, numberInSurah: 3, text: "مَلِكِ النَّاسِ", surahName: "النَّاس", juzNumber: 30, pageNumber: 604 },
+    { id: 4, number: 4, numberInSurah: 4, text: "إِلَٰهِ النَّاسِ", surahName: "النَّاس", juzNumber: 30, pageNumber: 604 },
+    { id: 5, number: 5, numberInSurah: 5, text: "مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ", surahName: "النَّاس", juzNumber: 30, pageNumber: 604 },
+    { id: 6, number: 6, numberInSurah: 6, text: "الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ", surahName: "النَّاس", juzNumber: 30, pageNumber: 604 },
+    { id: 7, number: 7, numberInSurah: 7, text: "مِنَ الْجِنَّةِ وَالنَّاسِ", surahName: "النَّاس", juzNumber: 30, pageNumber: 604 }
+  ]
+};
+
 // وظيفة للحصول على آيات السورة بناءً على رقمها
 export function getSurahVerses(surahId: number) {
+  // تحقق من السور المتوفرة مباشرة
+  if (surahId === 1) {
+    return surahFatiha.verses;
+  } else if (surahId === 112) {
+    return surahIkhlas.verses;
+  } else if (surahId === 114) {
+    return surahNas.verses;
+  }
+  
+  // إذا لم تكن السورة متوفرة، استخدم البيانات العامة
   const surah = surahs.find(s => s.id === surahId);
   if (!surah) return [];
   
   const verses = [];
-  const versesCount = surah.versesCount || 10; // عدد آيات السورة، أو 10 كحد افتراضي
+  const versesCount = surah.versesCount || 10; // عدد آيات السورة
   
   // إضافة البسملة كآية أولى لجميع السور ما عدا سورة التوبة (رقم 9)
   if (surahId !== 9) {
@@ -154,21 +216,3 @@ export function getSurahVerses(surahId: number) {
   
   return verses;
 }
-
-// تعرّيف لسورة الفاتحة
-export const surahFatiha = {
-  id: 1,
-  name: "الفَاتِحة",
-  englishName: "Al-Fātiḥah",
-  revelationType: "meccan",
-  versesCount: 7,
-  verses: [
-    { id: 1, number: 1, numberInSurah: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
-    { id: 2, number: 2, numberInSurah: 2, text: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
-    { id: 3, number: 3, numberInSurah: 3, text: "الرَّحْمَٰنِ الرَّحِيمِ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
-    { id: 4, number: 4, numberInSurah: 4, text: "مَالِكِ يَوْمِ الدِّينِ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
-    { id: 5, number: 5, numberInSurah: 5, text: "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
-    { id: 6, number: 6, numberInSurah: 6, text: "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 },
-    { id: 7, number: 7, numberInSurah: 7, text: "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ", surahName: "الفَاتِحة", juzNumber: 1, pageNumber: 1 }
-  ]
-};
