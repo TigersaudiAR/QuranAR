@@ -1,234 +1,121 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { SearchIcon, BookOpen, Send, Moon, ArrowRight, BookOpenCheck } from "lucide-react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { useToast } from "@/hooks/use-toast";
-
-const dreamFormSchema = z.object({
-  dreamDescription: z.string().min(5, {
-    message: "يجب أن يحتوي الحلم على الأقل 5 أحرف.",
-  }),
-});
-
-type DreamFormValues = z.infer<typeof dreamFormSchema>;
+import { 
+  Book, 
+  Moon, 
+  Loader2,
+  ExternalLink,
+  Info
+} from "lucide-react";
 
 export default function TafseerDreamsPage() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState("dreams");
+  const [dreamText, setDreamText] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [dreamInterpretation, setDreamInterpretation] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
 
-  const form = useForm<DreamFormValues>({
-    resolver: zodResolver(dreamFormSchema),
-    defaultValues: {
-      dreamDescription: "",
-    },
-  });
+  const handleDreamSubmit = () => {
+    if (!dreamText.trim()) return;
 
-  const handleSearch = () => {
-    if (!searchTerm.trim()) return;
-    
-    // في تطبيق حقيقي، هذا سيستدعي API للبحث في التفسير
-    setSearchResults([
-      {
-        id: 1,
-        title: "تفسير سورة الفاتحة",
-        excerpt: "تفسير سورة الفاتحة - أم الكتاب والسبع المثاني...",
-        source: "تفسير ابن كثير"
-      },
-      {
-        id: 2,
-        title: "تفسير آية الكرسي",
-        excerpt: "تفسير آية الكرسي من سورة البقرة...",
-        source: "تفسير الطبري"
-      },
-      {
-        id: 3,
-        title: "تفسير سورة الإخلاص",
-        excerpt: "تفسير سورة الإخلاص وفضلها...",
-        source: "تفسير السعدي"
-      }
-    ]);
-  };
-
-  const onDreamSubmit = (data: DreamFormValues) => {
-    setIsLoading(true);
-    
-    // في التطبيق الحقيقي، هنا سنستخدم API ذكاء اصطناعي لتفسير الحلم
+    setIsSubmitting(true);
+    // Simulate API call for dream interpretation
     setTimeout(() => {
       setDreamInterpretation(
-        "بناءً على مصادر من السنة النبوية والتفسيرات الإسلامية المعتمدة، هذا الحلم قد يشير إلى [تفسير الحلم بناء على الوصف المقدم]. وقد ورد في السنة أن الرؤيا الصالحة من الله، والحلم من الشيطان. والله أعلم."
+        "تشير رؤياك إلى أنك تمر بمرحلة من التحول الإيجابي في حياتك. الماء الصافي في المنام يرمز للصفاء الروحي وراحة البال. " +
+        "والطيور في الحلم ترمز إلى الأخبار السارة والبشائر التي ستأتيك قريبًا. أما المشي على الأرض الخضراء فيرمز إلى الخير الوفير والرزق الحلال. " +
+        "ننصحك بالاستمرار في طريقك الحالي وأن تستعد للخير القادم إليك بإذن الله."
       );
-      setIsLoading(false);
-      
-      toast({
-        title: "تم تفسير الحلم",
-        description: "تم تفسير الحلم بنجاح وفقًا للمصادر الإسلامية",
-      });
-    }, 2000);
+      setIsSubmitting(false);
+    }, 1500);
   };
 
-  const tafseerSources = [
+  const dreamSources = [
     {
-      id: 1,
-      name: "تفسير ابن كثير",
-      description: "تفسير القرآن العظيم للإمام ابن كثير (ت: 774هـ)",
-      count: "114 سورة"
+      name: "تفسير ابن سيرين",
+      description: "من أشهر كتب تفسير الأحلام والرؤى في التراث الإسلامي"
     },
     {
-      id: 2,
-      name: "تفسير السعدي",
-      description: "تيسير الكريم الرحمن في تفسير كلام المنان للشيخ السعدي (ت: 1376هـ)",
-      count: "114 سورة"
+      name: "تفسير النابلسي",
+      description: "كتاب تعبير الرؤيا للإمام عبد الغني النابلسي"
     },
     {
-      id: 3,
-      name: "تفسير الطبري",
-      description: "جامع البيان عن تأويل آي القرآن للإمام الطبري (ت: 310هـ)",
-      count: "114 سورة"
+      name: "تفسير ابن شاهين",
+      description: "كتاب الإشارات في علم العبارات لابن شاهين"
     },
     {
-      id: 4,
-      name: "تفسير القرطبي",
-      description: "الجامع لأحكام القرآن للإمام القرطبي (ت: 671هـ)",
-      count: "114 سورة"
+      name: "القرآن الكريم والسنة النبوية",
+      description: "المصدر الأساسي للتفسير المعتمد على الآيات والأحاديث"
+    }
+  ];
+
+  const dreamFaqs = [
+    {
+      question: "هل كل الأحلام لها تفسير؟",
+      answer: "لا، ليست كل الأحلام ذات معنى أو تحتاج تفسيرًا. الأحلام في الإسلام ثلاثة أنواع: رؤيا من الله، وحديث نفس، وتلاعب الشيطان."
+    },
+    {
+      question: "كيف أميز الرؤيا الصادقة؟",
+      answer: "الرؤيا الصادقة تكون واضحة وتترك أثرًا في النفس، وغالبًا ما تكون في وقت السحر، وتتحقق في الواقع."
+    },
+    {
+      question: "هل يجب أن أخبر كل الناس برؤياي؟",
+      answer: "لا ينبغي أن تقص رؤياك إلا على من تحب أو عالم يفسرها لك. والرؤيا السيئة لا تخبر بها أحدًا."
     }
   ];
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">التفسير وتعبير الأحلام</h1>
-      
-      <Tabs defaultValue="tafseer" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-8">
-          <TabsTrigger value="tafseer">تفسير القرآن الكريم</TabsTrigger>
+    <div className="container mx-auto py-8 px-4">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2">تفسير الأحلام</h1>
+        <p className="text-muted-foreground">تفسير الأحلام والرؤى وفق المنهج الإسلامي</p>
+      </div>
+
+      <Tabs defaultValue="dreams" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+        <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
           <TabsTrigger value="dreams">تفسير الأحلام</TabsTrigger>
+          <TabsTrigger value="info">معلومات تفسيرية</TabsTrigger>
         </TabsList>
-        
-        <TabsContent value="tafseer">
-          <div className="mb-8">
-            <div className="relative">
-              <SearchIcon className="absolute right-3 top-3 h-5 w-5 text-muted-foreground" />
-              <Input
-                placeholder="ابحث في التفسير (آية، سورة، كلمة)"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-10"
-              />
-              <Button 
-                className="absolute left-2 top-1.5" 
-                size="sm"
-                onClick={handleSearch}
-              >
-                بحث
-              </Button>
-            </div>
-          </div>
-          
-          {searchResults.length > 0 ? (
-            <div className="mt-6">
-              <h2 className="text-2xl font-semibold mb-4">نتائج البحث</h2>
-              <div className="space-y-4">
-                {searchResults.map((result) => (
-                  <Card key={result.id}>
-                    <CardHeader>
-                      <CardTitle>{result.title}</CardTitle>
-                      <CardDescription>{result.source}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p>{result.excerpt}</p>
-                    </CardContent>
-                    <CardFooter>
-                      <Button variant="ghost">
-                        قراءة المزيد <ArrowRight className="mr-2 h-4 w-4" />
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tafseerSources.map((source) => (
-                <Card key={source.id} className="shadow-sm">
-                  <CardHeader>
-                    <div className="flex items-center">
-                      <BookOpenCheck className="h-5 w-5 mr-2 text-primary" />
-                      <CardTitle>{source.name}</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base">{source.description}</CardDescription>
-                    <p className="text-sm text-muted-foreground mt-2">{source.count}</p>
-                  </CardContent>
-                  <CardFooter>
-                    <Button variant="outline" className="w-full">
-                      استعرض التفسير <BookOpen className="mr-2 h-4 w-4" />
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          )}
-        </TabsContent>
-        
+
         <TabsContent value="dreams">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="md:row-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
               <CardHeader>
-                <div className="flex items-center">
-                  <Moon className="h-5 w-5 mr-2 text-primary" />
-                  <CardTitle>تفسير الأحلام وفق السنة النبوية</CardTitle>
-                </div>
+                <CardTitle>وصف الحلم</CardTitle>
                 <CardDescription>
-                  أدخل وصف الحلم وسنقوم بتفسيره وفق المصادر الإسلامية
+                  اكتب وصفًا مفصلًا للمنام الذي رأيته
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onDreamSubmit)} className="space-y-6">
-                    <FormField
-                      control={form.control}
-                      name="dreamDescription"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>وصف الحلم</FormLabel>
-                          <FormControl>
-                            <Textarea 
-                              placeholder="اكتب وصفًا تفصيليًا للحلم..." 
-                              className="min-h-[150px]" 
-                              {...field} 
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            اكتب وصفًا دقيقًا للحلم ليتم تفسيره وفق المصادر الإسلامية.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className="w-full" disabled={isLoading}>
-                      {isLoading ? (
-                        <span>جاري التفسير...</span>
-                      ) : (
-                        <>
-                          <Send className="ml-2 h-4 w-4" /> تفسير الحلم
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                </Form>
+                <Textarea
+                  placeholder="صف رؤياك بتفاصيل واضحة..."
+                  className="min-h-[200px]"
+                  value={dreamText}
+                  onChange={(e) => setDreamText(e.target.value)}
+                />
               </CardContent>
+              <CardFooter className="flex justify-end">
+                <Button 
+                  onClick={handleDreamSubmit} 
+                  disabled={!dreamText.trim() || isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+                      جاري التفسير...
+                    </>
+                  ) : (
+                    <>
+                      <Moon className="ml-2 h-4 w-4" />
+                      تفسير الحلم
+                    </>
+                  )}
+                </Button>
+              </CardFooter>
             </Card>
-            
+
             <Card>
               <CardHeader>
                 <CardTitle>التفسير</CardTitle>
@@ -252,7 +139,7 @@ export default function TafseerDreamsPage() {
                 )}
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader>
                 <CardTitle>مصادر التفسير</CardTitle>
@@ -261,30 +148,77 @@ export default function TafseerDreamsPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <ArrowRight className="h-4 w-4 ml-2 text-primary" />
-                    <span>صحيح البخاري ومسلم</span>
-                  </li>
-                  <li className="flex items-center">
-                    <ArrowRight className="h-4 w-4 ml-2 text-primary" />
-                    <span>كتاب تعطير الأنام في تفسير الأحلام لابن سيرين</span>
-                  </li>
-                  <li className="flex items-center">
-                    <ArrowRight className="h-4 w-4 ml-2 text-primary" />
-                    <span>منتخب الكلام في تفسير الأحلام للنابلسي</span>
-                  </li>
-                  <li className="flex items-center">
-                    <ArrowRight className="h-4 w-4 ml-2 text-primary" />
-                    <span>أحاديث نبوية متعلقة بالرؤى والأحلام</span>
-                  </li>
-                </ul>
+                <div className="space-y-4">
+                  {dreamSources.map((source, index) => (
+                    <div key={index} className="flex items-start">
+                      <Book className="h-5 w-5 ml-3 mt-0.5 text-muted-foreground" />
+                      <div>
+                        <h4 className="text-base font-medium">{source.name}</h4>
+                        <p className="text-sm text-muted-foreground">{source.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
               <CardFooter>
                 <Button variant="outline" className="w-full">
-                  <BookOpen className="ml-2 h-4 w-4" /> قراءة المزيد عن تفسير الأحلام
+                  <ExternalLink className="ml-2 h-4 w-4" />
+                  المزيد من المصادر
                 </Button>
               </CardFooter>
+            </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="info">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="md:col-span-2">
+              <CardHeader>
+                <CardTitle>الرؤى والأحلام في الإسلام</CardTitle>
+                <CardDescription>
+                  معلومات مهمة عن الرؤى وأقسامها في الشريعة الإسلامية
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="prose dark:prose-invert max-w-none">
+                <p>قسّم النبي صلى الله عليه وسلم الرؤى إلى ثلاثة أقسام:</p>
+                <ol>
+                  <li>
+                    <strong>الرؤيا الصالحة:</strong> وهي من الله تعالى، وتكون بشرى للمؤمن، أو إنذارًا له، أو توجيهًا.
+                  </li>
+                  <li>
+                    <strong>حديث النفس:</strong> وهي ما يشغل بال الإنسان في يقظته فيراه في منامه.
+                  </li>
+                  <li>
+                    <strong>تخويف من الشيطان:</strong> وهي الأحلام المزعجة التي تسبب الخوف والقلق للإنسان.
+                  </li>
+                </ol>
+                <p>
+                  قال رسول الله صلى الله عليه وسلم: "الرؤيا الصالحة جزء من ستة وأربعين جزءًا من النبوة" (رواه البخاري).
+                </p>
+                <p>وقال أيضًا: "إذا اقترب الزمان لم تكد رؤيا المؤمن تكذب، وأصدقكم رؤيا أصدقكم حديثًا" (متفق عليه).</p>
+              </CardContent>
+            </Card>
+
+            <Card className="md:col-span-2">
+              <CardHeader>
+                <CardTitle>الأسئلة الشائعة</CardTitle>
+                <CardDescription>
+                  إجابات لأكثر الأسئلة شيوعًا حول تفسير الأحلام
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {dreamFaqs.map((faq, index) => (
+                    <div key={index} className="border rounded-lg p-4">
+                      <div className="flex items-start mb-2">
+                        <Info className="h-5 w-5 ml-2 mt-0.5 text-primary" />
+                        <h4 className="text-base font-medium">{faq.question}</h4>
+                      </div>
+                      <p className="text-muted-foreground">{faq.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
             </Card>
           </div>
         </TabsContent>

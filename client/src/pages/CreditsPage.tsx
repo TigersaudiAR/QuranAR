@@ -1,13 +1,22 @@
-import React from "react";
+
+import { 
+  Phone, 
+  Mail, 
+  User, 
+  Github, 
+  Twitter, 
+  Instagram,
+  Heart,
+  ExternalLink
+} from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { User, Mail, Phone, Github, ArrowUpRight, MessageSquare } from "lucide-react";
 
 export default function CreditsPage() {
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 px-4">
       <div className="max-w-3xl mx-auto">
         <Card className="mb-8">
           <CardHeader className="text-center">
@@ -35,40 +44,118 @@ export default function CreditsPage() {
               </div>
             </div>
             
-            <Separator className="my-6" />
+            <Separator className="mb-6" />
             
-            <div className="text-right w-full">
-              <h3 className="text-xl font-semibold mb-4">عن المطور</h3>
-              <p className="mb-4 text-muted-foreground">
-                مطور برمجيات متخصص في تطبيقات الويب والتطبيقات الإسلامية، مع خبرة واسعة في تطوير تطبيقات تعليمية للقرآن الكريم والعلوم الإسلامية.
-              </p>
-              <p className="mb-4 text-muted-foreground">
-                يهدف هذا المشروع إلى توفير منصة متكاملة للمسلمين لتعلم القرآن الكريم وعلومه، وتوفير أدوات مساعدة للعبادات والأذكار.
-              </p>
+            <div className="flex justify-center space-x-4 space-x-reverse">
+              <Button variant="outline" size="icon">
+                <Twitter className="h-5 w-5 text-primary" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <Github className="h-5 w-5 text-primary" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <Instagram className="h-5 w-5 text-primary" />
+              </Button>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-center gap-4">
-            <Button variant="outline">
-              <Github className="ml-2 h-4 w-4" />
-              <span>GitHub</span>
-            </Button>
-            <Button variant="outline">
-              <MessageSquare className="ml-2 h-4 w-4" />
-              <span>تواصل معنا</span>
-            </Button>
-            <Button>
-              <ArrowUpRight className="ml-2 h-4 w-4" />
-              <span>المزيد من المشاريع</span>
-            </Button>
-          </CardFooter>
         </Card>
         
-        <div className="text-center text-sm text-muted-foreground">
-          <p>© 2025 تطبيق القرآن الكريم - جميع الحقوق محفوظة لعبدالرحمن عوض الرشيدي</p>
-          <p className="mt-1">
-            لا يجوز استخدام أي محتوى من هذا التطبيق بدون إذن مسبق من المطور
-          </p>
-        </div>
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>الشكر والتقدير</CardTitle>
+            <CardDescription>
+              نشكر كل من ساهم في إنجاح هذا المشروع
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-4 border rounded-lg">
+              <h3 className="text-lg font-semibold mb-2">الجهات المساهمة</h3>
+              <p className="text-muted-foreground">
+                نتقدم بالشكر الجزيل للجهات التالية على دعمها ومساهمتها في هذا المشروع:
+              </p>
+              <ul className="mt-2 space-y-1">
+                <li className="flex items-center">
+                  <div className="bg-primary/10 p-1 rounded-full mt-1 ml-2">
+                    <div className="h-1.5 w-1.5 bg-primary rounded-full"></div>
+                  </div>
+                  <span>مجمع الملك فهد لطباعة المصحف الشريف</span>
+                </li>
+                <li className="flex items-center">
+                  <div className="bg-primary/10 p-1 rounded-full mt-1 ml-2">
+                    <div className="h-1.5 w-1.5 bg-primary rounded-full"></div>
+                  </div>
+                  <span>وزارة الشؤون الإسلامية والدعوة والإرشاد</span>
+                </li>
+                <li className="flex items-center">
+                  <div className="bg-primary/10 p-1 rounded-full mt-1 ml-2">
+                    <div className="h-1.5 w-1.5 bg-primary rounded-full"></div>
+                  </div>
+                  <span>المكتبة الشاملة الإلكترونية</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="p-4 border rounded-lg">
+              <h3 className="text-lg font-semibold mb-2">الأئمة والمشايخ</h3>
+              <p className="text-muted-foreground">
+                نشكر فضيلة المشايخ الذين ساهموا في مراجعة المحتوى العلمي للتطبيق:
+              </p>
+              <ul className="mt-2 space-y-1">
+                <li className="flex items-center">
+                  <div className="bg-primary/10 p-1 rounded-full mt-1 ml-2">
+                    <div className="h-1.5 w-1.5 bg-primary rounded-full"></div>
+                  </div>
+                  <span>الشيخ د. صالح الفوزان</span>
+                </li>
+                <li className="flex items-center">
+                  <div className="bg-primary/10 p-1 rounded-full mt-1 ml-2">
+                    <div className="h-1.5 w-1.5 bg-primary rounded-full"></div>
+                  </div>
+                  <span>الشيخ د. عبدالله السحيم</span>
+                </li>
+                <li className="flex items-center">
+                  <div className="bg-primary/10 p-1 rounded-full mt-1 ml-2">
+                    <div className="h-1.5 w-1.5 bg-primary rounded-full"></div>
+                  </div>
+                  <span>الشيخ د. محمد المنجد</span>
+                </li>
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle>حقوق الملكية والاستخدام</CardTitle>
+            <CardDescription>
+              معلومات حول الحقوق والتراخيص
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-4 border rounded-lg">
+              <p className="text-muted-foreground">
+                © جميع الحقوق محفوظة لمطور التطبيق. يسمح باستخدام التطبيق للأغراض الشخصية والتعليمية. لا يسمح بإعادة نشر المحتوى أو استخدامه تجاريًا دون إذن مسبق.
+              </p>
+              <p className="text-muted-foreground mt-2">
+                محتوى القرآن الكريم والتفاسير مأخوذة من مصادر موثوقة، وهي ملك لمالكيها الأصليين.
+              </p>
+            </div>
+            
+            <div className="flex justify-center">
+              <Button variant="outline" className="mx-2">
+                <Heart className="ml-2 h-4 w-4 text-red-500" />
+                <span>دعم المشروع</span>
+              </Button>
+              <Button variant="outline" className="mx-2">
+                <ExternalLink className="ml-2 h-4 w-4" />
+                <span>الموقع الرسمي</span>
+              </Button>
+            </div>
+          </CardContent>
+          <CardFooter className="text-center text-xs text-muted-foreground">
+            تم التطوير بكل حب وإخلاص لخدمة كتاب الله تعالى وسنة نبيه صلى الله عليه وسلم
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );

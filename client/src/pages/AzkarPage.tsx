@@ -1,87 +1,93 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Download, Clock, Sun, Moon, Coffee, WifiOff, CheckCircle, Heart, Repeat, Download as DownloadIcon, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useToast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
+import { 
+  CheckCircle, 
+  RefreshCcw, 
+  Moon, 
+  Sun, 
+  Edit3
+} from "lucide-react";
 
 export default function AzkarPage() {
-  const [dhikrCount, setDhikrCount] = useState<Record<string, number>>({
-    استغفار: 0,
-    تسبيح: 0,
-    تحميد: 0,
-    تكبير: 0,
-    حوقلة: 0,
-  });
-  
-  const [dhikrGoals, setDhikrGoals] = useState<Record<string, number>>({
-    استغفار: 100,
-    تسبيح: 33,
-    تحميد: 33,
-    تكبير: 34,
-    حوقلة: 100,
+  const [activeTab, setActiveTab] = useState("counter");
+
+  // State for dhikr counter
+  const [dhikrCount, setDhikrCount] = useState(() => {
+    const saved = localStorage.getItem("dhikrCount");
+    return saved ? JSON.parse(saved) : {
+      "استغفار": 0,
+      "تسبيح": 0,
+      "تحميد": 0,
+      "تكبير": 0,
+      "حوقلة": 0
+    };
   });
 
-  const { toast } = useToast();
+  const [dhikrGoals, setDhikrGoals] = useState(() => {
+    const saved = localStorage.getItem("dhikrGoals");
+    return saved ? JSON.parse(saved) : {
+      "استغفار": 100,
+      "تسبيح": 33,
+      "تحميد": 33,
+      "تكبير": 34,
+      "حوقلة": 50
+    };
+  });
 
-  const incrementDhikr = (type: string) => {
-    const newCount = dhikrCount[type] + 1;
-    setDhikrCount({
-      ...dhikrCount,
-      [type]: newCount,
-    });
-    
-    if (newCount === dhikrGoals[type]) {
-      toast({
-        title: "أحسنت!",
-        description: `أكملت ${dhikrGoals[type]} من ${type}`,
-      });
+  // Save to localStorage when dhikr state changes
+  useEffect(() => {
+    localStorage.setItem("dhikrCount", JSON.stringify(dhikrCount));
+    localStorage.setItem("dhikrGoals", JSON.stringify(dhikrGoals));
+  }, [dhikrCount, dhikrGoals]);
+
+  const incrementDhikr = (type) => {
+    if (dhikrCount[type] < dhikrGoals[type]) {
+      setDhikrCount(prev => ({
+        ...prev,
+        [type]: prev[type] + 1
+      }));
     }
   };
 
-  const resetDhikr = (type: string) => {
-    setDhikrCount({
-      ...dhikrCount,
-      [type]: 0,
-    });
-  };
-  
-  const resetAllDhikr = () => {
-    setDhikrCount({
-      استغفار: 0,
-      تسبيح: 0,
-      تحميد: 0,
-      تكبير: 0,
-      حوقلة: 0,
-    });
+  const resetDhikr = (type) => {
+    setDhikrCount(prev => ({
+      ...prev,
+      [type]: 0
+    }));
   };
 
-  const handleGoalChange = (type: string, value: string) => {
-    const goal = parseInt(value) || 0;
-    setDhikrGoals({
-      ...dhikrGoals,
-      [type]: goal,
-    });
+  const handleGoalChange = (type, value) => {
+    const numValue = parseInt(value, 10);
+    if (!isNaN(numValue) && numValue > 0) {
+      setDhikrGoals(prev => ({
+        ...prev,
+        [type]: numValue
+      }));
+    }
   };
 
+  // Azkar data
   const morningAzkar = [
     {
       id: 1,
-      text: "أَصْبَحْنَا وَأَصْبَحَ المُلْكُ للهِ، وَالحَمْدُ للهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ المُلْكُ وَلَهُ الحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      text: "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ: اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
       repeat: 1,
-      source: "رواه أبو داود",
-      translated: "We have reached the morning and at this very time the whole kingdom belongs to Allah. Praise be to Allah. There is no god but Allah, the One having no partner with Him. To Him belongs the kingdom and to Him is all praise due. He is Potent over everything."
+      source: "البقرة: 255",
+      translated: "Allah! There is no god but He - the Living, The Self-subsisting, Eternal. No slumber can seize Him nor sleep."
     },
     {
       id: 2,
-      text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
-      repeat: 1,
-      source: "رواه البخاري",
-      translated: "O Allah! You are my Lord! None has the right to be worshipped but You. You created me and I am Your slave, and I am faithful to my covenant and my promise as much as I can. I seek refuge with You from all the evil I have done. I acknowledge before You all the blessings You have bestowed upon me, and I confess to You all my sins. So I entreat You to forgive my sins, for nobody can forgive sins except You."
+      text: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+      repeat: 3,
+      source: "سورة الإخلاص",
+      translated: "Say: He is Allah, the One; Allah, the Eternal, Absolute; He begetteth not, nor is He begotten; And there is none like unto Him."
     },
     {
       id: 3,
@@ -105,80 +111,48 @@ export default function AzkarPage() {
       text: "أَمْسَيْنَا وَأَمْسَى المُلْكُ للهِ، وَالحَمْدُ للهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ المُلْكُ وَلَهُ الحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
       repeat: 1,
       source: "رواه أبو داود",
-      translated: "We have reached the evening and at this very time the whole kingdom belongs to Allah. Praise be to Allah. There is no god but Allah, the One having no partner with Him. To Him belongs the kingdom and to Him is all praise due. He is Potent over everything."
+      translated: "We have entered the evening and the kingdom has entered the evening belonging to Allah. Praise is to Allah. None has the right to be worshipped except Allah, alone, without partner. To Him belongs the dominion and to Him belongs all praise and He is over all things Omnipotent."
     },
     {
       id: 2,
-      text: "اللَّهُمَّ مَا أَمْسَى بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ",
+      text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ وَإِلَيْكَ الْمَصِيرُ",
+      repeat: 1,
+      source: "رواه الترمذي",
+      translated: "O Allah, by You we enter the evening and by You we enter the morning, by You we live and by You we die, and to You is the final return."
+    },
+    {
+      id: 3,
+      text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+      repeat: 3,
+      source: "رواه مسلم",
+      translated: "I seek refuge in the Perfect Words of Allah from the evil of what He has created."
+    },
+    {
+      id: 4,
+      text: "اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ",
       repeat: 1,
       source: "رواه أبو داود",
-      translated: "O Allah, what blessing I or any of Your creation have received in this evening is from You alone, without partner, so for You is all praise and gratitude."
-    },
-    {
-      id: 3,
-      text: "اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلائِكَتَكَ وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لا إِلَهَ إِلاَّ أَنْتَ وَحْدَكَ لا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ",
-      repeat: 4,
-      source: "رواه أبو داود والترمذي",
-      translated: "O Allah, I have reached the evening and call on You, the bearers of Your throne, Your angels, and all of Your creation to witness that You are Allah, none has the right to be worshipped except You, alone, without partner, and that Muhammad is Your slave and Messenger."
-    }
-  ];
-
-  const azkarBooks = [
-    {
-      id: 1,
-      title: "حصن المسلم",
-      author: "سعيد بن علي بن وهف القحطاني",
-      size: "2.5 MB",
-      format: "PDF",
-      url: "/books/hisn-almuslim.pdf"
-    },
-    {
-      id: 2,
-      title: "الأذكار",
-      author: "الإمام النووي",
-      size: "4.2 MB",
-      format: "PDF",
-      url: "/books/alazkar-nawawi.pdf"
-    },
-    {
-      id: 3,
-      title: "الدعاء من الكتاب والسنة",
-      author: "سعيد بن علي بن وهف القحطاني",
-      size: "3.7 MB",
-      format: "PDF",
-      url: "/books/dua-quran-sunnah.pdf"
+      translated: "O Allah, I have entered the evening and call upon You, and upon the bearers of Your Throne, upon Your angels and all of Your creation to bear witness that surely You are Allah, there is no deity worthy of worship except You alone, without any partners, and that Muhammad is Your servant and Messenger."
     }
   ];
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">الأذكار والأدعية</h1>
-      
-      <Tabs defaultValue="counter" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-8">
-          <TabsTrigger value="counter">حاسبة الأذكار</TabsTrigger>
+    <div className="container mx-auto py-8 px-4">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2">الأذكار والتسبيح</h1>
+        <p className="text-muted-foreground">الأذكار اليومية وعداد التسبيح</p>
+      </div>
+
+      <Tabs defaultValue="counter" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+        <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
+          <TabsTrigger value="counter">عداد الذكر</TabsTrigger>
           <TabsTrigger value="daily">أذكار اليوم</TabsTrigger>
-          <TabsTrigger value="books">كتب وتحميلات</TabsTrigger>
+          <TabsTrigger value="custom">أذكار مخصصة</TabsTrigger>
         </TabsList>
-        
+
         <TabsContent value="counter">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="md:col-span-3 mb-6">
-              <CardHeader>
-                <CardTitle>حاسبة الأذكار</CardTitle>
-                <CardDescription>
-                  سجل أذكارك اليومية وحدد أهدافًا شخصية
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex justify-end mb-4">
-                  <Button variant="outline" size="sm" onClick={resetAllDhikr}>
-                    إعادة ضبط الكل
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-            
+          <h2 className="text-2xl font-semibold mb-6">عداد الذكر</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {Object.keys(dhikrCount).map((type) => (
               <Card key={type} className="shadow-sm">
                 <CardHeader>
@@ -216,7 +190,7 @@ export default function AzkarPage() {
                       size="icon"
                       onClick={() => resetDhikr(type)}
                     >
-                      <Repeat className="h-4 w-4" />
+                      <RefreshCcw className="h-4 w-4" />
                     </Button>
                   </div>
                 </CardContent>
@@ -233,7 +207,7 @@ export default function AzkarPage() {
             ))}
           </div>
         </TabsContent>
-        
+
         <TabsContent value="daily">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card className="shadow-sm">
@@ -253,29 +227,29 @@ export default function AzkarPage() {
                 <ScrollArea className="h-[400px] pr-4">
                   <div className="space-y-4">
                     {morningAzkar.map((zikr) => (
-                      <div key={zikr.id} className="p-4 border rounded-md">
-                        <p className="font-arabic text-xl leading-relaxed mb-3">
-                          {zikr.text}
-                        </p>
-                        <div className="flex justify-between items-center text-sm text-muted-foreground mt-2">
-                          <span>{zikr.source}</span>
-                          <Badge variant="outline">{zikr.repeat} مرات</Badge>
+                      <div key={zikr.id} className="p-4 border rounded-lg">
+                        <p className="text-lg font-arabic leading-relaxed mb-3">{zikr.text}</p>
+                        <div className="flex justify-between items-center text-sm text-muted-foreground">
+                          <span>التكرار: {zikr.repeat}</span>
+                          <span>المصدر: {zikr.source}</span>
                         </div>
+                        <Separator className="my-3" />
+                        <p className="text-xs text-muted-foreground">{zikr.translated}</p>
                       </div>
                     ))}
                   </div>
                 </ScrollArea>
               </CardContent>
             </Card>
-            
+
             <Card className="shadow-sm">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <Moon className="h-5 w-5 mr-2 text-blue-600" />
+                    <Moon className="h-5 w-5 mr-2 text-indigo-400" />
                     <CardTitle>أذكار المساء</CardTitle>
                   </div>
-                  <Badge>مساءً</Badge>
+                  <Badge variant="outline">مساءً</Badge>
                 </div>
                 <CardDescription>
                   الأذكار المستحبة في المساء من بعد العصر حتى المغرب
@@ -285,14 +259,14 @@ export default function AzkarPage() {
                 <ScrollArea className="h-[400px] pr-4">
                   <div className="space-y-4">
                     {eveningAzkar.map((zikr) => (
-                      <div key={zikr.id} className="p-4 border rounded-md">
-                        <p className="font-arabic text-xl leading-relaxed mb-3">
-                          {zikr.text}
-                        </p>
-                        <div className="flex justify-between items-center text-sm text-muted-foreground mt-2">
-                          <span>{zikr.source}</span>
-                          <Badge variant="outline">{zikr.repeat} مرات</Badge>
+                      <div key={zikr.id} className="p-4 border rounded-lg">
+                        <p className="text-lg font-arabic leading-relaxed mb-3">{zikr.text}</p>
+                        <div className="flex justify-between items-center text-sm text-muted-foreground">
+                          <span>التكرار: {zikr.repeat}</span>
+                          <span>المصدر: {zikr.source}</span>
                         </div>
+                        <Separator className="my-3" />
+                        <p className="text-xs text-muted-foreground">{zikr.translated}</p>
                       </div>
                     ))}
                   </div>
@@ -300,136 +274,19 @@ export default function AzkarPage() {
               </CardContent>
             </Card>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <Card className="shadow-sm">
-              <CardHeader>
-                <div className="flex items-center">
-                  <Coffee className="h-5 w-5 mr-2 text-amber-600" />
-                  <CardTitle>أذكار الطعام</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="font-arabic text-lg mb-2">
-                  «بِسْمِ اللهِ»
-                </p>
-                <p className="font-arabic text-lg mb-2">
-                  «الْحَمْدُ للهِ الَّذِي أَطْعَمَنِي هَذَا، وَرَزَقَنِيهِ، مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ»
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="shadow-sm">
-              <CardHeader>
-                <div className="flex items-center">
-                  <WifiOff className="h-5 w-5 mr-2 text-indigo-600" />
-                  <CardTitle>أذكار السفر</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="font-arabic text-lg mb-2">
-                  «اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ...»
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="shadow-sm">
-              <CardHeader>
-                <div className="flex items-center">
-                  <Heart className="h-5 w-5 mr-2 text-rose-600" />
-                  <CardTitle>أدعية مختارة</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="font-arabic text-lg mb-2">
-                  «رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ»
-                </p>
-                <p className="font-arabic text-lg mb-2">
-                  «رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ»
-                </p>
-              </CardContent>
-            </Card>
-          </div>
         </TabsContent>
-        
-        <TabsContent value="books">
-          <h2 className="text-2xl font-semibold mb-6">كتب الأذكار المتاحة للتحميل</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {azkarBooks.map((book) => (
-              <Card key={book.id} className="shadow-sm">
-                <CardHeader>
-                  <div className="flex items-center">
-                    <BookOpen className="h-5 w-5 mr-2 text-primary" />
-                    <CardTitle>{book.title}</CardTitle>
-                  </div>
-                  <CardDescription>
-                    {book.author}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between text-sm text-muted-foreground">
-                    <span>الحجم: {book.size}</span>
-                    <span>الصيغة: {book.format}</span>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full">
-                    <DownloadIcon className="ml-2 h-4 w-4" /> تحميل
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-          
-          <div className="mt-12">
-            <h2 className="text-2xl font-semibold mb-6">تطبيقات الذكر الموصى بها</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>حصن المسلم - تطبيق الجوال</CardTitle>
-                  <CardDescription>
-                    تطبيق شامل للأذكار والأدعية اليومية مع إمكانية التنبيه
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between text-sm mb-4">
-                    <Badge variant="outline">Android</Badge>
-                    <Badge variant="outline">iOS</Badge>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                  <Button variant="outline">
-                    <Download className="ml-2 h-4 w-4" /> Android
-                  </Button>
-                  <Button variant="outline">
-                    <Download className="ml-2 h-4 w-4" /> iOS
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>مسبحة إلكترونية</CardTitle>
-                  <CardDescription>
-                    تطبيق إلكتروني لحساب الذكر مع إمكانية تخصيص الأذكار
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between text-sm mb-4">
-                    <Badge variant="outline">Android</Badge>
-                    <Badge variant="outline">iOS</Badge>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                  <Button variant="outline">
-                    <Download className="ml-2 h-4 w-4" /> Android
-                  </Button>
-                  <Button variant="outline">
-                    <Download className="ml-2 h-4 w-4" /> iOS
-                  </Button>
-                </CardFooter>
-              </Card>
-            </div>
+
+        <TabsContent value="custom">
+          <div className="text-center py-12">
+            <Edit3 className="h-12 w-12 mx-auto mb-4 text-muted-foreground opacity-50" />
+            <h3 className="text-xl font-medium mb-2">أذكار مخصصة</h3>
+            <p className="text-muted-foreground mb-6">
+              يمكنك إضافة أذكار مخصصة وحفظها للرجوع إليها لاحقًا
+            </p>
+            <Button>
+              <Edit3 className="ml-2 h-4 w-4" />
+              إضافة ذكر جديد
+            </Button>
           </div>
         </TabsContent>
       </Tabs>
