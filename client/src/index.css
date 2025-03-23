@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply antialiased bg-background text-foreground;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  html {
+    direction: rtl;
+  }
+}
+
+@layer components {
+  .uthmani {
+    font-family: "Amiri", serif;
+    line-height: 2.2;
+  }
+
+  .quran-text {
+    font-size: 24px;
+    direction: rtl;
+    text-align: right;
+  }
+
+  .islamic-pattern {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NiIgaGVpZ2h0PSIxMDAiPgo8cmVjdCB3aWR0aD0iNTYiIGhlaWdodD0iMTAwIiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMjggNjZMMCA1MEwwIDE2TDI4IDBMNTYgMTZMNTYgNTBMMjggNjZMMjggMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkIzMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjIiPjwvcGF0aD4KPHBhdGggZD0iTTI4IDBMMjggMzRMNTYgNTBMNTYgMTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzQzQTA0NyIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMiI+PC9wYXRoPgo8L3N2Zz4=");
+    background-size: 50px;
+  }
+}
+
+@layer utilities {
+  /* Custom color classes */
+  .bg-primary-light {
+    background-color: rgba(0, 172, 193, 0.1);
+  }
+
+  .bg-secondary-light {
+    background-color: rgba(67, 160, 71, 0.1);
+  }
+
+  .bg-accent-light {
+    background-color: rgba(255, 179, 0, 0.1);
+  }
+
+  .text-primary-custom {
+    color: #00ACC1;
+  }
+
+  .text-secondary-custom {
+    color: #43A047;
+  }
+
+  .text-accent-custom {
+    color: #FFB300;
+  }
+
+  .border-primary-custom {
+    border-color: #00ACC1;
+  }
+
+  .border-secondary-custom {
+    border-color: #43A047;
+  }
+
+  .border-accent-custom {
+    border-color: #FFB300;
+  }
+
+  .bg-primary-custom {
+    background-color: #00ACC1;
+  }
+
+  .bg-secondary-custom {
+    background-color: #43A047;
+  }
+
+  .bg-accent-custom {
+    background-color: #FFB300;
+  }
+}
