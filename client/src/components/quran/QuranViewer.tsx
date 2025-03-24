@@ -39,6 +39,7 @@ import {
   AlertDescription,
   AlertTitle,
 } from "@/components/ui/alert";
+import QuranMushafView from "./QuranMushafView"; // Added import
 
 const DEFAULT_SETTINGS: QuranSettings = {
   fontSize: 22,
@@ -58,7 +59,7 @@ const QuranViewer = () => {
   const [location, navigate] = useLocation();
   const urlParams = new URLSearchParams(location.split("?")[1] || "");
   const ayahParam = urlParams.get("ayah");
-  
+
   const [settings, setSettings] = useState<QuranSettings>(() => {
     // Try to load settings from localStorage
     const savedSettings = localStorage.getItem("quran-settings");
@@ -72,7 +73,7 @@ const QuranViewer = () => {
     }
     return DEFAULT_SETTINGS;
   });
-  
+
   const { surah, isLoading, error } = useSurah(surahId);
   const { lastRead } = useLastRead();
   const { setLastRead } = useSetLastRead();
@@ -81,7 +82,7 @@ const QuranViewer = () => {
   // Save settings to localStorage when they change
   useEffect(() => {
     localStorage.setItem("quran-settings", JSON.stringify(settings));
-    
+
     // Apply theme to body
     document.body.classList.remove('theme-light', 'theme-dark', 'theme-sepia', 'theme-gold');
     document.body.classList.add(`theme-${settings.theme}`);
@@ -97,7 +98,7 @@ const QuranViewer = () => {
           ayahElement.scrollIntoView({ behavior: "smooth" });
         }
       }
-      
+
       // Set the last read position
       setLastRead({
         surahId,
@@ -187,7 +188,7 @@ const QuranViewer = () => {
       <div className="flex justify-start mb-4">
         <BackButton to="/" className="mr-auto" />
       </div>
-      
+
       {/* Settings Prompt */}
       {showSettingsPrompt && (
         <Alert className="mb-6 border-primary-custom/20 bg-primary-light/30">
@@ -206,7 +207,7 @@ const QuranViewer = () => {
           </Button>
         </Alert>
       )}
-      
+
       {/* Quran Viewer Header */}
       <div className="flex justify-between items-center mb-6 pb-4 border-b">
         <div>
@@ -215,9 +216,9 @@ const QuranViewer = () => {
         </div>
         <div className="flex items-center space-x-4 space-x-reverse">
           <QuranSettingsDialog settings={settings} onSettingsChange={handleSettingsChange} />
-          
+
           <QuranSearch onSelectVerse={handleSelectVerseFromSearch} />
-          
+
           <BookmarksManager 
             currentSurahId={surahId}
             currentVerseNumber={ayahParam ? parseInt(ayahParam) : 1}
@@ -225,7 +226,7 @@ const QuranViewer = () => {
               surah.verses.find(v => v.numberInSurah === parseInt(ayahParam))?.text : 
               surah.verses?.[0]?.text}
           />
-          
+
           <FavoritesManager
             currentSurahId={surahId}
             currentSurahName={surah.name}
@@ -234,11 +235,11 @@ const QuranViewer = () => {
               surah.verses.find(v => v.numberInSurah === parseInt(ayahParam))?.text : 
               surah.verses?.[0]?.text}
           />
-          
+
           <CollectionsManager />
-          
+
           <ReadingTracker onNavigateToLastRead={handleNavigateToLastRead} />
-          
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="p-2 text-gray-600 hover:text-primary-custom rounded-full bg-gray-100 hover:bg-primary-light transition">
@@ -281,7 +282,7 @@ const QuranViewer = () => {
             <TabsTrigger value="continuous">متواصل</TabsTrigger>
           </TabsList>
         </Tabs>
-        
+
         <div className="flex items-center">
           <span className="text-gray-600 ml-2">القارئ:</span>
           <Select 
@@ -305,18 +306,32 @@ const QuranViewer = () => {
       <SurahHeader surah={surah} reciter={settings.reciter} />
 
       {/* Quran Content */}
-      <VerseDisplayEnhanced 
-        verses={surah.verses} 
-        surahId={surahId}
-        viewType={settings.viewType}
-        fontSize={settings.fontSize}
-        fontFamily={settings.fontFamily}
-        showTranslation={settings.showTranslation}
-        translationLanguage={settings.translationLanguage}
-        showTafseer={settings.showTafseer}
-        tafseerSource={settings.tafseerSource}
-        reciter={settings.reciter}
-      />
+      {settings.viewType === "page" ? (
+        <QuranMushafView 
+          surahId={surahId}
+          viewType={settings.viewType}
+          fontSize={settings.fontSize}
+          fontFamily={settings.fontFamily}
+          showTranslation={settings.showTranslation}
+          translationLanguage={settings.translationLanguage}
+          showTafseer={settings.showTafseer}
+          tafseerSource={settings.tafseerSource}
+          reciter={settings.reciter}
+        />
+      ) : (
+        <VerseDisplayEnhanced 
+          verses={surah.verses} 
+          surahId={surahId}
+          viewType={settings.viewType}
+          fontSize={settings.fontSize}
+          fontFamily={settings.fontFamily}
+          showTranslation={settings.showTranslation}
+          translationLanguage={settings.translationLanguage}
+          showTafseer={settings.showTafseer}
+          tafseerSource={settings.tafseerSource}
+          reciter={settings.reciter}
+        />
+      )}
 
       {/* Surah Navigation */}
       <div className="flex justify-between items-center mt-8 pt-4 border-t">

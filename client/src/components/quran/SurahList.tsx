@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { useAllSurahs } from "@/lib/hooks/useQuran";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, ChevronLeft, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { ChevronRight, ChevronLeft, ChevronsLeft, ChevronsRight, FileText, MapPin } from "lucide-react";
 
 const SURAHS_PER_PAGE = 24;
 
@@ -40,24 +40,29 @@ const SurahList = () => {
   const visibleSurahs = surahs.slice(startIdx, startIdx + SURAHS_PER_PAGE);
 
   return (
-    <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
-      <h3 className="text-xl font-bold mb-4">فهرس السور</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div className="mt-8 bg-white rounded-lg shadow-lg p-6 mushaf-index"> {/* Added mushaf-index class */}
+      <div className="mushaf-index-header"> {/* Added header */}
+        <h1 className="mushaf-index-title">فهرس سور القرآن الكريم</h1>
+        <p className="mushaf-index-subtitle">اختر سورة للقراءة والاستماع</p>
+      </div>
+
+      <div className="surah-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"> {/* Adjusted grid */}
         {visibleSurahs.map((surah) => (
           <Link key={surah.id} href={`/quran/${surah.id}`}>
-            <div className="block p-4 border rounded-lg  hover:bg-primary-light hover:border-primary-custom transition cursor-pointer flex flex-col h-full"> {/* Added flexbox for better layout */}
-              <div className="flex items-center mb-2"> {/* Improved arrangement of elements */}
-                <div className="w-8 h-8 rounded-full bg-primary-light text-primary-custom flex items-center justify-center ml-2 text-sm">
-                  {surah.id} {/* Changed to surah.id for consistency */}
+            <div className="surah-card block p-4 border rounded-lg hover:bg-primary-light hover:border-primary-custom transition cursor-pointer">
+              <div className="surah-card-header flex justify-between items-center mb-2">
+                <div className="surah-number rounded-full w-8 h-8 flex items-center justify-center bg-primary-custom text-white">
+                  {surah.id}
                 </div>
-                <div>
-                  <h3 className="font-bold text-sm">{surah.name}</h3>
-                  <p className="text-xs text-gray-500">{surah.versesCount} آيات</p>
+                <div className="surah-type text-sm text-gray-600">
+                  {surah.revelationType === "Meccan" ? "مكية" : "مدنية"}
                 </div>
               </div>
-              {/*<div className="mt-auto text-left">  Removed arrow,  already handled in original code.*/}
-              {/*  <span className="material-icons text-primary-custom text-sm">arrow_back</span>*/}
-              {/*</div>*/}
+              <h3 className="surah-card-title text-xl font-bold mt-2 text-center">{surah.name}</h3>
+              <div className="surah-card-info flex justify-between mt-2 text-sm text-gray-600">
+                <span><FileText size={14} className="inline mr-1" /> {surah.numberOfVerses} آية</span>
+                <span><MapPin size={14} className="inline mr-1" /> الجزء {surah.juzNumber}</span>
+              </div>
             </div>
           </Link>
         ))}

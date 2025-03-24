@@ -6,11 +6,11 @@
   html {
     direction: rtl;
   }
-  
+
   body {
     font-family: 'Roboto', 'Amiri', sans-serif;
   }
-  
+
   .font-uthmani {
     font-family: 'Uthmani', serif;
   }
@@ -20,7 +20,7 @@
   .grid-card-layout {
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4;
   }
-  
+
   .feature-card {
     @apply transition-all duration-300 hover:shadow-md hover:border-primary/30;
   }
@@ -30,7 +30,7 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .text-shadow {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -38,48 +38,122 @@
 
 @layer base {
   :root {
+    --primary: #22a275;
+    --primary-foreground: #f9f9f9;
+
+    --primary-custom: #22a275;
+    --primary-light: #e6f4f0;
+
+    --color-rose: #fb7185;
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
+
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
+
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
+
+    --primary-shadcn: 222.2 47.4% 11.2%;
+    --primary-foreground-shadcn: 210 40% 98%;
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
+
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
+
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 222.2 84% 4.9%;
+
     --radius: 0.5rem;
+
+    /* ألوان المصحف */
+    --quran-border-color: #26a4c8;
+    --quran-background-light: #f0faff;
+    --quran-frame-color: #26a4c8;
+    --quran-text-color: #000;
+    --quran-header-bg: #e0f4ff;
+    --quran-verse-number-bg: #26a4c8;
+    --quran-verse-number-color: #fff;
+    --quran-active-verse-bg: rgba(38, 164, 200, 0.1);
+    --quran-surah-title-color: #26a4c8;
+    --quran-page-number-bg: #26a4c8;
+    --quran-page-number-color: #fff;
   }
 
-  /* تحسين طريقة العرض الشبكية للأقسام */
-  @media (min-width: 768px) {
-    .grid-cols-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-  * {
-    @apply border-border;
-  }
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-  body {
-    @apply antialiased bg-background text-foreground;
-    font-family: 'Roboto', sans-serif;
-  }
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-  html {
-    direction: rtl;
+    --primary-shadcn: 210 40% 98%;
+    --primary-foreground-shadcn: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    /* ألوان المصحف للوضع الداكن */
+    --quran-border-color: #1a7995;
+    --quran-background-light: #0f2b36;
+    --quran-frame-color: #1a7995;
+    --quran-text-color: #e0e0e0;
+    --quran-header-bg: #0a1e25;
+    --quran-verse-number-bg: #1a7995;
+    --quran-verse-number-color: #fff;
+    --quran-active-verse-bg: rgba(26, 121, 149, 0.2);
+    --quran-surah-title-color: #1a7995;
+    --quran-page-number-bg: #1a7995;
+    --quran-page-number-color: #fff;
   }
 }
+
+/* تحسين طريقة العرض الشبكية للأقسام */
+@media (min-width: 768px) {
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply antialiased bg-background text-foreground;
+  font-family: 'Roboto', sans-serif;
+}
+
+html {
+  direction: rtl;
+}
+
 
 @layer components {
   .uthmani {
@@ -97,27 +171,27 @@
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NiIgaGVpZ2h0PSIxMDAiPgo8cmVjdCB3aWR0aD0iNTYiIGhlaWdodD0iMTAwIiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMjggNjZMMCA1MEwwIDE2TDI4IDBMNTYgMTZMNTYgNTBMMjggNjZMMjggMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkIzMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjIiPjwvcGF0aD4KPHBhdGggZD0iTTI4IDBMMjggMzRMNTYgNTBMNTYgMTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzQzQTA0NyIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMiI+PC9wYXRoPgo8L3N2Zz4=");
     background-size: 50px;
   }
-  
+
   /* أنماط خاصة بطريقة العرض المصحفية */
   .mushaf-verse {
     position: relative;
     margin: 0 2px;
   }
-  
+
   .mushaf-verse:hover {
     background-color: rgba(255, 179, 0, 0.1);
     border-radius: 4px;
   }
-  
+
   .verse-number {
     font-family: "Amiri", "Traditional Arabic", serif;
   }
-  
+
   .verse-actions {
     z-index: 10;
     transition: opacity 0.2s ease-in-out;
   }
-  
+
   /* أنماط المصحف المحسنة للمحاذاة الدقيقة */
   .mushaf-page {
     background-color: #F8F3E6;
@@ -128,20 +202,20 @@
     border: 1px solid #E6D7B0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   }
-  
+
   .mushaf-lines-container {
     height: 100%;
     display: flex;
     flex-direction: column;
   }
-  
+
   /* محتوى المصحف مع المحاذاة الدقيقة للسطور */
   .mushaf-content {
     display: flex;
     flex-direction: column;
     gap: 15px; /* المسافة بين السطور كما في المصحف */
   }
-  
+
   /* سطر المصحف */
   .mushaf-line {
     position: relative;
@@ -151,12 +225,12 @@
     text-align-last: justify;
     padding-left: 20px; /* مسافة للأرقام */
   }
-  
+
   .mushaf-line:hover {
     background-color: rgba(214, 188, 109, 0.08);
     border-radius: 4px;
   }
-  
+
   /* نص الآية بالتنسيق المصحفي */
   .mushaf-text {
     line-height: 2;
@@ -166,7 +240,7 @@
     letter-spacing: 0.01em;
     font-feature-settings: "calt" 1;
   }
-  
+
   /* رقم الآية بتصميم المصحف */
   .mushaf-text .verse-number {
     font-size: 0.7em;
@@ -183,7 +257,7 @@
     border-radius: 50%;
     vertical-align: middle;
   }
-  
+
   /* أزرار التفاعل */
   .mushaf-verse-actions {
     position: absolute;
@@ -199,11 +273,11 @@
     transition: opacity 0.2s ease;
     z-index: 50;
   }
-  
+
   .mushaf-verse-actions.active {
     opacity: 1;
   }
-  
+
   .mushaf-action-btn {
     background: none;
     border: none;
@@ -217,12 +291,12 @@
     border-radius: 4px;
     transition: all 0.2s ease;
   }
-  
+
   .mushaf-action-btn:hover {
     background-color: rgba(214, 188, 109, 0.15);
     color: #5D4037;
   }
-  
+
   /* إضافة خطوط وحدود للمصحف */
   .mushaf-page::before {
     content: "";
@@ -234,7 +308,7 @@
     background-color: #D6BC6D;
     opacity: 0.3;
   }
-  
+
   /* علامات جزء وحزب */
   .juz-marker, .hizb-marker {
     position: absolute;
@@ -245,15 +319,15 @@
     background-position: center;
     z-index: 10;
   }
-  
+
   .juz-marker {
     background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxOCIgc3Ryb2tlPSIjRDZCQzZEIiBzdHJva2Utd2lkdGg9IjIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI0Q2QkM2RCIgZm9udC1mYW1pbHk9IkFtaXJpLCBzZXJpZiIgZm9udC1zaXplPSIxNnB4Ij7YrNiy2KE8L3RleHQ+PC9zdmc+");
   }
-  
+
   .hizb-marker {
     background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjAgMkwyNS4zMDUgMTRIMzQuNzE2TDI3LjIwNiAyMS45MjZMMzAuOCAzNEwyMCAyN0w5LjIgMzRMMTIuNzk0IDIxLjkyNkw1LjI4NCAxNEgxNC42OTVMMjAgMloiIGZpbGw9IiNEQkI5NkEiIGZpbGwtb3BhY2l0eT0iMC4yIiBzdHJva2U9IiNEQkI5NkEiLz48L3N2Zz4=");
   }
-  
+
   /* خلفية مصحف */
   .bg-mushaf {
     background-color: #F8F3E6;
