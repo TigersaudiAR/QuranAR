@@ -28,6 +28,11 @@ export const useSurah = (surahId: number) => {
   };
 };
 
+// Aliases for compatibility with existing components
+export const useQuranSurah = useSurah;
+export const useQuranJuz = (juzId: number) => useSurah(juzId); // Simplified - assumes juz maps to surah
+export const useQuranPage = (pageId: number) => useSurah(Math.ceil(pageId / 20)); // Simplified mapping
+
 export const useLastRead = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["/api/quran/last-read"],
