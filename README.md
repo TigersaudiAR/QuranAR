@@ -204,7 +204,11 @@ QuranAR/
 ## Features Not Implemented
 
 For a complete implementation, you may want to add:
-- Quran page images (001.jpg to 604.jpg in public/quran/pages/)
+- **Quran page images**: The application expects 604 Quran page images (001.jpg to 604.jpg) in `client/public/quran/pages/` directory. These images are not included in the repository due to licensing and file size. You can:
+  - Use images from open-source Quran projects (check licensing)
+  - Generate images from Quran text using Arabic fonts
+  - Use images from https://quran.com or similar sources (with permission)
+  - Place fallback placeholder images if actual Quran images are unavailable
 - More comprehensive admin CRUD interfaces
 - Real-time updates for halaqat sessions
 - File upload for profile pictures
