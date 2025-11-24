@@ -1,8 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { BookOpen, TrendingUp } from 'lucide-react';
+import { BookOpen, TrendingUp, Plus, Play } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { useLocation } from 'wouter';
 
 export default function MemorizationPage() {
   return (
@@ -13,6 +21,13 @@ export default function MemorizationPage() {
 }
 
 function MemorizationDashboard() {
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState('');
+  const [type, setType] = useState<'SURAH' | 'PAGE'>('SURAH');
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const [, setLocation] = useLocation();
+
   const { data: setsData } = useQuery({
     queryKey: ['memorization-sets'],
     queryFn: async () => {
@@ -21,14 +36,92 @@ function MemorizationDashboard() {
     },
   });
 
+  const createSetMutation = useMutation({
+    mutationFn: async (data: { title: string; type: string }) => {
+      const response = await axios.post('/api/memorization/sets', data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['memorization-sets'] });
+      toast({
+        title: 'Success',
+        description: 'Memorization set created successfully',
+      });
+      setOpen(false);
+      setTitle('');
+      setType('SURAH');
+    },
+    onError: (error: any) => {
+      toast({
+        title: 'Error',
+        description: error.response?.data?.message || 'Failed to create set',
+        variant: 'destructive',
+      });
+    },
+  });
+
+  const handleCreateSet = (e: React.FormEvent) => {
+    e.preventDefault();
+    createSetMutation.mutate({ title, type });
+  };
+
   const sets = setsData || [];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-amber-900 mb-2">My Memorization</h1>
-          <p className="text-gray-600">Track your Quran memorization progress</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div className="text-center flex-1">
+            <h1 className="text-4xl font-bold text-amber-900 mb-2">My Memorization</h1>
+            <p className="text-gray-600">Track your Quran memorization progress</p>
+          </div>
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-amber-600 hover:bg-amber-700">
+                <Plus className="h-4 w-4 mr-2" />
+                Create Set
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Create Memorization Set</DialogTitle>
+                <DialogDescription>
+                  Create a new set to track your Quran memorization
+                </DialogDescription>
+              </DialogHeader>
+              <form onSubmit={handleCreateSet}>
+                <div className="space-y-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="title">Title</Label>
+                    <Input
+                      id="title"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder="e.g., Juz 30, Surah Al-Baqarah"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="type">Type</Label>
+                    <Select value={type} onValueChange={(value: any) => setType(value)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="SURAH">Surah</SelectItem>
+                        <SelectItem value="PAGE">Page</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit" disabled={createSetMutation.isPending}>
+                    {createSetMutation.isPending ? 'Creating...' : 'Create Set'}
+                  </Button>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -78,6 +171,14 @@ function MemorizationDashboard() {
                         <div className="text-xs text-gray-500">Total</div>
                       </div>
                     </div>
+
+                    <Button 
+                      className="w-full bg-amber-600 hover:bg-amber-700"
+                      onClick={() => setLocation(`/mushaf?setId=${set.id}`)}
+                    >
+                      <Play className="h-4 w-4 mr-2" />
+                      Start Review
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

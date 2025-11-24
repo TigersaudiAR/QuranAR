@@ -76,11 +76,21 @@ npm run db:generate
 # Run migrations
 npm run db:migrate
 
-# Seed initial data
+# Seed initial data (includes admin user and sample content)
 npm run db:seed
 ```
 
-4. Start the development server:
+4. Add Quran page images (optional):
+```bash
+# Create directory for Quran page images
+mkdir -p client/public/quran
+
+# Place Quran page images (001.jpg to 604.jpg) in client/public/quran/
+# Images should be named as 001.jpg, 002.jpg, ..., 604.jpg
+# If images are not added, placeholder will be shown
+```
+
+5. Start the development server:
 ```bash
 npm run dev
 ```
@@ -111,7 +121,7 @@ After seeding, the following test accounts are available:
 - `GET /api/auth/me` - Get current user (protected)
 
 ### Admin (Admin only)
-- `GET /api/admin/users` - List all users
+- `GET /api/admin/users` - List all users (supports pagination via query params)
 - `POST /api/admin/users` - Create user
 - `PUT /api/admin/users/:id` - Update user
 - `DELETE /api/admin/users/:id` - Delete user
@@ -121,6 +131,10 @@ After seeding, the following test accounts are available:
 - `DELETE /api/admin/lessons/:id` - Delete lesson
 - `GET /api/admin/halaqat` - List all halaqat
 - `DELETE /api/admin/halaqat/:id` - Delete halaqah
+- `GET /api/admin/dhikr` - List all adhkar
+- `POST /api/admin/dhikr` - Create dhikr
+- `PUT /api/admin/dhikr/:id` - Update dhikr
+- `DELETE /api/admin/dhikr/:id` - Delete dhikr
 
 ### Memorization (Protected)
 - `GET /api/memorization/sets` - Get user's memorization sets

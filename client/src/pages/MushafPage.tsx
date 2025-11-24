@@ -5,7 +5,12 @@ import { Button } from '@/components/ui/button';
 export default function MushafPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [showInfo, setShowInfo] = useState(true);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const totalPages = 604;
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
 
   useEffect(() => {
     const savedPage = localStorage.getItem('mushafPage');
@@ -48,6 +53,30 @@ export default function MushafPage() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentPage]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      goToNextPage();
+    }
+    if (isRightSwipe) {
+      goToPreviousPage();
+    }
+  };
 
   const pageNumber = currentPage.toString().padStart(3, '0');
 
@@ -98,7 +127,12 @@ export default function MushafPage() {
       )}
 
       {/* Main Viewer Area */}
-      <div className="flex items-center justify-center min-h-screen p-4">
+      <div 
+        className="flex items-center justify-center min-h-screen p-4"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         {/* Left Navigation Zone */}
         <button
           onClick={goToPreviousPage}
