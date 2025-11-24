@@ -51,8 +51,13 @@ export const useSetLastRead = () => {
   
   const mutation = useMutation({
     mutationFn: async (lastRead: LastRead) => {
-      const response = await apiRequest("POST", "/api/quran/last-read", lastRead);
-      return response.json();
+      return await apiRequest("/api/quran/last-read", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(lastRead),
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/quran/last-read"] });

@@ -87,6 +87,14 @@ npm run dev
 
 The application will be available at `http://localhost:5000`
 
+### Quran Page Images (Optional)
+
+For the Mushaf viewer to display Quran pages, you need to add Quran page images:
+
+1. Place Quran page images (001.jpg to 604.jpg) in `frontend/public/quran/pages/`
+2. See `frontend/public/quran/pages/README.md` for detailed instructions
+3. The Mushaf viewer will use a fallback image if pages are not available
+
 ### Default Test Accounts
 
 After seeding, the following test accounts are available:
@@ -167,14 +175,14 @@ After seeding, the following test accounts are available:
 
 ```
 QuranAR/
-├── client/                 # Frontend React application
+├── frontend/               # Frontend React application
 │   └── src/
 │       ├── components/     # Reusable UI components
 │       ├── contexts/       # React contexts (Auth)
 │       ├── pages/          # Page components
 │       ├── hooks/          # Custom React hooks
 │       └── lib/            # Utilities
-├── server/                 # Backend Express application
+├── backend/                # Backend Express application
 │   ├── controllers/        # Route controllers
 │   ├── middleware/         # Express middleware
 │   ├── db.ts              # Prisma client instance
@@ -187,16 +195,18 @@ QuranAR/
 └── package.json           # Dependencies and scripts
 ```
 
-## Features Not Implemented
+## Optional Enhancements
 
-For a complete implementation, you may want to add:
-- Quran page images (001.jpg to 604.jpg in public/quran/pages/)
-- More comprehensive admin CRUD interfaces
-- Real-time updates for halaqat sessions
+The following features can be added to enhance the platform:
+- Quran page images (001.jpg to 604.jpg in frontend/public/quran/pages/) - See setup instructions above
+- Real-time updates for halaqat sessions using WebSockets
 - File upload for profile pictures
-- Email notifications
-- Advanced search and filtering
-- Detailed analytics and reports
+- Email notifications for assignments and reminders
+- Advanced search and filtering across all content
+- Detailed analytics and reports for memorization progress
+- Mobile app versions (React Native)
+- Offline mode with service workers
+- Audio recitation with multiple reciters
 
 ## License
 

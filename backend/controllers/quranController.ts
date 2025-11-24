@@ -47,7 +47,8 @@ export const quranController = {
   // Get the last read position
   getLastRead: async (req: Request, res: Response) => {
     try {
-      const lastRead = await quranService.getLastRead(req.sessionID || "default");
+      const sessionId = (req as any).sessionID || "default";
+      const lastRead = await quranService.getLastRead(sessionId);
       res.json(lastRead);
     } catch (error) {
       console.error("Error fetching last read position:", error);
@@ -67,7 +68,8 @@ export const quranController = {
         });
       }
       
-      await quranService.saveLastRead(req.sessionID || "default", validation.data);
+      const sessionId = (req as any).sessionID || "default";
+      await quranService.saveLastRead(sessionId, validation.data);
       res.json({ success: true });
     } catch (error) {
       console.error("Error saving last read position:", error);

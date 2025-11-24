@@ -36,7 +36,7 @@ const QuranMushafView = ({
 }: QuranMushafViewProps) => {
   const [location, navigate] = useLocation();
   const [currentAyah, setCurrentAyah] = useState<number | null>(null);
-  const { data: surahData, isLoading: isSurahLoading } = useQuranSurah(surahId);
+  const { surah, isLoading: isSurahLoading } = useQuranSurah(surahId);
   
   // التحقق من المعلمات المطلوبة
   if (viewType === "surah" && !surahId) {
@@ -52,7 +52,7 @@ const QuranMushafView = ({
     );
   }
   
-  if (!surahData) {
+  if (!surah) {
     return (
       <div className="text-center p-8">
         <p className="text-red-500 mb-4">لا يمكن تحميل السورة</p>
@@ -64,7 +64,7 @@ const QuranMushafView = ({
     );
   }
   
-  const { surah, verses } = surahData;
+  const verses = surah.verses || [];
   
   return (
     <div className="quran-mushaf-view">
@@ -76,7 +76,7 @@ const QuranMushafView = ({
           </div>
           <div className="info-separator"></div>
           <div className="juz-info left-panel">
-            <h3 className="juz-name">الجزء {surah.juzNumber}</h3>
+            <h3 className="juz-name">الجزء {surah.juzNumber || Math.ceil(surah.id / 10)}</h3>
           </div>
         </div>
       </div>
@@ -105,7 +105,7 @@ const QuranMushafView = ({
       
       {/* الإطار الزخرفي السفلي */}
       <div className="mushaf-footer">
-        <div className="page-number">{surah.page}</div>
+        <div className="page-number">{surah.page || surah.id}</div>
       </div>
       
       {/* أدوات تفاعلية */}
