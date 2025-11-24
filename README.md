@@ -167,14 +167,14 @@ After seeding, the following test accounts are available:
 
 ```
 QuranAR/
-├── client/                 # Frontend React application
+├── frontend/               # Frontend React application
 │   └── src/
 │       ├── components/     # Reusable UI components
 │       ├── contexts/       # React contexts (Auth)
 │       ├── pages/          # Page components
 │       ├── hooks/          # Custom React hooks
 │       └── lib/            # Utilities
-├── server/                 # Backend Express application
+├── backend/                # Backend Express application
 │   ├── controllers/        # Route controllers
 │   ├── middleware/         # Express middleware
 │   ├── db.ts              # Prisma client instance
