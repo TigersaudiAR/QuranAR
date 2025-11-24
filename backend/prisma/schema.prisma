@@ -10,36 +10,12 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-enum Role {
-  ADMIN
-  TEACHER
-  STUDENT
-}
-
-enum MemorizationType {
-  SURAH
-  PAGE
-}
-
-enum MemorizationStatus {
-  NEW
-  IN_PROGRESS
-  MASTERED
-}
-
-enum AssignmentStatus {
-  PENDING
-  IN_PROGRESS
-  COMPLETED
-  OVERDUE
-}
-
 model User {
   id                    Int                   @id @default(autoincrement())
   email                 String                @unique
   password              String
   name                  String
-  role                  Role                  @default(STUDENT)
+  role                  String                @default("STUDENT") // ADMIN, TEACHER, STUDENT
   createdAt             DateTime              @default(now())
   updatedAt             DateTime              @updatedAt
   
@@ -54,7 +30,7 @@ model User {
 model MemorizationSet {
   id                    Int                   @id @default(autoincrement())
   title                 String
-  type                  MemorizationType
+  type                  String                // SURAH, PAGE
   userId                Int
   createdAt             DateTime              @default(now())
   updatedAt             DateTime              @updatedAt
@@ -68,7 +44,7 @@ model MemorizationSet {
 model MemorizationItem {
   id                    Int                   @id @default(autoincrement())
   setId                 Int
-  status                MemorizationStatus    @default(NEW)
+  status                String                @default("NEW") // NEW, IN_PROGRESS, MASTERED
   masteryLevel          Int                   @default(0)
   nextReviewDate        DateTime?
   surahNumber           Int?
@@ -103,7 +79,7 @@ model HalaqahMember {
   id                    Int                   @id @default(autoincrement())
   halaqahId             Int
   userId                Int
-  role                  Role                  @default(STUDENT)
+  role                  String                @default("STUDENT") // TEACHER, STUDENT
   joinedAt              DateTime              @default(now())
   
   halaqah               Halaqah               @relation(fields: [halaqahId], references: [id], onDelete: Cascade)
@@ -121,7 +97,7 @@ model Assignment {
   rangeStart            String
   rangeEnd              String
   dueDate               DateTime
-  status                AssignmentStatus      @default(PENDING)
+  status                String                @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED, OVERDUE
   notes                 String?
   createdAt             DateTime              @default(now())
   updatedAt             DateTime              @updatedAt

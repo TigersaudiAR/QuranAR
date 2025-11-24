@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { User } from '../utils/api';
-import pageIndexData from '../data/pageIndex.json';
 
 interface MushafViewerProps {
   user: User | null;
