@@ -14,6 +14,7 @@ import AzkarPage from "@/pages/AzkarPage";
 import LiveLecturesPage from "@/pages/LiveLecturesPage";
 import CreditsPage from "@/pages/CreditsPage";
 import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
 import MushafPage from "@/pages/MushafPage";
 import DhikrPage from "@/pages/DhikrPage";
 import EducationalPage from "@/pages/EducationalPage";
@@ -26,6 +27,7 @@ function Router() {
     <Switch>
       <Route path="/" component={HomePage} />
       <Route path="/login" component={LoginPage} />
+      <Route path="/register" component={RegisterPage} />
       <Route path="/quran" component={QuranPage} />
       <Route path="/quran/:surahId" component={QuranPage} />
       <Route path="/mushaf" component={MushafPage} />

@@ -76,11 +76,21 @@ npm run db:generate
 # Run migrations
 npm run db:migrate
 
-# Seed initial data
+# Seed initial data (includes admin user and sample content)
 npm run db:seed
 ```
 
-4. Start the development server:
+4. Add Quran page images (optional):
+```bash
+# Create directory for Quran page images
+mkdir -p client/public/quran
+
+# Place Quran page images (001.jpg to 604.jpg) in client/public/quran/
+# Images should be named as 001.jpg, 002.jpg, ..., 604.jpg
+# If images are not added, placeholder will be shown
+```
+
+5. Start the development server:
 ```bash
 npm run dev
 ```
@@ -102,66 +112,6 @@ After seeding, the following test accounts are available:
 - **Student**: 
   - Email: `student@quran.com`
   - Password: `student123`
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login
-- `GET /api/auth/me` - Get current user (protected)
-
-### Admin (Admin only)
-- `GET /api/admin/users` - List all users
-- `POST /api/admin/users` - Create user
-- `PUT /api/admin/users/:id` - Update user
-- `DELETE /api/admin/users/:id` - Delete user
-- `GET /api/admin/lessons` - List all lessons
-- `POST /api/admin/lessons` - Create lesson
-- `PUT /api/admin/lessons/:id` - Update lesson
-- `DELETE /api/admin/lessons/:id` - Delete lesson
-- `GET /api/admin/halaqat` - List all halaqat
-- `DELETE /api/admin/halaqat/:id` - Delete halaqah
-
-### Memorization (Protected)
-- `GET /api/memorization/sets` - Get user's memorization sets
-- `GET /api/memorization/sets/:id` - Get specific set
-- `POST /api/memorization/sets` - Create new set
-- `PUT /api/memorization/sets/:id` - Update set
-- `DELETE /api/memorization/sets/:id` - Delete set
-- `POST /api/memorization/sets/:setId/items` - Add item to set
-- `PUT /api/memorization/items/:itemId` - Update item
-- `DELETE /api/memorization/items/:itemId` - Delete item
-
-### Halaqat (Protected)
-- `GET /api/halaqat` - Get user's halaqat
-- `GET /api/halaqat/:id` - Get specific halaqah
-- `POST /api/halaqat` - Create halaqah (Teacher/Admin only)
-- `PUT /api/halaqat/:id` - Update halaqah
-- `POST /api/halaqat/:id/members` - Add member
-- `DELETE /api/halaqat/:id/members/:memberId` - Remove member
-- `POST /api/halaqat/:id/assignments` - Create assignment
-- `GET /api/assignments` - Get user's assignments
-- `PUT /api/assignments/:assignmentId` - Update assignment
-- `POST /api/halaqat/:id/session-logs` - Create session log
-- `GET /api/halaqat/:id/session-logs` - Get session logs
-
-### Lessons (Public)
-- `GET /api/lessons` - Get all lessons (optional: ?category=tajweed)
-- `GET /api/lessons/:id` - Get specific lesson
-
-### Dhikr (Public)
-- `GET /api/dhikr` - Get all adhkar (optional: ?category=morning)
-- `GET /api/dhikr/:id` - Get specific dhikr
-
-## Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run check` - Type check with TypeScript
-- `npm run db:generate` - Generate Prisma client
-- `npm run db:migrate` - Run database migrations
-- `npm run db:seed` - Seed database with initial data
 
 ## Project Structure
 
@@ -190,7 +140,11 @@ QuranAR/
 ## Features Not Implemented
 
 For a complete implementation, you may want to add:
-- Quran page images (001.jpg to 604.jpg in public/quran/pages/)
+- **Quran page images**: The application expects 604 Quran page images (001.jpg to 604.jpg) in `client/public/quran/pages/` directory. These images are not included in the repository due to licensing and file size. You can:
+  - Use images from open-source Quran projects (check licensing)
+  - Generate images from Quran text using Arabic fonts
+  - Use images from https://quran.com or similar sources (with permission)
+  - Place fallback placeholder images if actual Quran images are unavailable
 - More comprehensive admin CRUD interfaces
 - Real-time updates for halaqat sessions
 - File upload for profile pictures

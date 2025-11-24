@@ -33,6 +33,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get("/api/admin/halaqat", authMiddleware, requireRole(UserRole.ADMIN), adminController.getAllHalaqat);
   app.delete("/api/admin/halaqat/:id", authMiddleware, requireRole(UserRole.ADMIN), adminController.deleteHalaqah);
+  
+  app.get("/api/admin/dhikr", authMiddleware, requireRole(UserRole.ADMIN), adminController.getAllDhikr);
+  app.post("/api/admin/dhikr", authMiddleware, requireRole(UserRole.ADMIN), adminController.createDhikr);
+  app.put("/api/admin/dhikr/:id", authMiddleware, requireRole(UserRole.ADMIN), adminController.updateDhikr);
+  app.delete("/api/admin/dhikr/:id", authMiddleware, requireRole(UserRole.ADMIN), adminController.deleteDhikr);
 
   // Memorization routes (protected)
   app.get("/api/memorization/sets", authMiddleware, memorizationController.getAllSets);

@@ -229,4 +229,91 @@ export const adminController = {
       res.status(500).json({ message: 'Internal server error' });
     }
   },
+
+  // Dhikr Management
+  async getAllDhikr(req: AuthRequest, res: Response) {
+    try {
+      const { category } = req.query;
+      const where = category ? { category: category as string } : {};
+
+      const adhkar = await prisma.dhikr.findMany({
+        where,
+        orderBy: { orderIndex: 'asc' },
+      });
+
+      res.json({ adhkar });
+    } catch (error) {
+      console.error('Get all dhikr error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+
+  async createDhikr(req: AuthRequest, res: Response) {
+    try {
+      const { title, arabicText, transliteration, translation, category, repetitions, reference } = req.body;
+
+      if (!title || !arabicText || !category || !repetitions) {
+        return res.status(400).json({ message: 'Title, arabicText, category, and repetitions are required' });
+      }
+
+      const dhikr = await prisma.dhikr.create({
+        data: {
+          title,
+          arabicText,
+          transliteration,
+          translation,
+          category,
+          repetitions: parseInt(repetitions),
+          reference,
+          orderIndex: 0,
+        },
+      });
+
+      res.status(201).json({ dhikr });
+    } catch (error) {
+      console.error('Create dhikr error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+
+  async updateDhikr(req: AuthRequest, res: Response) {
+    try {
+      const { id } = req.params;
+      const { title, arabicText, transliteration, translation, category, repetitions, reference, orderIndex } = req.body;
+
+      const dhikr = await prisma.dhikr.update({
+        where: { id: parseInt(id) },
+        data: {
+          ...(title && { title }),
+          ...(arabicText && { arabicText }),
+          ...(transliteration !== undefined && { transliteration }),
+          ...(translation !== undefined && { translation }),
+          ...(category && { category }),
+          ...(repetitions && { repetitions: parseInt(repetitions) }),
+          ...(reference !== undefined && { reference }),
+          ...(orderIndex !== undefined && { orderIndex }),
+        },
+      });
+
+      res.json({ dhikr });
+    } catch (error) {
+      console.error('Update dhikr error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+
+  async deleteDhikr(req: AuthRequest, res: Response) {
+    try {
+      const { id } = req.params;
+
+      await prisma.dhikr.delete({
+        where: { id: parseInt(id) },
+      });
+
+      res.json({ message: 'Dhikr deleted successfully' });
+    } catch (error) {
+      console.error('Delete dhikr error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
 };
