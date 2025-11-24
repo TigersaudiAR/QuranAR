@@ -1,0 +1,162 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id                    Int                   @id @default(autoincrement())
+  email                 String                @unique
+  password              String
+  name                  String
+  role                  String                @default("STUDENT") // ADMIN, TEACHER, STUDENT
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  
+  memorizationSets      MemorizationSet[]
+  teacherHalaqat        Halaqah[]             @relation("TeacherHalaqat")
+  halaqahMemberships    HalaqahMember[]
+  assignments           Assignment[]
+  
+  @@index([email])
+}
+
+model MemorizationSet {
+  id                    Int                   @id @default(autoincrement())
+  title                 String
+  type                  String                // SURAH, PAGE
+  userId                Int
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  
+  user                  User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items                 MemorizationItem[]
+  
+  @@index([userId])
+}
+
+model MemorizationItem {
+  id                    Int                   @id @default(autoincrement())
+  setId                 Int
+  status                String                @default("NEW") // NEW, IN_PROGRESS, MASTERED
+  masteryLevel          Int                   @default(0)
+  nextReviewDate        DateTime?
+  surahNumber           Int?
+  pageNumber            Int?
+  verseRange            String?
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  
+  set                   MemorizationSet       @relation(fields: [setId], references: [id], onDelete: Cascade)
+  
+  @@index([setId])
+}
+
+model Halaqah {
+  id                    Int                   @id @default(autoincrement())
+  name                  String
+  teacherId             Int
+  description           String?
+  schedule              String?
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  
+  teacher               User                  @relation("TeacherHalaqat", fields: [teacherId], references: [id], onDelete: Cascade)
+  members               HalaqahMember[]
+  assignments           Assignment[]
+  sessionLogs           SessionLog[]
+  
+  @@index([teacherId])
+}
+
+model HalaqahMember {
+  id                    Int                   @id @default(autoincrement())
+  halaqahId             Int
+  userId                Int
+  role                  String                @default("STUDENT") // TEACHER, STUDENT
+  joinedAt              DateTime              @default(now())
+  
+  halaqah               Halaqah               @relation(fields: [halaqahId], references: [id], onDelete: Cascade)
+  user                  User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([halaqahId, userId])
+  @@index([halaqahId])
+  @@index([userId])
+}
+
+model Assignment {
+  id                    Int                   @id @default(autoincrement())
+  halaqahId             Int
+  userId                Int
+  rangeStart            String
+  rangeEnd              String
+  dueDate               DateTime
+  status                String                @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED, OVERDUE
+  notes                 String?
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  
+  halaqah               Halaqah               @relation(fields: [halaqahId], references: [id], onDelete: Cascade)
+  user                  User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([halaqahId])
+  @@index([userId])
+}
+
+model SessionLog {
+  id                    Int                   @id @default(autoincrement())
+  halaqahId             Int
+  date                  DateTime              @default(now())
+  studentLogs           String                // JSON string containing student progress data
+  notes                 String?
+  createdAt             DateTime              @default(now())
+  
+  halaqah               Halaqah               @relation(fields: [halaqahId], references: [id], onDelete: Cascade)
+  
+  @@index([halaqahId])
+  @@index([date])
+}
+
+model LessonCategory {
+  id                    Int                   @id @default(autoincrement())
+  name                  String                @unique
+  description           String?
+  createdAt             DateTime              @default(now())
+  
+  lessons               Lesson[]
+}
+
+model Lesson {
+  id                    Int                   @id @default(autoincrement())
+  title                 String
+  categoryId            Int
+  content               String                // JSON string or markdown
+  orderIndex            Int                   @default(0)
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  
+  category              LessonCategory        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  @@index([categoryId])
+}
+
+model Dhikr {
+  id                    Int                   @id @default(autoincrement())
+  title                 String
+  arabicText            String
+  transliteration       String?
+  translation           String?
+  category              String                @default("general")
+  repetitions           Int                   @default(1)
+  reference             String?
+  orderIndex            Int                   @default(0)
+  createdAt             DateTime              @default(now())
+  
+  @@index([category])
+}

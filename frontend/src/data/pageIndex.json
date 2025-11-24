@@ -1,0 +1,31 @@
+{
+  "pages": [
+    { "page": 1, "surah": 1, "juz": 1 },
+    { "page": 2, "surah": 2, "juz": 1 },
+    { "page": 50, "surah": 2, "juz": 2 },
+    { "page": 78, "surah": 3, "juz": 3 },
+    { "page": 106, "surah": 4, "juz": 4 },
+    { "page": 128, "surah": 4, "juz": 5 },
+    { "page": 152, "surah": 5, "juz": 6 },
+    { "page": 177, "surah": 6, "juz": 7 },
+    { "page": 208, "surah": 7, "juz": 8 },
+    { "page": 235, "surah": 8, "juz": 9 },
+    { "page": 262, "surah": 9, "juz": 10 },
+    { "page": 283, "surah": 10, "juz": 11 },
+    { "page": 305, "surah": 11, "juz": 12 },
+    { "page": 332, "surah": 13, "juz": 13 },
+    { "page": 350, "surah": 15, "juz": 14 },
+    { "page": 368, "surah": 17, "juz": 15 },
+    { "page": 396, "surah": 18, "juz": 16 },
+    { "page": 415, "surah": 21, "juz": 17 },
+    { "page": 442, "surah": 23, "juz": 18 },
+    { "page": 468, "surah": 26, "juz": 19 },
+    { "page": 496, "surah": 28, "juz": 20 },
+    { "page": 523, "surah": 33, "juz": 21 },
+    { "page": 543, "surah": 36, "juz": 22 },
+    { "page": 562, "surah": 39, "juz": 23 },
+    { "page": 583, "surah": 41, "juz": 24 },
+    { "page": 602, "surah": 46, "juz": 25 },
+    { "page": 604, "surah": 114, "juz": 30 }
+  ]
+}
