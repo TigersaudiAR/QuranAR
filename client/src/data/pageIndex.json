@@ -1,0 +1,106 @@
+[
+  {
+    "page": 1,
+    "surah": 1,
+    "surahName": "الفاتحة",
+    "juz": 1,
+    "startVerse": 1,
+    "endVerse": 7
+  },
+  {
+    "page": 2,
+    "surah": 2,
+    "surahName": "البقرة",
+    "juz": 1,
+    "startVerse": 1,
+    "endVerse": 5
+  },
+  {
+    "page": 3,
+    "surah": 2,
+    "surahName": "البقرة",
+    "juz": 1,
+    "startVerse": 6,
+    "endVerse": 16
+  },
+  {
+    "page": 4,
+    "surah": 2,
+    "surahName": "البقرة",
+    "juz": 1,
+    "startVerse": 17,
+    "endVerse": 24
+  },
+  {
+    "page": 5,
+    "surah": 2,
+    "surahName": "البقرة",
+    "juz": 1,
+    "startVerse": 25,
+    "endVerse": 29
+  },
+  {
+    "page": 50,
+    "surah": 3,
+    "surahName": "آل عمران",
+    "juz": 3,
+    "startVerse": 92,
+    "endVerse": 101
+  },
+  {
+    "page": 100,
+    "surah": 5,
+    "surahName": "المائدة",
+    "juz": 6,
+    "startVerse": 82,
+    "endVerse": 96
+  },
+  {
+    "page": 200,
+    "surah": 9,
+    "surahName": "التوبة",
+    "juz": 11,
+    "startVerse": 93,
+    "endVerse": 99
+  },
+  {
+    "page": 300,
+    "surah": 18,
+    "surahName": "الكهف",
+    "juz": 16,
+    "startVerse": 75,
+    "endVerse": 83
+  },
+  {
+    "page": 400,
+    "surah": 29,
+    "surahName": "العنكبوت",
+    "juz": 21,
+    "startVerse": 45,
+    "endVerse": 51
+  },
+  {
+    "page": 500,
+    "surah": 46,
+    "surahName": "الأحقاف",
+    "juz": 26,
+    "startVerse": 21,
+    "endVerse": 28
+  },
+  {
+    "page": 600,
+    "surah": 109,
+    "surahName": "الكافرون",
+    "juz": 30,
+    "startVerse": 1,
+    "endVerse": 6
+  },
+  {
+    "page": 604,
+    "surah": 114,
+    "surahName": "الناس",
+    "juz": 30,
+    "startVerse": 1,
+    "endVerse": 6
+  }
+]
