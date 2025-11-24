@@ -1,0 +1,63 @@
+[
+  {
+    "id": 1,
+    "title": "Introduction to Tajweed",
+    "category": "tajweed",
+    "description": "Learn the basics of Tajweed and why it's important",
+    "content": {
+      "introduction": "Tajweed is the science of proper Quranic recitation.",
+      "sections": [
+        {
+          "title": "What is Tajweed?",
+          "content": "Tajweed means to improve, to make better. In the context of the Quran, it means to recite it properly, giving each letter its rights and dues."
+        },
+        {
+          "title": "Importance of Tajweed",
+          "content": "Learning Tajweed is obligatory for every Muslim who wants to recite the Quran correctly."
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "title": "Rules of Noon Sakinah",
+    "category": "tajweed",
+    "description": "Learn the four rules of Noon Sakinah and Tanween",
+    "content": {
+      "introduction": "Noon Sakinah and Tanween have four main rules.",
+      "sections": [
+        {
+          "title": "Izhar (Clear pronunciation)",
+          "content": "When followed by throat letters: ء، ه، ع، ح، غ، خ"
+        },
+        {
+          "title": "Idgham (Merging)",
+          "content": "When followed by: ي، ر، م، ل، و، ن"
+        },
+        {
+          "title": "Iqlab (Conversion)",
+          "content": "When followed by: ب"
+        },
+        {
+          "title": "Ikhfa (Concealment)",
+          "content": "When followed by the remaining 15 letters"
+        }
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "title": "Arabic Alphabet",
+    "category": "arabic",
+    "description": "Learn the 28 letters of the Arabic alphabet",
+    "content": {
+      "introduction": "The Arabic alphabet has 28 letters.",
+      "sections": [
+        {
+          "title": "Basic Letters",
+          "content": "ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"
+        }
+      ]
+    }
+  }
+]

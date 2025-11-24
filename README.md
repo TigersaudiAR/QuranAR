@@ -1,10 +1,10 @@
-# Quran Platform - Full-Stack Monorepo
+# QuranAR - Islamic Learning Platform
 
-A comprehensive platform for Quran study, memorization tracking, and educational content management.
+A comprehensive web-based platform for Quran study, memorization tracking, and Islamic educational content management.
 
 ## Features
 
-### Backend
+### Backend (Port 4000)
 - **Authentication**: JWT-based authentication with role-based access control (Admin, Teacher, Student)
 - **User Management**: Complete CRUD operations for user accounts
 - **Memorization Tracking**: Create and manage memorization sets with progress tracking
@@ -12,7 +12,7 @@ A comprehensive platform for Quran study, memorization tracking, and educational
 - **Educational Content**: Manage lessons for Tajweed, Arabic, and Fiqh
 - **Dhikr Management**: Database of daily supplications with categories
 
-### Frontend
+### Frontend (Port 5173)
 - **Mushaf Viewer**: Full-screen Quran page viewer with keyboard navigation
 - **Admin Dashboard**: Comprehensive admin panel for managing users, lessons, and halaqat
 - **Memorization Dashboard**: Track personal memorization progress
@@ -27,15 +27,15 @@ A comprehensive platform for Quran study, memorization tracking, and educational
 - **Framework**: Express.js with TypeScript
 - **Database**: SQLite with Prisma ORM
 - **Authentication**: JWT (jsonwebtoken) + bcryptjs
+- **Port**: 4000
 
 ### Frontend
-- **Framework**: React 18
+- **Framework**: React 18 with TypeScript
 - **Build Tool**: Vite
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS (RTL support)
-- **UI Components**: shadcn/ui
-- **Routing**: Wouter
-- **State Management**: TanStack Query (React Query)
+- **Styling**: Tailwind CSS
+- **Routing**: React Router v6
+- **HTTP Client**: Axios
+- **Port**: 5173
 
 ## Database Schema
 
@@ -68,40 +68,39 @@ cd QuranAR
 npm install
 ```
 
-3. Set up the database:
+3. Set up the backend database:
 ```bash
-# Generate Prisma client
-npm run db:generate
-
-# Run migrations
-npm run db:migrate
-
-# Seed initial data
-npm run db:seed
+cd backend
+npx prisma generate
+npx prisma migrate dev --name init
+npm run seed
+cd ..
 ```
 
-4. Start the development server:
+4. Add Quran page images (IMPORTANT):
 ```bash
+# Place Quran page images in frontend/public/quran/
+# Images should be named: 001.jpg, 002.jpg, ..., 604.jpg
+# Example: frontend/public/quran/001.jpg
+```
+
+5. Start the development servers:
+```bash
+# From the root directory
 npm run dev
 ```
 
-The application will be available at `http://localhost:5000`
+The application will be available at:
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:4000`
 
-### Default Test Accounts
+### Default Test Account
 
-After seeding, the following test accounts are available:
+After seeding, the following admin account is available:
 
 - **Admin**: 
-  - Email: `admin@quran.com`
-  - Password: `admin123`
-
-- **Teacher**: 
-  - Email: `teacher@quran.com`
-  - Password: `teacher123`
-
-- **Student**: 
-  - Email: `student@quran.com`
-  - Password: `student123`
+  - Email: `admin@example.com`
+  - Password: `Admin123`
 
 ## API Endpoints
 
@@ -119,6 +118,12 @@ After seeding, the following test accounts are available:
 - `POST /api/admin/lessons` - Create lesson
 - `PUT /api/admin/lessons/:id` - Update lesson
 - `DELETE /api/admin/lessons/:id` - Delete lesson
+- `GET /api/admin/categories` - List lesson categories
+- `POST /api/admin/categories` - Create category
+- `GET /api/admin/dhikr` - List all adhkar
+- `POST /api/admin/dhikr` - Create dhikr
+- `PUT /api/admin/dhikr/:id` - Update dhikr
+- `DELETE /api/admin/dhikr/:id` - Delete dhikr
 - `GET /api/admin/halaqat` - List all halaqat
 - `DELETE /api/admin/halaqat/:id` - Delete halaqah
 
@@ -140,63 +145,70 @@ After seeding, the following test accounts are available:
 - `POST /api/halaqat/:id/members` - Add member
 - `DELETE /api/halaqat/:id/members/:memberId` - Remove member
 - `POST /api/halaqat/:id/assignments` - Create assignment
-- `GET /api/assignments` - Get user's assignments
-- `PUT /api/assignments/:assignmentId` - Update assignment
+- `GET /api/halaqat/assignments/me` - Get user's assignments
+- `PUT /api/halaqat/assignments/:assignmentId` - Update assignment
 - `POST /api/halaqat/:id/session-logs` - Create session log
 - `GET /api/halaqat/:id/session-logs` - Get session logs
 
-### Lessons (Public)
-- `GET /api/lessons` - Get all lessons (optional: ?category=tajweed)
-- `GET /api/lessons/:id` - Get specific lesson
-
-### Dhikr (Public)
-- `GET /api/dhikr` - Get all adhkar (optional: ?category=morning)
-- `GET /api/dhikr/:id` - Get specific dhikr
-
 ## Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run check` - Type check with TypeScript
+### Root
+- `npm run dev` - Start both frontend and backend concurrently
+- `npm run build` - Build both frontend and backend
+- `npm run start` - Start production backend server
+
+### Backend (in backend/ directory)
+- `npm run dev` - Start backend development server
+- `npm run build` - Build backend for production
 - `npm run db:generate` - Generate Prisma client
 - `npm run db:migrate` - Run database migrations
-- `npm run db:seed` - Seed database with initial data
+- `npm run seed` - Seed database with initial data
+
+### Frontend (in frontend/ directory)
+- `npm run dev` - Start frontend development server
+- `npm run build` - Build frontend for production
+- `npm run preview` - Preview production build
 
 ## Project Structure
 
 ```
 QuranAR/
-├── client/                 # Frontend React application
-│   └── src/
-│       ├── components/     # Reusable UI components
-│       ├── contexts/       # React contexts (Auth)
-│       ├── pages/          # Page components
-│       ├── hooks/          # Custom React hooks
-│       └── lib/            # Utilities
-├── server/                 # Backend Express application
-│   ├── controllers/        # Route controllers
-│   ├── middleware/         # Express middleware
-│   ├── db.ts              # Prisma client instance
-│   ├── constants.ts       # Type definitions
-│   └── routes.ts          # API routes
-├── prisma/                # Database schema and migrations
-│   ├── schema.prisma      # Prisma schema
-│   ├── migrations/        # Database migrations
-│   └── seed.ts            # Database seeder
-└── package.json           # Dependencies and scripts
+├── frontend/               # Frontend React application
+│   ├── public/
+│   │   └── quran/         # Place Quran page images here (001.jpg - 604.jpg)
+│   ├── src/
+│   │   ├── components/    # Reusable components (ProtectedRoute, DhikrCounter)
+│   │   ├── pages/         # Page components
+│   │   ├── utils/         # API client and utilities
+│   │   ├── data/          # Static JSON data files
+│   │   ├── App.tsx        # Main app component with routing
+│   │   └── main.tsx       # Application entry point
+│   ├── package.json       # Frontend dependencies
+│   └── vite.config.ts     # Vite configuration
+├── backend/               # Backend Express application
+│   ├── src/
+│   │   ├── routes/        # API routes (auth, admin, memorization, halaqat)
+│   │   ├── middleware/    # Authentication middleware
+│   │   └── index.ts       # Server entry point
+│   ├── prisma/
+│   │   ├── schema.prisma  # Prisma schema
+│   │   ├── seed.ts        # Database seeder
+│   │   └── dev.db         # SQLite database (generated)
+│   └── package.json       # Backend dependencies
+└── package.json           # Root workspace configuration
 ```
 
-## Features Not Implemented
+## Adding Quran Images
 
-For a complete implementation, you may want to add:
-- Quran page images (001.jpg to 604.jpg in public/quran/pages/)
-- More comprehensive admin CRUD interfaces
-- Real-time updates for halaqat sessions
-- File upload for profile pictures
-- Email notifications
-- Advanced search and filtering
-- Detailed analytics and reports
+The application requires Quran page images to display in the Mushaf viewer. Follow these steps:
+
+1. Obtain high-quality Quran page images (604 pages total)
+2. Name the images sequentially: `001.jpg`, `002.jpg`, ..., `604.jpg`
+3. Place all images in the `frontend/public/quran/` directory
+4. Ensure images are in JPG format
+5. Recommended resolution: At least 1200px width for good quality
+
+The Mushaf viewer will automatically load these images when navigating through pages.
 
 ## License
 
