@@ -55,13 +55,13 @@ const SurahList = () => {
                   {surah.id}
                 </div>
                 <div className="surah-type text-sm text-gray-600">
-                  {surah.revelationType === "Meccan" ? "مكية" : "مدنية"}
+                  {surah.revelationType === "meccan" ? "مكية" : "مدنية"}
                 </div>
               </div>
               <h3 className="surah-card-title text-xl font-bold mt-2 text-center">{surah.name}</h3>
               <div className="surah-card-info flex justify-between mt-2 text-sm text-gray-600">
-                <span><FileText size={14} className="inline mr-1" /> {surah.numberOfVerses} آية</span>
-                <span><MapPin size={14} className="inline mr-1" /> الجزء {surah.juzNumber}</span>
+                <span><FileText size={14} className="inline mr-1" /> {surah.versesCount} آية</span>
+                <span><MapPin size={14} className="inline mr-1" /> الجزء {Math.ceil(surah.id / 10)}</span>
               </div>
             </div>
           </Link>

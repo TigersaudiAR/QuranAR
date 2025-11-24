@@ -21,6 +21,8 @@ export interface Surah {
   verses: Verse[];
   nextSurah?: string;
   previousSurah?: string;
+  juzNumber?: number;
+  page?: number;
 }
 
 export interface LastRead {
