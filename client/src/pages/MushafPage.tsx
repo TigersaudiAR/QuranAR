@@ -64,6 +64,9 @@ export default function MushafPage() {
   };
 
   const onTouchEnd = () => {
+    // Only handle swipe gestures, not taps.
+    // touchEnd is only set in onTouchMove, so a quick tap (no move) leaves touchEnd null.
+    // This early return ensures taps do not trigger navigation (intentional).
     if (!touchStart || !touchEnd) return;
     
     const distance = touchStart - touchEnd;
